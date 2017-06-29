@@ -1,0 +1,37 @@
+<div class="row" style="min-height: 500px; background-color: #FDFDFD">
+    <div class="col-md-6 col-md-offset-3">
+        <center >
+        <div style="margin-top: 50px;">
+        <h2>Please wait redirecting to PayPal...</h2>
+            <div style="margin-top: 20px;">
+            <img alt=""  src="<?php echo $this->baseUrl(); ?>/paypal/animation_processing.gif"/>
+        </div>
+        </div>
+        </center>
+
+        <form action='<?php echo $this->baseUrl(); ?>/paypal/process.php'  method='POST' name="frm">
+        	<input type="hidden" name="itemname" value="<?php echo $this->pp_info->pages.' page(s) for 365 days' ?>" /> 
+        	<input type="hidden" name="itemnumber" value="<?php 
+                $string = md5(uniqid(rand(), true));
+                $string = substr($string, 0, 8);
+        	   echo $string; ?>" /> 
+            <input type="hidden" name="itemdesc" value="<?php echo $this->pp_info->pages.' page(s) for 365 days' ?>" /> 
+        	<input type="hidden" name="itemprice" value="<?php echo $this->pp_info->package_price; ?>" />
+        	<input type="hidden" name="itemQty" value="<?php echo $this->pp_info->pages; ?>" />
+        </form>
+    
+    <script type="text/javascript">
+    function redirect()
+    {
+        document.frm.submit();
+    }
+    function FuncDelay()
+    {
+        setTimeout("redirect()", 1);
+    }
+    window.onload = function(){
+        setTimeout("redirect()", 1);
+    }
+    </script>
+    </div>
+</div>

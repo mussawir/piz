@@ -1,0 +1,44 @@
+
+ <div class="row">
+  <div class="col-md-12">
+  <div class="page-title">Clean All Cache</div>
+  </div><!-- /.col-md-12-->
+ </div><!-- /.row -->
+
+            <div class="row">
+            <div class="col-lg-12">
+                    
+                 <div id='msg'><?php echo $this->msg; ?> </div>
+                <!-- <strong>Press Button To Clean Cache:</strong>  
+                 <a class="btn btn-danger" href="#" onclick="return confirmClean()" href="">Clean Cache </a> -->
+                 
+                    <form class="form-horizontal" action="<?php echo $this->baseUrl(); ?>/admin/setting/add-code" method="Post">
+                        <input type="text" name="tracking_code" class="form-control" value="<?php if(isset($this->code)) echo $this->code; else echo ''; ?>" />
+                        <input type="submit" value="Save" class="btn btn-primary pull-right" />
+                    </form>
+                 
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+<script language="Javascript" type="text/javascript">
+window.onload = function () {
+ <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(3000).hide('slow');
+
+    <?php } ?>
+ }
+  function confirmClean(){
+  var r = confirm("Are you sure to Clean All Cache! " );
+  if (r == true) {
+  window.location.assign("<?php echo $this->baseUrl(); ?>/admin/setting/clean-cache");    
+  } else {
+  return false;
+  }
+  }
+ </script>

@@ -1,0 +1,137 @@
+<div id="page-wrapper" style="padding-top: 40px;">
+    <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+			        
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-upload fa-4x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">Upload Brochure</div>                            
+                                </div>
+                            </div>
+                        </div>
+                       
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data" >
+                                       	
+										<table class="table table-striped table-bordered table-hover set-basic1">
+                                    	
+                                        <div id="msg" style="font-weight: bold; display: none;">
+                                            <?php echo $this->msg ?>
+                                        </div>
+                                     
+							
+                     
+                       <tr>
+                        <td><label>Select Page</label></td>
+                        <td>
+                            <select name="page_id" id="page_id" class="dropdown form-control">
+                            <option value="0" selected="">-- Select --</option>
+                            <?php echo $this->pages_ddl;?>
+                            </select>
+                        </td>
+                       </tr>                      
+    				   <tr>
+        		          <td style="vertical-align: middle;"><label> Select Brochure </label></td>
+        				  <td>
+        				      <?php echo $this->form->brochure;?>
+                              <span>Upload only pdf file</span>
+                          </td>
+                      </tr>
+    				  								
+                  <tr>
+    		          <td colspan='2'>
+    				      <?php echo $this->form->submit;?>
+                      </td>
+                </tr>
+            </table>
+        </form>
+       </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-1">
+            <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-trash-o fa-4x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">Delete Brochure</div>
+                                </div>
+                            </div>
+                        </div>
+                       
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover set-basic1">
+               	    <div id="delete-msg" style="font-weight: bold; display: none;"></div>
+                    <tr>
+                        <td><label>Select Page</label></td>
+                        <td>
+                            <select name="page_id" id="d_page_id" class="dropdown form-control">
+                            <option value="0" selected="">-- Select --</option>
+                            <?php echo $this->pages_ddl;?>
+                            </select>
+                        </td>
+                    </tr>                      
+    				<tr>
+                        <td colspan='2'>
+        				      <a id="btn-delete" href="javascript:void(0);" class="btn btn-danger pull-right">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        </div>
+                <!-- /.col-lg-12 -->
+    </div>
+            <!-- /.row -->
+</div>
+        <!-- /#page-wrapper -->
+        
+        <script type="text/javascript">
+            $(function(){
+               <?php if(!isset($this->msg)){ ?>
+        			$('#msg').hide();			
+        		<?php  } else{ ?>
+        			$('#msg').show().delay(7000).hide('slow');
+        		<?php } ?> 
+                
+                $('#submit').click(function(){
+                    if($('#page_id').val()==0){
+                        $('#msg').html('<div class="alert alert-warning">Please select a page</div>').show().delay(7000).hide('slow');
+                        return false;
+                    }
+                });
+                
+                $('#btn-delete').click(function(){
+                    if($('#d_page_id').val()==0){
+                        $('#delete-msg').html('<div class="alert alert-warning">Please select a page</div>').show().delay(7000).hide('slow');
+                        return false;
+                    }
+                    
+                    $.post("<?php echo $this->baseUrl();?>/members/delete-brochure",
+                    {
+                        page_id: $('#d_page_id').val()
+                    },
+                    function(data, status){
+                        if(data==1){
+                            $('#delete-msg').html('<div class="alert alert-success">Brochure deleted successfully!</div>').show().delay(7000).hide('slow');
+                        } else {
+                            $('#delete-msg').html('<div class="alert alert-danger">Some error occure. Please try again.</div>').show().delay(7000).hide('slow');
+                        }
+                    });
+                    return false;
+                });
+                
+            });
+        </script>

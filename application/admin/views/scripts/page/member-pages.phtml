@@ -1,0 +1,177 @@
+<div class="row" style="padding-top: 10px;">        
+                    <div class="col-md-12">             
+		<h2>Members Page List</h2>
+        <div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+
+                     <div class="table-responsive">
+<form method="post" name="data_table">		
+<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+														<thead>
+														<tr>
+																<th class="grid-head"> Title</th>
+																<th class="grid-head"> Member</th>
+                                                                <th class="grid-head"> Category</th>
+                                                                <th class="grid-head"> Status</th>
+																<th class="grid-head"> Publish Date</th>
+                                                                <th class="grid-head"> Comments</th>																
+																<th class="grid-head"> Manage Ads</th> 
+																<th class="grid-head"> BSts</th>
+																<th class="grid-head"> Manage Page</th>
+																<th class="grid-head">Page</th>
+                                                        	</tr>
+														</thead>		
+														<tbody> 
+                                          
+														<?php foreach ($this->data as $item): ?>
+														<tr class="odd gradeX">
+															<td>
+															<a href="<?php echo $this->baseUrl(); ?>/<?php echo $item['url_slug'] ?>" target="_blank" title="View Page"><?php echo $item['title'] ?></a>
+															</td> 
+															<td >
+															<?php echo $item['first_name'].' '. $item['last_name']?>
+															</td>
+															<td style="text-align:center;">
+															<?php echo $item['category_name']; ?>
+															</td>
+                                                            <td style="text-align:center;">
+															     <?php if($item['is_in_draft'] > 0 ) echo "Drafted"; else echo "Published"; ?>
+															</td>
+															<td style="text-align:center;">
+															     <?php if($item['is_in_draft'] > 0 ) echo ""; else echo date('m/d/Y h:i A', strtotime($item['date_published'])); ?>
+															</td>
+                                                            
+                                                            <td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-success" href="<?php echo $this->baseUrl(); ?>/admin/comments/comments-list/id/<?php echo $item['page_id'] ?>">View</a>
+                                                            </td>
+
+															<td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-info" href="<?php echo $this->baseUrl(); ?>/admin/ads/new/id/<?php echo $item['page_id'] ?>">Manage</a>
+                                                            </td>
+                                                            <td style="text-align:center;">
+    															<?php if($item['is_blocked']== 1){?>
+    															<a class="btn btn-sm btn-info" href="#" onclick="return unblock(<?php echo $item['page_id'] ?>)" >Unblock</a>
+                                                                <?php } else{ ?>
+    															<a class="btn btn-sm btn-danger" href="#" onclick="return block(<?php echo $item['page_id'] ?> )" >Block</a> 
+                                                                <?php } ?> 
+                                                            </td>
+															<td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-info" href="<?php echo $this->baseUrl(); ?>/admin/ads/new/id/<?php echo $item['page_id'] ?>">Manage</a>
+                                                            </td>
+															<td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-primary" href="<?php echo $this->baseUrl(); ?>/admin/page/transfer/id/<?php echo $item['page_id'] ?>">Transfer</a>
+                                                            </td>
+														</tr>  
+															<?php endforeach; ?> 
+														</tbody>
+					 								</table>
+													</form>
+                    </div><!-- div responsive end-->												
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+<?php
+    function set_category($catId)
+    {
+        $catVal = '0';
+        $catArray = array('None','Accounting &amp; Bookkeeping','Administration', 'Cleaning', 'Design &amp; Print',
+                    'Equipment, Fitouts &amp; Repairs','Events &amp; Exhibitions', 'Finance &amp; Insurance',
+                    'Food', 'Home Based Businesses', 'Human Resources &amp; Payroll', 'Legal', 'Manufacturing',
+                    'Marketing &amp; Communications', 'Photography &amp; Video', 'Premises &amp; Real Estate',
+                    'Promotional Materials &amp; Gifts', 'Technology', 'Training &amp; Development', 'Transport',
+                    'Warehousing, Storage &amp; Removalists', 'Wholesale');
+       
+       foreach($catArray as $key=>$val){
+            if($key==$catId){
+                $catVal = $val;
+                break;
+            }
+       }
+       return $catVal; 
+    }
+?>
+
+  <script language="Javascript" type="text/javascript">
+ window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(5000).hide('slow');
+		<?php } ?>
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 4, "desc" ]],
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false, 'aTargets': [5,6]}]
+	       }
+        );
+ }
+ 
+  function confirmDelete(id){
+	var r = confirm("Are you sure to Delete this Page! " );
+	if (r == true) {
+	window.location.assign("<?php echo $this->baseUrl(); ?>/admin/page/delete-page/id/" + id);    
+	} else {
+	return false;
+	}
+	}
+	
+    function checkAll(a)
+	{
+	    var total = $('#dataTables-example tr:not(:has(th))').length;
+        
+		if(a == 0)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', true);
+			}
+            $('#allbox').val(1);
+		}
+
+		if(a == 1)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', false);
+			}
+
+            $('#allbox').val(0);
+		}
+	}
+    
+		jQuery(function($) {
+	
+	$("form input[id='submit']").click(function() {  // triggred submit
+		
+		var count_checked = $("[name='bulkdata[]']:checked").length; // count the checked
+		if(count_checked == 0) {
+			alert("Please select a Pages to delete.");
+			return false;
+		} 
+		 else {
+			return confirm("Are you sure you want to delete these pages?");	
+		  }		
+	});    
+    
+}); // jquery end
+
+  function block(pageId){
+
+	window.location.assign("<?php echo $this->baseUrl(); ?>/admin/page/block-page/page_id/"+pageId);    
+	
+	}
+	
+  function unblock(pageId){
+	
+	window.location.assign("<?php echo $this->baseUrl(); ?>/admin/page/unblock-page/page_id/"+pageId);    
+	
+	}
+ </script>

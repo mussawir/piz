@@ -1,0 +1,39 @@
+<!-- See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination-->
+<?php if ($this->pageCount): ?>
+<?php if(!empty($_SERVER["QUERY_STRING"])) { ?>
+        <div class="pagination pagination-sm pull-right"><!-- Previous page link --> <?php if (isset($this->previous)): ?>
+    <a class="pagination__page" href="<?php echo $this->url(array('page' => $this->previous)).'&'.$_SERVER["QUERY_STRING"];?>">&lt;
+    Previous</a>  <?php else: ?> <span class="disabled pagination__page">&lt; Previous</span>
+     <?php endif; ?> <!-- Numbered page links --> <?php foreach ($this->pagesInRange as $page): ?>
+    <?php if ($page != $this->current): ?> <a class="pagination__page"
+    	href="<?php echo  $this->url(array('page' => $page)).'&'.$_SERVER["QUERY_STRING"]; ?>"> <?php echo  $page; ?></a> |
+    <?php else: ?> <?= $page; ?> | <?php endif; ?><?php endforeach; ?> <!-- Next page link -->
+    <?php if (isset($this->next)): ?> <a class="pagination__page"
+    	href="<?= $this->url(array('page' => $this->next)).'&'.$_SERVER["QUERY_STRING"]; ?>">Next &gt;</a><?php else: ?>
+    <span class="disabled pagination__page">Next ></span><?php endif; ?></div>
+    
+<?php } else {?>
+
+    <ul class="pagination pull-right">
+    
+    <!-- Previous page link --> 
+    <?php if (isset($this->previous)): ?>
+    <li><a href="<?php echo $this->url(array('page' => $this->previous));?>">&lt; Previous</a></li>
+    <?php else: ?><li class="disabled"><a href="#">&lt; Previous</a><?php endif; ?></li>
+    
+     <!-- Numbered page links --> 
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?> 
+        <li><a href="<?php echo $this->url(array('page' => $page)); ?>"> <?php echo $page; ?></a></li>
+        <?php else: ?> 
+        <li class="active"><a href="#"><?php echo $page; ?></a></li> 
+        <?php endif; ?>
+    <?php endforeach; ?>
+    
+    <!-- Next page link -->
+    <?php if (isset($this->next)): ?> 
+    <li><a href="<?= $this->url(array('page' => $this->next)); ?>">Next &gt;</a></li>
+    <?php else: ?><li class="disabled"><a href="#">Next &gt;<?php endif; ?></a></li>
+    </ul>
+
+<?php } endif; ?>

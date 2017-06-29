@@ -1,0 +1,161 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+
+
+.li_btn{
+		border-radius:0;
+		background:#1B1C52;
+		border:1px solid #1B1C52;
+		margin-top:5px;
+	}
+	.li_btn > a{
+		color:white;
+	}
+	.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:white;
+		background:#1B1C52;
+}
+.nopadding{
+	margin:0 !important;
+	padding:0 !important;
+}
+</style>
+<div id="page-wrapper" style="padding-top:20px;">
+<div class="row row-fluid">
+    <div class="col-md-12">
+    <?php //echo $this->render('/members/menu.phtml'); ?>
+    <?php 
+		if(isset($this->msg)){
+			echo $this->msg;
+		}
+	?>
+        <ul class="nav nav-pills">
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->id ?>">Main Page</a></li>
+		  <!--li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-slider/id/<?php echo $this->id ?>">Upload Slider</a></li-->
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-product-post/id/<?php echo $this->id ?>">New Product Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-service-post/id/<?php echo $this->id ?>">New Service Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-social-post/id/<?php echo $this->id ?>">New Social Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-post/id/<?php echo $this->id ?>">Product Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/service-posts/id/<?php echo $this->id ?>">Service Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/social-posts/id/<?php echo $this->id ?>">Social Posts</a></li>
+          <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->id ?>">Upload Brochure</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $this->id ?>">Comments</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/feedback/id/<?php echo $this->id ?>">Get Feedback</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/popup-design/id/<?php echo $this->id ?>">Customize CTA</a></li>
+         <!--li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads/Description</a></li-->
+		 
+          <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+          <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+        </ul>
+    </div>
+</div>
+<?php 
+ if(isset($this->custom)){ ?>
+	 <div class="row row-fluid">
+    <div class="col-md-8 col-md-offset-2">
+		<h3>Customize your CTA and Newsletter</h3>
+		<form action="<?php echo $this->baseUrl(); ?>/mem-pages/update-customization" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="page_id" value="<?php echo $this->id; ?>">
+		<input type="hidden" name="cp_id" value="<?php echo $this->custom['cp_id']; ?>">
+		  <div class="form-group">
+			<label for="heading">CTA Heading:</label>
+			<input type="text" class="form-control" name="cta_heading" placeholder="CTA Heading" value="<?php echo $this->custom['cta_heading']; ?>" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Paragraph:</label>
+			<textarea class="form-control" name="cta_paragraph" placeholder="CTA Paragraph" required><?php echo $this->custom['cta_paragraph']; ?></textarea>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Button Color:</label>
+			<input class="jscolor" class="form-control" type="text" name="button_color" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Button Text:</label>
+			<input type="text" placeholder="CTA Button Text" name="cta_button_text" class="form-control" value="<?php echo $this->custom['cta_button_text']; ?>" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Heading Text Color:</label>
+			<input class="jscolor" class="form-control" type="text" name="heading_color" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Paragraph Text Color:</label>
+			<input class="jscolor" class="form-control" type="text" name="paragraph_color" required>
+		  </div>
+		  <div class="form-group">
+		  <div class="col-md-6 nopadding">
+		  
+			<label for="heading">Popup CTA Background:</label>
+			<input type="file" id="background_image" name="background_image" class="form-control" >
+		  </div>
+			<div class="col-md-6 " style="padding-left:10px;">
+				<img src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir. '/' .$this->custom['cta_background'];?>" class="img-responsive">
+			</div>
+		  </div>
+		  <button type="submit" class="btn btn-success">Update</button>
+		</form>
+	</div>
+</div>
+ <?php
+ }else{
+	 ?>
+ <div class="row row-fluid">
+    <div class="col-md-8 col-md-offset-2">
+		<h3>Customize your CTA and Newsletter</h3>
+		<form action="" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="page_id" value="<?php echo $this->id; ?>">
+		  <div class="form-group">
+			<label for="heading">CTA Heading:</label>
+			<input type="text" class="form-control" name="cta_heading" placeholder="CTA Heading" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Paragraph:</label>
+			<textarea type="text" class="form-control" name="cta_paragraph" placeholder="CTA Paragraph" required></textarea>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Button Color:</label>
+			<input class="jscolor" type="text" name="button_color" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Button Text:</label>
+			<input type="text" placeholder="CTA Button Text" name="cta_button_text" class="form-control" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Heading Text Color:</label>
+			<input class="jscolor" type="text" name="heading_color" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">CTA Paragraph Text Color:</label>
+			<input class="jscolor" type="text" name="paragraph_color" required>
+		  </div>
+		  <div class="form-group">
+			<label for="heading">Popup CTA Background:</label>
+			<input type="file" id="background_image" name="background_image" class="form-control" required>
+		  </div>
+		  <button type="submit" class="btn btn-success">Save</button>
+		</form>
+	</div>
+</div>
+	 
+	 <?php
+ }
+
+?>
+
+</div>
+<script>
+	
+</script>

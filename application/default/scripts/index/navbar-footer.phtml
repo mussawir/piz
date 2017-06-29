@@ -1,0 +1,120 @@
+<div class="fifth-fluid container-fluid">
+        <div class="fifth container text-center">
+            <h1>READY TO TRY PAGEIZ?</h1>
+            <h4>All plans include features like automation & landing pages. As well as unlimited emails & 24/7 customer support.</h4>
+            <div class="row">
+                <div class="signupform col-md-3">
+                    <input class="form-control" type="text" name="name" placeholder="Name">
+                </div>
+                <div class="signupform col-md-3">
+                    <input class="form-control" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="signupform col-md-3">
+                    <input class="form-control" type="text" name="phone" placeholder="Phone">
+                </div>
+                <div class="signupform col-md-3">
+                    <button type="submit" class="btn btn-block">SIGN UP FREE</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="footer col-md-4 text-left">
+                    <img src="<?php echo $this->baseUrl();?>/images/newlanding/pageizlogo-black.png" style="    width: 26%;">
+                    <p>Pageiz is an online email marketing tool, which provides landing pages to user with great features, user can be able to use CTA on their pages. Users can be able to make posting on their pages and share it via whatsapp, facebook twitter etc</p>
+                </div>
+                <div class="features col-md-3 text-left">
+                    <h4>FEATURES</h4>
+                    <p>Email Marketing</p>
+                    <p>Lead popups</p>
+                    <p>Drag & drop email templates</p>
+                    <p>Contact Managment</p>
+                    <p>Social Sharing</p>
+                    <p>Instant Feedback</p>
+                    <p>Mobile Responsive</p>
+                </div>
+                <div class="features col-md-3 text-left">
+                    <h4>QUICK LINKS</h4>
+                    <p><a href="/index/become-member">Become a member</a></p>
+                    <p><a href="/index/packages">Create a page</a></p>
+                    <p><a href="/index/poster-samples">Banner & Poster Sample</a></p>
+                    <p><a href="/index/become-marketer">Become a marketer</a></p>
+                    <p><a href="/index/blog">Blog</a></p>
+                </div>
+                <div class="contact col-md-2 text-left">
+                    <h4>COMPANY</h4>
+                    <p> (123): 456-7890</p>
+                    <p><a href="/index/about">About</a></p>
+                    <p><a href="/index/contact-us">Contact Us</a></p>
+                </div>
+            </div>
+            <hr>
+            <div class=" row">
+                <div class="col-md-4">
+                    <form action="<?php echo $this->baseUrl(); ?>/index/subscribers" method="POST" class="subscriber form-vertical" method="" id="subscriber-form">
+                        <div class="input-group" style="">
+                              <input type="email" class="form-control" placeholder="Subscribe to Pageiz" required="" name="email" id="email" style=" padding: 20px 10px 20px 10px;">
+                              <span class="input-group-btn" style="">
+                                <button id="sub-btn" class="btn btn-secondary" type="submit" style="border-radius: 0; background: #002B45; border: 1px solid #002B45; color: white; padding: 10px;"> Subscribe</button>
+								<input type="hidden" id="base_url" name="base_url" value="<?php echo $this->baseUrl()?>">
+                              </span>
+                        </div>
+						<div id="message"></div>
+                    </form>
+                </div>
+                <div class="links col-md-2 text-center">
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                </div>
+                <div class="terms col-md-2 text-center">
+                    <a href="">Terms & Policies</a>
+                </div>
+                <div class="copyright col-md-4">
+                    <p>&copy; 2017 Pageiz - Email Marketing System</p>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script type="text/javascript">
+  $('document').ready(function(){
+	  // var isShow = true;
+	 // $(window).scroll(function() {
+					// if ($(document).scrollTop() > 800) {
+						// if(isShow){
+						  // $('#myModal').modal('show');
+						  // isShow=false;
+						// }
+						
+					// } 
+		  // });
+		  $("#subscriber-form").submit(function(e){
+			e.preventDefault();
+			
+			var formData = $(this).serialize();
+			// alert(formData);return;
+			$('#sub-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+			var name = $('#customer_name').val();
+			var getURL = $('#base_url').val()+'/index/homepage-subscribers';
+			console.log(getURL);
+			$.ajax({
+			type    : 'POST',
+			data    : formData,
+			async: true,
+			url : getURL,
+			success: function (result) {
+				// alert(result);return;
+				$('#email').val('');
+				$('#sub-btn').html('<i class="fa fa-check" aria-hidden="true"></i> Subscribed');
+				setTimeout(function() { $('#myModal').modal('hide'); }, 2000);
+			return;
+
+			},
+			error:function (error) {
+				alert('please try again!');
+			}
+			});
+			
+		  });
+  });
+	
+  </script>

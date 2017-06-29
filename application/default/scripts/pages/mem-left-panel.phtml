@@ -1,0 +1,1078 @@
+<?php 
+// if(isset($this->comments)){
+	// var_dump($this->comments);echo 'found';exit;
+// }else{
+	// echo 'not found';exit;
+// }
+
+?>
+<style>
+.scaleup{
+	// transition:all 0.6s cubic-bezier(.17,.67,.83,.67);
+	// transform:scale(2);
+	animation-name: scaleupdown;
+    animation-duration: 0.5s;
+}
+#t_up:focus,#t_down:focus{
+	border:none;
+}
+button:focus {outline:0;}
+@keyframes scaleupdown {
+    from {transform:scale(1);}
+    to {transform:scale(2);}
+}
+	.video-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px; height: 0; overflow: hidden;
+	}
+	 
+	.video-container iframe,
+	.video-container object,
+	.video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	}
+
+/* Carousel Styles */
+.carousel-indicators .active {
+    background-color: #2980b9;
+   
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    background-size:contain;
+}
+
+.carousel-control {
+    width: 0;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+	opacity: 1;
+	filter: alpha(opacity=100);
+	background-image: none;
+	background-repeat: no-repeat;
+	text-shadow: none;
+}
+
+.carousel-control.left span {
+	padding: 15px;
+}
+
+.carousel-control.right span {
+	padding: 15px;
+}
+
+.carousel-control .glyphicon-chevron-left, 
+.carousel-control .glyphicon-chevron-right, 
+.carousel-control .icon-prev, 
+.carousel-control .icon-next {
+	position: absolute;
+	top: 45%;
+	z-index: 5;
+	display: inline-block;
+}
+
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .icon-prev {
+	left: 0;
+}
+
+.carousel-control .glyphicon-chevron-right,
+.carousel-control .icon-next {
+	right: 0;
+}
+
+.carousel-control.left span,
+.carousel-control.right span {
+	background-color: #000;
+}
+
+.carousel-control.left span:hover,
+.carousel-control.right span:hover {
+	opacity: .7;
+	filter: alpha(opacity=70);
+}
+
+
+/********************************/
+/*          Media Queries       */
+/********************************/
+@media screen and (min-width: 980px){
+     
+}
+@media screen and (max-width: 786px){
+    .hero h1 { font-size: 4em; }    
+	.modal.fade > .modal-dialog > .modal-content {
+        /* padding: 7px; */
+    border-radius: 0;
+    width: 90%;
+    margin: auto;
+    /* margin: 0 20px; */
+    background: #1B1C52;
+}
+}
+.products_details{
+	display:none;
+}
+body{
+	background:#E9EBEE;
+}
+.thumbnail{
+	margin-bottom:0;
+	border:0;
+	border-radius:0;
+}
+.col-md-12.thumbnail{
+	// box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.col-md-12.thumbnail.comment{
+	// height:200px;
+	margin-bottom: 15px;
+	    padding: 0 15px 0 15px;
+		border:0;
+		background:#F6F7F9;
+		display:none;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    lightgray !important;
+	font-size:12px !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    lightgray !important; font-size:12px !important;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    lightgray !important; font-size:12px !important;
+   
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    lightgray !important; font-size:12px !important;
+}
+#comment_btn > button{
+	margin-top:10px;margin-bottom:10px;border: 1px solid #365899; background: transparent; color: white;
+	transition: all 0.5s ease-out;border-radius:0;background:#365899;
+}
+
+.col-md-12.thumbnail {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding-top: 10px;
+}
+hr {
+    margin-top: 48px;
+    margin-bottom: 4px; 
+    border: 0;
+    border-top: 1px solid #eee;
+}
+/* Loader Overlay */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #783393;
+  opacity:0.8;
+  z-index: 1;
+  
+}
+/* Loader */
+.loader {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  left: 0;
+  width: 350px;
+  height: 100px;
+  margin: 0 auto;
+  z-index: 2;
+  text-align: center;
+  font-size: 250%; 
+  line-height: 0.9;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  -webkit-animation: loader-enter 0.3s 1 cubic-bezier(0.47, -0.02, 0.05, 0.91);
+}
+.loader .loader-stripe {
+  display: block;
+  position: relative;
+  width: 50%;
+  margin: 1px auto 0 auto;
+}
+.loader .loader-stripe:after {
+  content: '';
+  display: block;
+  position: absolute;
+  box-shadow: 1px 2px 0 rgba(255, 255, 255, 0.8);
+  width: 20%;
+  height: 2px;
+  -webkit-animation: loader-stripe 0.17s infinite alternate linear;
+}
+@-webkit-keyframes loader-stripe {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: 80%;
+  }
+}
+@-webkit-keyframes loader-enter {
+  0% {
+    opacity: 0;
+    letter-spacing: 22px;
+  }
+  100% {
+    letter-spacing: initial;
+  }
+}
+.navbr {
+  margin-top: 20px;
+  position: relative;
+  margin-bottom:10px;
+  margin-right: 15px;
+}
+
+.sort_dropdown.dropdown-toggle {
+      /* padding: 1.5em 1em; */
+    padding: 10px;
+    background: white;
+    border-radius: .2em .2em 0 0;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.sort_dropdown.dropdown-toggle:hover {
+	text-decoration:none;
+	color:black;
+}
+.sort_dropdown.dropdown-toggle:focus {
+	text-decoration:none;
+	color:black;
+}
+ul.sort_dropdown_open.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  margin-top: 1.5em;
+  background: #777;
+  min-width: 12em;
+  padding: 0;
+  border-radius: 0 0 .2em .2em;
+  z-index: 1;
+}
+ul.sort_dropdown_open.dropdown.dropdown-menu-right:before {
+	content: "";
+    position: absolute;
+    right: 7px;
+    top: -14px;
+    width: 0;
+    height: 0;
+    border: 7px solid #777777;
+    /* border-style: solid; */
+    border-color: transparent transparent #777777 transparent;
+    z-index: 9999;
+}
+
+ul.sort_dropdown_open li {
+  list-style-type: none;
+  
+}
+ul.sort_dropdown_open li a {
+  text-decoration: none;
+  padding: .5em 1em;
+  display: block;
+  color:white;
+}
+ul.sort_dropdown_open li a:hover {
+  color:white;
+}
+.new_feed{
+	margin-left: 16px; padding: 10px; background: white; border: 0;
+
+}
+</style>
+<?php function timeago($date) {
+	   $timestamp = strtotime($date);	
+	   
+	   $strTime = array("second", "minute", "hour", "day", "month", "year");
+	   $length = array("60","60","24","30","12","10");
+
+	   $currentTime = time();
+	   if($currentTime >= $timestamp) {
+			$diff     = time()- $timestamp;
+			for($i = 0; $diff >= $length[$i] && $i < count($length)-1; $i++) {
+			$diff = $diff / $length[$i];
+			}
+
+			$diff = round($diff);
+			return $diff . " " . $strTime[$i] . " ago ";
+	   }
+	} ?>
+<input type="hidden" id="ad_page_id" name="ad_page_id" value="<?php echo $this->list['page_id'];?>" />
+<input type="hidden" id="ad_member_id" name="ad_member_id" value="<?php echo $this->list['member_id'];?>" />
+<input type="hidden" id="ad_category_id" name="ad_category_id" value="<?php echo $this->list['categories'];?>" />
+<?php
+	if($this->list['banner_hidden'] == '0'){ ?>
+		<div class="text-center" style="position: relative;">
+			<center>
+			<a href="<?php echo $this->list['banner_link']; ?>">
+				<?php if(isset($this->list['banner_img']) && (!empty($this->list['banner_img']))) {?>
+				<img id="main-banner" class="img-responsive" style="width: 100%" src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .$this->list['banner_img'];?>" alt="<?php echo $this->list['banner_img'];?>" />
+				<?php } else {?>
+					<img id="main-banner" class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/coming-soon-1000X1500.png" alt="Banner Image" />
+				<?php } ?>
+			</a>
+			</center>
+			
+			<a class="left page-control" href="<?php if(isset($this->next_prev['prev'])) { echo $this->next_prev['prev']; }else { echo '#'; }?>" onclick="" data-slide="prev">
+				<span class="fa fa-chevron-circle-left"></span>
+			</a>
+			<a class="right page-control" href="<?php if(isset($this->next_prev['next'])) { echo $this->next_prev['next']; }else { echo '#'; }?>" onclick="" data-slide="next">
+				<span class="fa fa-chevron-circle-right"></span>
+			</a>
+
+		</div>
+	<?php }
+	if($this->list['video_hidden'] == '0'){
+	if($this->list['video_link'] != ''){ ?>
+		<div class="video-container">
+			<iframe width="853" height="480" src="<?php echo  $this->list['video_link'] ?>" frameborder="0" allowfullscreen></iframe>
+		</div>
+	<?php	
+	}
+	}
+?>
+<?php
+if($this->list['slider_hidden'] == '0'){
+	if($this->list['slide_enabled'] > '0'){ ?>
+
+<div class="row">
+	    <div class="col-md-12">
+    		<!-- Carousel -->
+        	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    			<!-- Indicators -->
+    			<?php
+			  $needles = array('.jpg','.png');
+			  function match($needles, $haystack)
+				{
+					foreach($needles as $needle){
+						if (strpos($haystack, $needle) !== false) {
+							return true;
+						}
+					}
+					return false;
+				}
+				if(match($needles, $this->list['slide1'])){
+				?>
+    			<!-- Wrapper for slides -->
+    			<div class="carousel-inner">
+    			    <div class="item active">
+    			    	<img src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .$this->list['slide1'];?>" class="img-responsive" alt="First slide">
+                        
+    			    </div>
+					<?php
+				} if(match($needles, $this->list['slide2'])){
+					?>
+    			    <div class="item">
+    			    	<img src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .$this->list['slide2'];?>" class="img-responsive" alt="Second slide">
+    			    </div>
+					<?php
+				} if(match($needles, $this->list['slide3'])){
+					?>
+    			    <div class="item">
+    			    	<img src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .$this->list['slide3'];?>" class="img-responsive" alt="Third slide">
+    			    	
+    			    </div>
+					<?php
+				} if(match($needles, $this->list['slide4'])){
+					?>
+    			    <div class="item">
+    			    	<img src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .$this->list['slide4'];?>" class="img-responsive" alt="Third slide">
+    			    	
+    			    </div>
+					<?php
+				} if(match($needles, $this->list['slide5'])){
+					?>
+    			    <div class="item">
+    			    	<img src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .$this->list['slide5'];?>" class="img-responsive" alt="Third slide">
+    			    	
+    			    </div>
+					<?php
+				} 
+					?>
+    			</div>
+    			<!-- Controls -->
+    			
+    		</div><!-- /carousel -->
+		</div>
+	</div>
+
+<?php 
+	}
+	}
+?>
+<section style="background: #fff;padding-bottom: 20px;">
+<div class="row share-social">
+<?php $is_logged_in=0; if(isset($this->user_role) && isset($this->logged_user_id)) { $is_logged_in=1; } ?>
+<div class="col-md-12">
+<ul class="nav nav-pills" role="tablist">
+  <li role="presentation"> 
+    <button class="btn btn-danger" onclick="doLike(<?php echo $is_logged_in; ?>);" <?php if($is_logged_in==0) echo 'data-toggle="modal" data-target="#login-modal"';?>><span id="like-icon" class="fa fa-heart <?php if($this->is_liked) echo 'liked';?>"></span></button>
+  </li>
+  <li role="presentation">
+    <?php if(isset($this->list['contact_number']) && (!empty($this->list['contact_number']))){?>
+    <a href="tel:<?php echo $this->list['contact_number'];?>" class="btn btn-info btn-call"><span class="fa fa-phone"></span></a>
+    <?php }?>
+  </li>
+  <li role="presentation">
+    <?php if(isset($this->list['wap_number']) && (!empty($this->list['wap_number']))){?>
+    <div class="dropdown">
+       <button type ="button" class ="btn btn-success dropdown-toggle" id="whatsapp-menu" data-toggle="dropdown">
+          <span class="fa fa-whatsapp"></span> <span class="caret"></span>
+       </button>
+       <ul class="dropdown-menu" role="menu" aria-labelledby="whatsapp-menu">
+        <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->list['wap_number'];?>#Intent;scheme=callto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share"><?php echo $this->list['wap_number'];?></a></li>
+        <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->list['wap_number'];?>#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Message</a></li>
+        <li role="presentation"><a role="menuitem" href="whatsapp://send?text=<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'] ; ?>" data-action="share/whatsapp/share">Share Page</a></li>
+	   </ul>
+    </div>
+    <?php }?>
+  </li>
+  <li role="presentation">
+    <?php if(isset($this->list['wechat_number']) && (!empty($this->list['wechat_number']))){?>
+    <div class="dropdown">
+       <button type ="button" class ="btn btn-success dropdown-toggle" id="wechat-menu" data-toggle="dropdown">
+           <span class="fa fa-weixin"></span> <span class="caret"></span>
+       </button>
+       <ul class="dropdown-menu" role="menu" aria-labelledby="wechat-menu">
+        <!--li role="presentation"><a role="menuitem" href="#">Call</a></li>
+        <li role="presentation"><a role="menuitem" href="#">Message</a></li-->
+        <li role="presentation" class="text-center"><?php echo $this->list['wechat_number'];?></li>
+       </ul>
+    </div>
+    <?php }?>
+  </li>
+  <!--li role="presentation">
+   <button class="btn btn-warning btn-sm" onclick="doRate(<?php echo $is_logged_in; ?>);">Rate Ad <span id="rate-icon" class="fa fa-star"></span></button>
+  </li -->
+</ul>
+    
+			<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://twitter.com/intent/tweet?text=<?php echo $this->list['title'].'&url='.$this->site_url['site_url'].'/'.$this->list['url_slug'].'&description='.strip_tags($this->list['contents']);?>"><img src="<?php echo $this->baseUrl(); ?>/images/twt.png" /></a>
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://pinterest.com/pin/create/button/?url=<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'].'&description='.strip_tags($this->list['contents']).'&media='.$this->baseUrl().'/images/uploads/'.$this->member_dir.$this->list['banner_img'];?>"><img src="<?php echo $this->baseUrl(); ?>/images/pinterest.png" /></a>  
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'];?>"><img src="<?php echo $this->baseUrl(); ?>/images/fb.png" /></a>               
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://plus.google.com/share?url=<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'];?>"><img src="<?php echo $this->baseUrl(); ?>/images/google.png" /></a>
+    		<!--a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>&title=<?php echo $this->list['title'];?>&summary=<?php echo strip_tags($this->list['contents']);?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/linkedin.png"/></a-->
+            
+<ul class="nav nav-pills" role="tablist">
+  <li role="presentation">
+  <button class="btn btn-primary btn-sm"> <span class="badge" id="likes_count"><?php echo $this->likes_count; ?></span> likes </button> 
+  </li>
+  <li role="presentation">
+  <button class="btn btn-success btn-sm"> <span class="badge"><?php echo $this->list['views']; ?></span> Views </button> 
+  </li>
+</ul> 
+  
+</div>
+</div>	
+
+    <div class="ad-page-title">
+			<center><strong><div class="title"><?php echo $this->list['title'];?></div></strong></center>
+    </div>
+			<?php
+				if($this->list['content_hidden'] == '0'){ ?>
+					<div class="ad-page-content">
+			 <?php echo stripslashes($this->list['contents']);?>
+            </div>
+				<?php
+				}
+			 ?>
+			
+            
+            <div class="row" style="padding: 10px">
+                <?php foreach($this->donwload_links as $item):?>
+                      <div class="col-md-4 text-center" style="margin-bottom: 10px;text-align: -webkit-center;text-align: -moz-center;">
+                        <?php echo $item; ?>
+                      </div>
+                <?php endforeach; ?>                
+            </div>
+            
+         <div class="row">
+            <div class="col-md-12"  style="padding:0;">
+            <?php if($this->ad_list['banner_url1']) {?>
+            <div style="background-color: #fff; ">
+            <center><a href="<?php echo $this->ad_list['banner_url1'];?>">
+                <img style=";" class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['banner_img1'];?>" alt="<?php echo $this->ad_list['banner_title1'];?>" />
+            </a>
+			</center>            
+			<br />
+            <?php } if($this->ad_list['banner_url2']) {?>
+            <center>                       
+		   <a href="<?php echo $this->ad_list['banner_url2'];?>">
+                <img style="" class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['banner_img2'];?>" alt="<?php echo $this->ad_list['banner_title2'];?>" />
+            </a></center>            
+            </div>
+			</div>
+			</div>
+			</section>
+            <br />
+            <?php }?>
+           
+			<?php
+			if($this->list['feedback_hidden'] == 0){
+			
+				if(isset($this->feedback)){ ?>
+					<div class="col-md-12" style="margin-top:20px;">
+					<?php
+						if($this->feedback['f_type']==1){ ?>
+							<img src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir. '/' .$this->feedback['banner'];?>" class="img-responsive">
+						<?php }else{ ?>
+							<div class="video-container">
+								<iframe width="853" height="480" src="<?php echo $this->feedback['video'] ?>" frameborder="0" allowfullscreen></iframe>
+							</div>
+						<?php }
+					?>
+	
+	 
+		<ul class="media-list" style="background: white; padding: 1px 20px 40px 20px;">
+			<ul class="nav nav-pills" role="tablist">
+			 
+			  <li role="presentation"> 
+				<button style="border: none; background: transparent;font-size: 22px;color:#5890FF;" id="t_up" onclick="doFeedbackLike(<?php echo $is_logged_in; ?>)" <?php if($is_logged_in==0) echo 'data-toggle="modal" data-target="#login-modal"';?>><i class="fa fa-thumbs-up" aria-hidden="true"></i></button> <span id="feedback_likes"><?php echo count($this->likes) ?></span>
+				<button onclick="doFeedbackdisLike(<?php echo $is_logged_in; ?>)" style="border: none; background: transparent;font-size: 22px;color:#E81515;"  id="t_down" <?php if($is_logged_in==0) echo 'data-toggle="modal" data-target="#login-modal"';?>><i class="fa fa-thumbs-down" aria-hidden="true"></i></button> <span id="feedback_dislikes"><?php echo count($this->dislikes) ?></span>
+			  </li>
+			  
+			</ul>
+			<a  onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://twitter.com/intent/tweet?text=<?php echo $this->list['title'].'&url='.$this->site_url['site_url'].'/'.$this->list['url_slug'].'&description='.strip_tags($this->list['contents']);?>" ><img style="    height: 20px;" src="<?php echo $this->baseUrl(); ?>/images/twt.png" /></a>
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://pinterest.com/pin/create/button/?url=<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'].'&description='.strip_tags($this->list['contents']).'&media='.$this->baseUrl().'/images/uploads/'.$this->member_dir.$this->list['banner_img'];?>"><img style="    height: 20px;" src="<?php echo $this->baseUrl(); ?>/images/pinterest.png" /></a>  
+    		<a  onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'];?>"><img style="    height: 20px;" src="<?php echo $this->baseUrl(); ?>/images/fb.png" /></a>               
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://plus.google.com/share?url=<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'];?>"><img style="    height: 20px;" src="<?php echo $this->baseUrl(); ?>/images/google.png" /></a>
+			<hr style="    margin: 5px;">
+			<div id="response"></div>
+			<form id="comment_form" method="POST" action="<?php echo $this->baseUrl()?>/mem-pages/upload-comment">
+				<textarea class="form-control" name="comment" id="comment" style="resize:none;border-radius:0;    height: 54px;" rows="2" placeholder="Leave your feedback!" required></textarea>
+				<input type="hidden" name="page_id" value="<?php echo $this->page_id; ?>">
+				
+				<input type="hidden" name="feed_id" value="<?php echo $this->feedback['feed_id']; ?>">
+				<div class="form-group">
+					<button type="submit" id="comment_btn" class="btn btn-success btn-xs pull-right" style="margin-top:10px;margin-bottom:10px;border-radius:0;background:#5890FF;border:1px solid #5890FF;"><i class="fa fa-envelope" aria-hidden="true"></i> Leave Feedback</button>
+				</div>
+				
+			</form>
+			<input type="hidden" id="login_valid" name="login_valid" value="<?php echo $is_logged_in; ?>">
+			
+					
+			
+		</ul>
+</div>
+				<?php
+				}
+	
+			}
+			?>
+			
+                <!-- page products will load here after page load by ajax -->
+				<?php 
+				if(isset($this->page_products)){ ?>
+					<div class="loader-overlay">
+			  <div class="loader">
+				Sorting
+				<span class="loader-stripe"></span>
+				</div>
+			  </div>
+			<div>
+				<h4 class="new_feed pull-left visible-lg"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <?php echo $this->list['title']; ?>'s News Feed</h4>
+					<nav class="navbr pull-right">
+						<a href="JavaScript:Void(0);" class="sort_dropdown dropdown-toggle" title="Sort by posts"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Sort by posts</a>
+						<ul class="sort_dropdown_open dropdown dropdown-menu-right">
+						  <li><a onclick="sorting('<?php echo $this->page_id; ?>','2')" class="sort_link" href="JavaScript:Void(0);">Social Posts</a></li>
+						  <li><a onclick="sorting('<?php echo $this->page_id; ?>','3')" class="sort_link" href="JavaScript:Void(0);">Service Posts</a></li>
+						  <li><a onclick="sorting('<?php echo $this->page_id; ?>','1')" class="sort_link" href="JavaScript:Void(0);">Products Posts</a></li>
+						  <li><a onclick="sorting('<?php echo $this->page_id; ?>','4')" class="sort_link" href="JavaScript:Void(0);">Video Posts</a></li>
+						</ul>
+					</nav>
+			</div>
+					
+            <div class="row" id="sorting_result" style="padding-left: 45px; padding-right: 45px;    background: #E9EBEE;">
+				
+				<?php
+					
+		foreach(array_chunk($this->page_products->toArray(),1) as $row){ ?>
+			
+			<div class='row' style='margin-top:5px;margin-bottom:5px;'><input type='hidden' value="<?php echo $this->member_id ?>">
+			<?php
+			foreach($row as $r){ 
+			if($r['post_type'] === 1){ ?>
+				<input type="hidden" value="<?php echo $r['post_type'] ?>"><input type="hidden" value="<?php echo $this->share_url ?>"><div id="social_<?php echo $r['pp_id'] ?>" class="col-md-12 thumbnail" style="border-radius: 0; padding: 10px;margin-top:25px;border: 0;">
+                <h4 class=""><?php echo $r['name'] ?></h4><p class="" style="margin: 0 3px 10px;font-size: 11px;"> <i class="fa fa-clock-o"></i> <?php echo timeago($r['date_created']) ?></p> <?php
+                if(isset($r['buy_link']) && (!empty($r['buy_link']))){ ?>
+                    <img id="<?php echo $r['pp_id'] ?>" class="img-responsive" src="/images/uploads/<?php echo $this->member_result['dir_name'] ?>/500X500/<?php echo $r['photo']?>"  onclick="var id = $(this).attr(&quot;id&quot;);$(&quot;#products_&quot;+id).slideToggle(500);" style="cursor:pointer;"/>
+                <?php
+				} else { ?>
+                    <img id="<?php echo $r['pp_id']?>" class="img-responsive" src="/images/uploads/<?php echo $this->member_result['dir_name'] ?>/500X500/<?php echo $r['photo'] ?>" style="cursor:pointer;" onclick="var id = $(this).attr(&quot;id&quot;);$(&quot;#products_&quot;+id).slideToggle(500);"/>
+                <?php
+				} ?>
+				
+				
+				<?php
+				if($r['price']>0 && $r['hide_price']==0){ ?>
+                    <p style='margin-top: 10px;'><strong class='text-success'>Price: RM <?php echo $r['price'] ?></strong></p>
+					
+                <?php
+				}  ?>
+               <div id="products_<?php echo $r['pp_id'] ?>" class="products_details" style="margin-top:10px;">
+                        <a href="tel:'.$contact_number.'" class="btn btn-info btn-call"  style="float:left;margin-left: 2px;"><span class="fa fa-phone"></span></a>
+                        
+                        <div class="dropdown" style="float:left;margin-left: 2px;">
+                           <button type ="button" class ="btn btn-success dropdown-toggle" id="whatsapp-menu" data-toggle="dropdown">
+                              <span class="fa fa-whatsapp"></span> <span class="caret"></span>
+                           </button>
+                           <ul class="dropdown-menu" role="menu" aria-labelledby="whatsapp-menu">                            
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->wap_number ?>#Intent;scheme=callto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Call <?php echo $this->wap_number ?></a></li>
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->wap_number ?>#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Message</a></li>
+                            <li role="presentation"><a role="menuitem" href="whatsapp://send?text=<?php echo $this->share_url ?>" data-action="share/whatsapp/share">Share Page</a></li>
+                           </ul>
+                        </div>
+                       
+                        <span style="margin-left: 2px;"  style="float:left;">
+                        <a onclick="window.open(this.href, '."'newwindow'".', '."'width=680, height=460'".'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=http://pageiz.com/pages/product-page?q=<?php echo $r['pp_id'] ?>|<?php echo $this->member_id ?>" class="btn btn-primary"><span class="fa fa-facebook"><span></a>
+                        </span>
+                <?php
+                if($r['discount']>0 && $r['hide_discount']==0){ ?>
+                   <p><strong class='text-success'>Discount: RM <?php echo $r['discount'] ?></strong></p>
+                <?php }      ?> 
+                <div class='unique-heavy-heavy-bike' style='margin-top:20px;'><?php echo stripslashes($r['description']) ?></div>
+				<?php
+                if(isset($r['buy_link']) && (!empty($r['buy_link']))){ ?>
+                    <p class='text-center'><a href='<?php echo $r['buy_link'] ?>' class='btn btn-sm btn-warning'>BUY NOW</a></p>
+             <?php   } ?>
+				
+				
+				 
+                </div></div>
+				<div class="col-md-12 thumbnail">
+					
+					
+					<svg style="/* height: 100%; */ height: 28px; /* stroke-width: 100%; */ width: 25px; /* margin-top: 0px; */">
+						<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon">
+						 <g class="large-icon" style="fill: currentColor">
+						    <g>
+							 <path d="M20,6v9.6c0,0.3-0.2,0.7-0.5,0.8L16,18.6V16H4V6H20M20,4H4C2.9,4,2,4.9,2,6v10c0,1.1,0.9,2,2,2h10v4l6.6-4.1c0.9-0.5,1.4-1.5,1.4-2.5V6C22,4.9,21.1,4,20,4L20,4z"></path>
+						    </g>
+						 </g>
+						 </svg>
+					 </svg>
+					 <a onclick="opencomment('<?php echo $r['pp_id'] ?>')" style='margin-top: 10px;color:#333333;font-weight:bold;cursor:pointer;position:relative;bottom: 11px; right: 2px;'> Comments</a>
+				</div>
+				<div class="col-md-12 thumbnail comment" id="comments_<?php echo $r['pp_id'] ?>" style=" ">
+					<form id="comment_post_<?php echo $r['pp_id']; ?>" method="POST" action="" style="    margin-bottom: 9px;    padding-top: 15px; border: 0;">
+						<input autocomplete="off" type="text" class="form-control" name="comment" id="comment_<?php echo $r['pp_id']; ?>" style="resize:none;border-radius:0;    border: 1px solid #bdc7d8;" rows="2" placeholder="Write your comment." required>
+						<input type="hidden" name="page_id" value="<?php echo $this->page_id; ?>">
+						
+						<input type="hidden" name="pp_id" value="<?php echo $r['pp_id']; ?>">
+						<div class="form-group" id="comment_btn">
+							<button type="submit" id="post_btn_<?php echo $r['pp_id']; ?>" onclick="submit_comment('<?php echo $r['pp_id']; ?>')" class=" btn btn-success btn-xs pull-right" style="">Comment <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+							<input type="hidden" id="name" value="<?php echo $this->member_name ?>">
+						</div>
+					</form>
+					
+					<?php  if(isset($this->comments)){ ?>
+						
+					<?php
+					$countter = 0;
+						foreach($this->comments as $comments){
+							if($comments['pp_id'] == $r['pp_id']){
+								if($countter==0){ ?>
+									<hr id="hrline_<?php echo $r['pp_id'] ?>">
+								<?php
+								}
+								$countter++;
+							?>
+							
+								<div class="row" style="padding:10px 0;background:#F6F7F9">
+									<div class="col-md-2 col-xs-2">
+										<img src="https://gitlab.com/uploads/user/avatar/56386/tt_avatar_small.jpg" class="img-responsive" style="margin: auto;">
+									</div>
+									<div class="col-md-10 col-xs-10" style="padding-left:0;    padding-right: 31px;">
+										<p style="font-size: 12px; word-wrap: break-word;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;"><span style="font-weight: bold; color: #36589F; font-size: 13px; font-family: Open Sans, Helvetica, Arial, sans-serif;"><?php echo $comments['Name'] ?></span> <?php echo $comments['comment'] ?></p>
+										<div style="font-size: 10px;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;">
+										<?php echo timeago($comments['comment_date']); ?>
+										</div>
+									</div>
+								</div>
+						<?php	}
+						}
+					}
+					?>
+				</div>
+			<?php
+			}elseif($r['post_type'] === 2){ ?>
+				<input type="hidden" value="<?php echo $r['post_type'] ?>"><input type="hidden" value="<?php echo $this->share_url ?>"><div id="social_<?php echo $r['pp_id'] ?>" class="col-md-12 thumbnail" style="border-radius: 0; padding: 10px;margin-top:20px;border: 0;">
+                <p class="" style="margin: 0 3px 10px;font-size: 11px;"> <i class="fa fa-clock-o"></i> <?php echo timeago($r['date_created']) ?></p> 
+				
+               <div id="products_<?php echo $r['pp_id'] ?>" class="social_details" style="margin-top:10px;">
+                        <a href="tel:'.$contact_number.'" class="btn btn-info btn-call"  style="float:left;margin-left: 2px;"><span class="fa fa-phone"></span></a>
+                        
+                        <div class="dropdown" style="float:left;margin-left: 2px;">
+                           <button type ="button" class ="btn btn-success dropdown-toggle" id="whatsapp-menu" data-toggle="dropdown">
+                              <span class="fa fa-whatsapp"></span> <span class="caret"></span>
+                           </button>
+                           <ul class="dropdown-menu" role="menu" aria-labelledby="whatsapp-menu">                            
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->wap_number ?>#Intent;scheme=callto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Call <?php echo $this->wap_number ?></a></li>
+                            <li role="presentation"><a role="menuitem" href="intent:'<?php echo $this->wap_number ?>'#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Message</a></li>
+                            <li role="presentation"><a role="menuitem" href="whatsapp://send?text=<?php echo $this->share_url ?>" data-action="share/whatsapp/share">Share Page</a></li>
+                           </ul>
+                        </div>
+                       
+                        <span style="margin-left: 2px;"  style="float:left;">
+                        <a onclick="window.open(this.href, '."'newwindow'".', '."'width=680, height=460'".'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=http://pageiz.com/pages/product-page?q=<?php echo $r['pp_id'] ?>|<?php echo $this->member_id ?>" class="btn btn-primary"><span class="fa fa-facebook"><span></a>
+                        </span>
+                      
+                <div class='unique-heavy-heavy-bike' style='margin-top:20px;'><?php echo stripslashes($r['description']) ?></div>
+                </div></div>
+				<div class="col-md-12 thumbnail">
+					<svg style="/* height: 100%; */ height: 28px; /* stroke-width: 100%; */ width: 25px; /* margin-top: 0px; */">
+					<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
+					   <g>
+						 <path d="M20,6v9.6c0,0.3-0.2,0.7-0.5,0.8L16,18.6V16H4V6H20M20,4H4C2.9,4,2,4.9,2,6v10c0,1.1,0.9,2,2,2h10v4l6.6-4.1c0.9-0.5,1.4-1.5,1.4-2.5V6C22,4.9,21.1,4,20,4L20,4z"></path>
+					   </g>
+					 </g></svg></svg>
+					 <a onclick="opencomment('<?php echo $r['pp_id'] ?>')" style='margin-top: 10px;color:#333333;font-weight:bold;cursor:pointer;position:relative;bottom: 11px; right: 2px;'> Comments</a>
+				</div>
+				<div class="col-md-12 thumbnail comment" id="comments_<?php echo $r['pp_id'] ?>" style=" ">
+					<form id="comment_post_<?php echo $r['pp_id']; ?>" method="POST" action="" style="    margin-bottom: 9px;    padding-top: 15px; border: 0;">
+						<input autocomplete="off" type="text" class="form-control" name="comment" id="comment_<?php echo $r['pp_id']; ?>" style="resize:none;border-radius:0;    border: 1px solid #bdc7d8;" rows="2" placeholder="Write your comment." required>
+						<input type="hidden" name="page_id" value="<?php echo $this->page_id; ?>">
+						
+						<input type="hidden" name="pp_id" value="<?php echo $r['pp_id']; ?>">
+						<div class="form-group" id="comment_btn">
+							<button type="submit" id="post_btn_<?php echo $r['pp_id']; ?>" onclick="submit_comment('<?php echo $r['pp_id']; ?>')" class=" btn btn-success btn-xs pull-right" style="">Comment <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+							<input type="hidden" id="name" value="<?php echo $this->commentname ?>">
+						</div>
+					</form>
+					
+					<?php  if(isset($this->comments)){ ?>
+						
+					<?php
+					$countter = 0;
+						foreach($this->comments as $comments){
+							if($comments['pp_id'] == $r['pp_id']){
+								if($countter==0){ ?>
+									<hr id="hrline_<?php echo $r['pp_id'] ?>">
+								<?php
+								}
+								$countter++;
+							?>
+							
+								<div class="row" style="padding:10px 0;background:#F6F7F9">
+									<div class="col-md-2 col-xs-2">
+										<img src="https://gitlab.com/uploads/user/avatar/56386/tt_avatar_small.jpg" class="img-responsive" style="margin: auto;">
+									</div>
+									<div class="col-md-10 col-xs-10" style="padding-left:0;    padding-right: 31px;">
+										<p style="font-size: 12px; word-wrap: break-word;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;"><span style="font-weight: bold; color: #36589F; font-size: 13px; font-family: Open Sans, Helvetica, Arial, sans-serif;"><?php echo $comments['Name'] ?></span> <?php echo $comments['comment'] ?></p>
+										<div style="font-size: 10px;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;">
+										<?php echo timeago($comments['comment_date']); ?>
+										</div>
+									</div>
+								</div>
+						<?php	}
+						}
+					}
+					?>
+				</div>
+			<?php
+			}elseif($r['post_type'] === 4){ ?>
+				<input type="hidden" value="<?php echo $r['post_type'] ?>"><input type="hidden" value="<?php echo $this->share_url ?>"><div id="social_<?php echo $r['pp_id'] ?>" class="col-md-12 thumbnail" style="border-radius: 0; padding: 10px;margin-top:20px;border: 0;">
+                <p class="" style="margin: 0 3px 10px;font-size: 11px;"> <i class="fa fa-clock-o"></i> <?php echo timeago($r['date_created']) ?></p> 
+				
+               <div id="products_<?php echo $r['pp_id'] ?>" class="social_details" style="margin-top:10px;">
+                        <a href="tel:'.$contact_number.'" class="btn btn-info btn-call"  style="float:left;margin-left: 2px;"><span class="fa fa-phone"></span></a>
+                        
+                        <div class="dropdown" style="float:left;margin-left: 2px;">
+                           <button type ="button" class ="btn btn-success dropdown-toggle" id="whatsapp-menu" data-toggle="dropdown">
+                              <span class="fa fa-whatsapp"></span> <span class="caret"></span>
+                           </button>
+                           <ul class="dropdown-menu" role="menu" aria-labelledby="whatsapp-menu">                            
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->wap_number ?>#Intent;scheme=callto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Call <?php echo $this->wap_number ?></a></li>
+                            <li role="presentation"><a role="menuitem" href="intent:'<?php echo $this->wap_number ?>'#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Message</a></li>
+                            <li role="presentation"><a role="menuitem" href="whatsapp://send?text=<?php echo $this->share_url ?>" data-action="share/whatsapp/share">Share Page</a></li>
+                           </ul>
+                        </div>
+                       
+                        <span style="margin-left: 2px;"  style="float:left;">
+                        <a onclick="window.open(this.href, '."'newwindow'".', '."'width=680, height=460'".'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=http://pageiz.com/pages/product-page?q=<?php echo $r['pp_id'] ?>|<?php echo $this->member_id ?>" class="btn btn-primary"><span class="fa fa-facebook"><span></a>
+                        </span>
+                      
+                <div class="video-container" style="margin-top:10px;">
+					<iframe width="853" height="480" src="<?php echo  $r['video_url'] ?>" frameborder="0" allowfullscreen></iframe>
+				</div>
+                </div></div>
+				<div class="col-md-12 thumbnail">
+					<svg style="/* height: 100%; */ height: 28px; /* stroke-width: 100%; */ width: 25px; /* margin-top: 0px; */">
+					<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
+					   <g>
+						 <path d="M20,6v9.6c0,0.3-0.2,0.7-0.5,0.8L16,18.6V16H4V6H20M20,4H4C2.9,4,2,4.9,2,6v10c0,1.1,0.9,2,2,2h10v4l6.6-4.1c0.9-0.5,1.4-1.5,1.4-2.5V6C22,4.9,21.1,4,20,4L20,4z"></path>
+					   </g>
+					 </g></svg></svg>
+					 <a onclick="opencomment('<?php echo $r['pp_id'] ?>')" style='margin-top: 10px;color:#333333;font-weight:bold;cursor:pointer;position:relative;bottom: 11px; right: 2px;'> Comments</a>
+				</div>
+				<div class="col-md-12 thumbnail comment" id="comments_<?php echo $r['pp_id'] ?>" style=" ">
+					<form id="comment_post_<?php echo $r['pp_id']; ?>" method="POST" action="" style="    margin-bottom: 9px;    padding-top: 15px; border: 0;">
+						<input autocomplete="off" type="text" class="form-control" name="comment" id="comment_<?php echo $r['pp_id']; ?>" style="resize:none;border-radius:0;    border: 1px solid #bdc7d8;" rows="2" placeholder="Write your comment." required>
+						<input type="hidden" name="page_id" value="<?php echo $this->page_id; ?>">
+						
+						<input type="hidden" name="pp_id" value="<?php echo $r['pp_id']; ?>">
+						<div class="form-group" id="comment_btn">
+							<button type="submit" id="post_btn_<?php echo $r['pp_id']; ?>" onclick="submit_comment('<?php echo $r['pp_id']; ?>')" class=" btn btn-success btn-xs pull-right" style="">Comment <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+							<input type="hidden" id="name" value="<?php echo $this->commentname ?>">
+						</div>
+					</form>
+					
+					<?php  if(isset($this->comments)){ ?>
+						
+					<?php
+					$countter = 0;
+						foreach($this->comments as $comments){
+							if($comments['pp_id'] == $r['pp_id']){
+								if($countter==0){ ?>
+									<hr id="hrline_<?php echo $r['pp_id'] ?>">
+								<?php
+								}
+								$countter++;
+							?>
+							
+								<div class="row" style="padding:10px 0;background:#F6F7F9">
+									<div class="col-md-2 col-xs-2">
+										<img src="https://gitlab.com/uploads/user/avatar/56386/tt_avatar_small.jpg" class="img-responsive" style="margin: auto;">
+									</div>
+									<div class="col-md-10 col-xs-10" style="padding-left:0;    padding-right: 31px;">
+										<p style="font-size: 12px; word-wrap: break-word;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;"><span style="font-weight: bold; color: #36589F; font-size: 13px; font-family: Open Sans, Helvetica, Arial, sans-serif;"><?php echo $comments['Name'] ?></span> <?php echo $comments['comment'] ?></p>
+										<div style="font-size: 10px;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;">
+										<?php echo timeago($comments['comment_date']); ?>
+										</div>
+									</div>
+								</div>
+						<?php	}
+						}
+					}
+					?>
+				</div>
+			<?php
+			}
+			elseif($r['post_type'] === 3){ ?>
+				<input type="hidden" value="<?php echo $r['post_type'] ?>"><input type="hidden" value="<?php echo $this->share_url ?>"><div id="social_<?php echo $r['pp_id'] ?>" class="col-md-12 thumbnail" style="border-radius: 0; margin-top:20px;padding: 10px;border: 0;">
+                <h4 class="" style="font-family: Open Sans, Helvetica, Arial, sans-serif;"><?php echo $r['name'] ?></h4><p class="" style="font-family: Open Sans, Helvetica, Arial, sans-serif;margin: 0 3px 10px;font-size: 11px;"> <i class="fa fa-clock-o"></i> <?php echo timeago($r['date_created']) ?></p> <?php
+                if(isset($r['buy_link']) && (!empty($r['buy_link']))){ ?>
+                    <img id="<?php echo $r['pp_id'] ?>" class="img-responsive" src="/images/uploads/<?php echo $this->member_result['dir_name'] ?>/500X500/<?php echo $r['photo']?>"  onclick="var id = $(this).attr(&quot;id&quot;);$(&quot;#products_&quot;+id).slideToggle(500);" style="cursor:pointer;"/>
+                <?php
+				} else { ?>
+                    <img id="<?php echo $r['pp_id']?>" class="img-responsive" src="/images/uploads/<?php echo $this->member_result['dir_name'] ?>/500X500/<?php echo $r['photo'] ?>" style="cursor:pointer;" onclick="var id = $(this).attr(&quot;id&quot;);$(&quot;#products_&quot;+id).slideToggle(500);"/>
+                <?php
+				} ?>
+				
+				
+				<?php
+				if($r['price']>0 && $r['hide_price']==0){ ?>
+                    <p style='font-family: Open Sans, Helvetica, Arial, sans-serif;margin-top: 10px;'><strong class='text-success'>Price: RM <?php echo $r['price'] ?></strong></p>
+					
+                <?php
+				}  ?>
+               <div id="products_<?php echo $r['pp_id'] ?>" class="products_details" style="margin-top:10px;">
+                        <a href="tel:'.$contact_number.'" class="btn btn-info btn-call"  style="float:left;margin-left: 2px;"><span class="fa fa-phone"></span></a>
+                        
+                        <div class="dropdown" style="float:left;margin-left: 2px;">
+                           <button type ="button" class ="btn btn-success dropdown-toggle" id="whatsapp-menu" data-toggle="dropdown">
+                              <span class="fa fa-whatsapp"></span> <span class="caret"></span>
+                           </button>
+                           <ul class="dropdown-menu" role="menu" aria-labelledby="whatsapp-menu">                            
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->wap_number ?>#Intent;scheme=callto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Call <?php echo $this->wap_number ?></a></li>
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->wap_number ?>#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Message</a></li>
+                            <li role="presentation"><a role="menuitem" href="whatsapp://send?text=<?php echo $this->share_url ?>" data-action="share/whatsapp/share">Share Page</a></li>
+                           </ul>
+                        </div>
+                       
+                        <span style="margin-left: 2px;"  style="float:left;">
+                        <a onclick="window.open(this.href, '."'newwindow'".', '."'width=680, height=460'".'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=http://pageiz.com/pages/product-page?q=<?php echo $r['pp_id'] ?>|<?php echo $this->member_id ?>" class="btn btn-primary"><span class="fa fa-facebook"><span></a>
+                        </span>
+                <?php
+                if($r['discount']>0 && $r['hide_discount']==0){ ?>
+                   <p><strong class='text-success' style="font-family: Open Sans, Helvetica, Arial, sans-serif;">Discount: RM <?php echo $r['discount'] ?></strong></p>
+                <?php }      ?> 
+                <div class='unique-heavy-heavy-bike' style='margin-top:20px;'><?php echo stripslashes($r['description']) ?></div>
+                </div></div>
+				<div class="col-md-12 thumbnail">
+					<svg style="/* height: 100%; */ height: 28px; /* stroke-width: 100%; */ width: 25px; /* margin-top: 0px; */">
+					<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="icon"><g class="large-icon" style="fill: currentColor">
+					   <g>
+						 <path d="M20,6v9.6c0,0.3-0.2,0.7-0.5,0.8L16,18.6V16H4V6H20M20,4H4C2.9,4,2,4.9,2,6v10c0,1.1,0.9,2,2,2h10v4l6.6-4.1c0.9-0.5,1.4-1.5,1.4-2.5V6C22,4.9,21.1,4,20,4L20,4z"></path>
+					   </g>
+					 </g></svg></svg>
+					 <a onclick="opencomment('<?php echo $r['pp_id'] ?>')" style='margin-top: 10px;color:#333333;font-weight:bold;cursor:pointer;position:relative;bottom: 11px; right: 2px;font-family: Open Sans, Helvetica, Arial, sans-serif;'> Comments</a>
+				</div>
+				<div class="col-md-12 thumbnail comment" id="comments_<?php echo $r['pp_id'] ?>" style=" ">
+					<form id="comment_post_<?php echo $r['pp_id']; ?>" method="POST" action="" style="    margin-bottom: 9px;    padding-top: 15px; border: 0;">
+						<input autocomplete="off" type="text" class="form-control" name="comment" id="comment_<?php echo $r['pp_id']; ?>" style="resize:none;border-radius:0;    border: 1px solid #bdc7d8;" rows="2" placeholder="Write your comment." required>
+						<input type="hidden" name="page_id" value="<?php echo $this->page_id; ?>">
+						
+						<input type="hidden" name="pp_id" value="<?php echo $r['pp_id']; ?>">
+						<div class="form-group" id="comment_btn">
+							<button type="submit" id="post_btn_<?php echo $r['pp_id']; ?>" onclick="submit_comment('<?php echo $r['pp_id']; ?>')" class=" btn btn-success btn-xs pull-right" style="">Comment <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+							<input type="hidden" id="name" value="<?php echo $this->commentname ?>">
+						</div>
+					</form>
+					
+					<?php  if(isset($this->comments)){ ?>
+						
+					<?php
+					$countter = 0;
+						foreach($this->comments as $comments){
+							if($comments['pp_id'] == $r['pp_id']){
+								if($countter==0){ ?>
+									<hr id="hrline_<?php echo $r['pp_id'] ?>">
+								<?php
+								}
+								$countter++;
+							?>
+							
+								<div class="row" style="padding:10px 0;background:#F6F7F9">
+									<div class="col-md-2 col-xs-2" >
+										<img src="https://gitlab.com/uploads/user/avatar/56386/tt_avatar_small.jpg" class="img-responsive" style="margin: auto;">
+									</div>
+									<div class="col-md-10 col-xs-10" style="padding-left:0;    padding-right: 31px;">
+										<p style="font-size: 12px; word-wrap: break-word;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;"><span style="font-weight: bold; color: #36589F; font-size: 13px; font-family: Open Sans, Helvetica, Arial, sans-serif;"><?php echo $comments['Name'] ?></span> <?php echo $comments['comment'] ?></p>
+										<div style="font-size: 10px;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;">
+										<?php echo timeago($comments['comment_date']); ?>
+										</div>
+									</div>
+								</div>
+						<?php	}
+						}
+					}
+					?>
+				</div>
+			<?php
+			}
+                
+			
+				
+            } ?> 
+			</div>
+		<?php }
+		?>
+            </div>
+			
+    		
+            
+        </div>
+<!--row end-->
+    
+    
+	<?php if(isset($this->custom)){ ?>
+			<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content--> 
+      <div class="modal-content" style="background:url(<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .$this->custom['cta_background']?>);background-repeat:no-repeat;background-size:cover;">
+        <a data-dismiss="modal" class="button-close">x</a>
+        <div class="modal-body text-center">
+          <h4 style="color:<?php echo $this->custom['cta_heading_color']; ?>"><?php echo $this->custom['cta_heading'] ?></h4>
+		  <p style="color:<?php echo $this->custom['cta_paragraph_color']; ?>"><?php echo $this->custom['cta_paragraph'] ?></p>
+		  <div class="row" style="    margin: 20px">
+		  <div class="padd"> 
+		  <div class="col-md-12">
+				<form action="<?php echo $this->baseUrl(); ?>/index/subscribers" method="POST" class="download_form" id="subscriber_form">
+					<div class="row">
+						<div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;">
+							<input type="text" name="full_name" id="full_name" placeholder="Full Name" class="form-control" required>
+
+						</div>
+						<div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;">
+							<input type="text" name="phone" id="phone" class=" form-control" placeholder="Phone" required>
+						</div>
+						<div class="col-md-12" style="    padding: 0 2px;margin-bottom:5px;">
+							<input type="email" name="email" id="email"  class=" form-control" placeholder="Email" required>
+							<input type="hidden" id="mem_id" name="mem_id" value="<?php echo $this->list['member_id'];?>">
+							<input type="hidden" id="base_url" name="base_url" value="<?php echo $this->baseUrl()?>">
+						</div>
+						<div class="col-md-12" style="    padding: 0 2px;">
+							<button id="sub-btn" type="submit" class="submit" style="border: 1px solid <?php echo $this->custom['cta_button_color']; ?>; border-radius: 0; background: <?php echo $this->custom['cta_button_color']; ?>; width: 100%; line-height: 2.3;color:white;"><i class="fa fa-envelope" aria-hidden="true"></i>
+ SUBSCRIBE</button>
+						</div>
+						
+					</div>
+					
+				</form>
+				<p style="color:white;font-size:10px;margin-top:10px;">Don't worry you will not be spammed.</p>
+			</div>
+		  </div>
+			 
+		  </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+
+		<?php
+	}else{ ?>
+		<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content--> 
+      <div class="modal-content" style="background:#1B1C52">
+        <a data-dismiss="modal" class="button-close">x</a>
+        <div class="modal-body text-center">
+          <h4>SUBSCRIBE TO PAGEIZ NEWSLETTER</h4>
+		  <p>Pageiz is an online marketing tool for businesses, you can be able to do email marketing, social media marketing. You will get your own landing page with best features.</p>
+		  <div class="row" style="    margin: 20px">
+		  <div class="padd"> 
+		  <div class="col-md-12">
+				<form action="<?php echo $this->baseUrl(); ?>/index/subscribers" method="POST" class="download_form" id="subscriber_form">
+					<div class="row">
+						<div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;">
+							<input type="text" name="full_name" id="full_name" placeholder="Full Name" class="form-control" required>
+
+						</div>
+						<div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;">
+							<input type="text" name="phone" id="phone" class=" form-control" placeholder="Phone" required>
+						</div>
+						<div class="col-md-12" style="    padding: 0 2px;margin-bottom:5px;">
+							<input type="email" name="email" id="email"  class=" form-control" placeholder="Email" required>
+							<input type="hidden" id="mem_id" name="mem_id" value="<?php echo $this->list['member_id'];?>">
+							<input type="hidden" id="base_url" name="base_url" value="<?php echo $this->baseUrl()?>">
+						</div>
+						<div class="col-md-12" style="    padding: 0 2px;">
+							<button id="sub-btn" type="submit" class="submit" style="border: 1px solid #54D33F; border-radius: 0; background: #54D33F; width: 100%; line-height: 2.3;color:white;"><i class="fa fa-envelope" aria-hidden="true"></i>
+ SUBSCRIBE</button>
+						</div>
+						
+					</div>
+					
+				</form>
+				<p style="color:white;font-size:10px;margin-top:10px;">Don't worry you will not be spammed.</p>
+			</div>
+		  </div>
+			 
+		  </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+	<?php
+	}
+	}
+	?>
+	

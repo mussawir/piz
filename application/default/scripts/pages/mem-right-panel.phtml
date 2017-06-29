@@ -1,0 +1,77 @@
+ <div class="logo-area">
+    <a href="<?php echo $this->baseUrl();?>">
+        <img src="<?php echo $this->baseUrl();?>/images/logo.png" class="img-responsive" alt="logo" style="width: 30%;"/>
+	</a>
+ </div>
+
+   <!-- member page ads -->	
+ <div class="row text-center" id="ads-container" style="text-align: -webkit-center;text-align: -moz-center;">
+    <?php //foreach($this->page_ads as $ads): if(isset($ads['banner_img'])):?>
+        <!--div class="col-md-12" style="margin-bottom: 15px;">
+            <a href="<?php echo $ads['url_slug'];?>">
+                <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $ads['dir_name'];?>/500X500/<?php echo $ads['banner_img'];?>" alt="<?php echo $ads['title'];?>" />
+            </a>
+        </div-->        
+    <?php //endif; endforeach;?>
+    
+ </div>
+	
+    <!-- admin ads -->
+ <div style="padding-bottom:15px" class="text-center">
+    <?php if($this->ad_list['ad_type1']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url1'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image1'];?>" alt="<?php echo $this->ad_list['ad_title1'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type1']==2) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url1'];?>"><?php echo $this->ad_list['ad_text1'];?></a>
+    <?php } else if($this->ad_list['ad_type1']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url1'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image1'];?>" alt="<?php echo $this->ad_list['ad_title1'];?>" />
+            <?php echo $this->ad_list['ad_text1'];?>
+        </a>
+    <?php }?>
+   <br />
+    
+    <?php if($this->ad_list['ad_type2']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url2'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image2'];?>" alt="<?php echo $this->ad_list['ad_title2'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type2']==2) { ?>
+	<div>
+        <a href="<?php echo $this->ad_list['ad_target_url2'];?>"><?php echo $this->ad_list['ad_text2'];?></a>
+		</div>
+    <?php } else if($this->ad_list['ad_type2']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url2'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image2'];?>" alt="<?php echo $this->ad_list['ad_title2'];?>" />
+            <?php echo $this->ad_list['ad_text2'];?>
+        </a>
+    <?php }?>
+    <br />	
+	   
+    <?php if($this->ad_list['ad_type3']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url3'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image3'];?>" alt="<?php echo $this->ad_list['ad_title3'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type3']==2) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url3'];?>"><?php echo $this->ad_list['ad_text3'];?></a>
+    <?php } else if($this->ad_list['ad_type3']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url3'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image3'];?>" alt="<?php echo $this->ad_list['ad_title3'];?>" />
+            <?php echo $this->ad_list['ad_text3'];?>
+        </a>
+    <?php }?>
+    <br />
+    
+    <?php if($this->ad_list['ad_type4']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url4'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image4'];?>" alt="<?php echo $this->ad_list['ad_title4'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type4']==2) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url4'];?>"><?php echo $this->ad_list['ad_text4'];?></a>
+    <?php } else if($this->ad_list['ad_type4']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url4'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/500X500/<?php echo $this->ad_list['ad_image4'];?>" alt="<?php echo $this->ad_list['ad_title4'];?>" />
+            <?php echo $this->ad_list['ad_text4'];?>
+        </a>
+    <?php }?>
+	</div>

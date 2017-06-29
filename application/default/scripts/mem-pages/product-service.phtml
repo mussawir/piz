@@ -1,0 +1,333 @@
+<style>
+    #page-wrapper {
+        padding-bottom: 30px;
+        padding-top: 10px;
+    }
+    #entryBox {
+        padding-bottom: 25px;
+        margin-top: 5px;
+        display: none;
+    }
+    #msg, .details-box{
+        display: none;
+    }
+	#postBox{
+		display:none;
+	}
+	#post_button,#info_button{
+		border-radius:0;
+		background:#4EC435;
+		border:1px solid #4EC435;
+	}
+	#hide_btn{
+		border-radius:0;
+		background:#4EC435;
+		border:1px solid #4EC435;
+	}
+	#button_row{
+		padding:20px;
+	}
+	#p_info{
+		display:none;
+	}
+	.form-control{
+		border-radius:0;
+	}
+	.li_btn{
+		border-radius:0;
+		background:#1B1C52;
+		border:1px solid #1B1C52;
+		
+	}
+	.li_btn > a{
+		color:white;
+	}
+	.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:#1B1C52;
+		background:white;
+}
+#msgBox{
+	display:none;
+}
+</style>
+<div id="page-wrapper">
+    <div class="row row-fluid">
+	<div class="col-md-12" style="margin:20px 0;">
+    <?php //echo $this->render('/members/menu.phtml'); ?>
+    
+        <ul class="nav nav-pills">
+          <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Poster Page</a></li>
+          <li class="li_btn" role="presentation"   class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-service/id/<?php echo $this->page_id ?>">Posts</a></li>
+          <li  class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $this->page_id ?>">Comments</a></li>
+         <!-- <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads</a></li> -->
+		 
+          <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+          <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+        </ul>
+    </div>
+        <div id="button_row" class="col-md-6 col-md-offset-3 text-center">
+		<div class="alert alert-success" id="msgBox">
+		  
+		</div>
+		<a class="btn btn-success btn-lg" id="post_button">Product Post</a>
+		<a class="btn btn-success btn-lg" id="info_button">Info Post</a>
+            <!-- <ul class="nav nav-pills">
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Poster Page</a></li>
+              <li role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-service/id/<?php echo $this->page_id ?>">Page Products/Services</a></li>
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads</a></li>
+            </ul> -->
+        </div>
+    </div>
+    <hr />
+    <div class="row" id="p_post">
+        <div id="msg"><?php echo $this->msg; ?></div>
+        <div class="col-md-12">
+            <a href="javascript:void(0);" id="hide_btn" class="btn btn-success" onclick="showHideEntryBox();">Add New Product/Service Post</a>
+            
+            <div id="entryBox">
+                <form method="post" action="" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name"><span style="color: #ff0000;">*</span> Product/Service name</label>
+                            <?php echo $this->form->name;?>
+                        </div>
+                        <div class="col-md-6">
+                            <?php echo $this->form->photo;?>
+                        </div>
+                    </div> 
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="price">Price in RM</label>
+                            <?php echo $this->form->price;?>
+                            <!-- label for="hide_price"><?php echo $this->form->hide_price;?> Hide Price</label -->
+                        </div>
+                        <div class="col-md-6">
+                            <label for="discount">Discount</label>
+                            <?php echo $this->form->discount;?>
+                            <label for="hide_discount"><?php echo $this->form->hide_discount;?> Hide Discount</label>
+                        </div>
+                    </div>
+					   <div class="row">
+                        <div class="col-md-6">
+                            <label for="price">Price in USD</label>
+                            <?php echo $this->form->price_usd;?>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="discount">Discount in USD</label>
+                            <?php echo $this->form->discount_usd;?>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="buy_link">Buy link</label>
+                            <?php echo $this->form->buy_link;?>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="description">Description</label>
+                            <?php echo $this->form->description;?>
+                        </div>
+                    </div>
+                    
+                    <?php echo $this->form->submit;?>
+                </form>
+            </div>
+           
+            <div id="product-service-list" style="margin-top:40px;">
+                <div class="row">
+                    <?php 
+					foreach(array_chunk($this->data->toArray(),4) as $row): ?>
+					<div class="row">
+					<?php
+					foreach ($row as $item): ?>
+                        <div class="col-md-3">
+                            <p style="height: 35px;" class="text-center"><strong><?php echo $item['name'];?></strong></p>
+                            <div style="min-height: 270px; margin-bottom: 10px; text-align: -webkit-center; text-align: -moz-center;" class="text-center">
+                            <img class="img-responsive" src="<?php echo $this->baseUrl().$this->dir_path.$item['photo'];?>" alt="<?php echo $item['name'];?>" />
+                            </div>
+                            <p>
+                                <a href="javascript:void(0);" onclick="hideShowDetails(<?php echo $item['pp_id'];?>);">Details</a>&nbsp;|&nbsp;
+                                <a href="<?php echo $this->baseUrl();?>/mem-pages/edit-product-service/id/<?php echo $item['pp_id'];?>/page_id/<?php echo $this->page_id;?>">Edit</a>&nbsp;|&nbsp;
+								<a href="#" onclick="pinPost(<?php echo $item['pp_id'];?>, <?php echo $this->page_id;?>);">Pin Post</a>
+                                <a href="#" onclick="doDelete(<?php echo $item['pp_id'];?>, <?php echo $this->page_id;?>);" class="pull-right">Delete</a>
+								   
+                            </p>
+                            <div class="details-box" id="detail_<?php echo $item['pp_id'];?>">
+                                <?php if($item['price']>0 && $item['hide_price']==0){?>
+                                    <p>Price: RM<?php echo $item['price'];?></p>
+                                <?php } if($item['discount']>0 && $item['hide_discount']==0){?>
+                                    <p>Discount: RM<?php echo $item['discount'];?></p>
+                                <?php }?>
+						<?php if($item['price_usd']>0){?>
+                                    <p>Price: $<?php echo $item['price_usd'];?> USD</p>
+                                <?php } if($item['discount']>0 && $item['hide_discount']==0){?>
+                                    <p>Discount: $<?php echo $item['discount'];?> USD</p>
+                                <?php }?>
+                           
+								
+							<p>Description: <?php echo $item['description'];?></p>
+								
+							 </div>
+                        </div>
+                    <?php endforeach; ?>
+					</div>
+			<?php endforeach; ?>	
+				
+				</div>
+            </div>
+            
+        </div>
+    </div>
+	<div class="row" id="p_info">
+        <div id="msg"><?php echo $this->msg; ?></div>
+        <div class="col-md-12">
+            <a href="javascript:void(0);" class="btn btn-success"  id="hide_btn" onclick="showHidepostBox();">Add Info Post</a>
+            
+            <div id="postBox">
+                <form method="post" action="<?php echo $this->baseUrl()?>/mem-pages/create-post">
+                    
+                    <div class="row">
+                     <input type="hidden" value="<?php echo $this->page_id  ?>" name="page_id">	
+                        <div class="col-md-12">
+                            <label for="description">Post</label>
+                            <!-- <?php echo $this->form->description;?> -->
+							<textarea class="form-control" placeholder="Post Details" rows="5"></textarea>
+                        </div>
+                    </div>
+                    
+                    <?php echo $this->form->submit;?>
+                </form>
+            </div>
+           
+            <div id="product-service-list"  style="margin-top:40px;">
+                <div class="row">
+                    <table class="table">
+						<thead>
+							<tr>
+								<th>Post No. </th>
+								<th>Post Description </th>
+								<th>Posted At. </th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$count = 1;
+								if(count($this->posts)):
+								foreach ($this->posts as $item): ?>
+									<tr>
+										<td><?php echo $count++; ?></td>
+										<td><?php echo $item['description']; ?></td>
+										<td><?php echo $item['date_created']; ?></td>
+										<td>
+										<a class="btn btn-sm btn-danger" onclick="doDelete(<?php echo $item['pp_id'];?>, <?php echo $this->page_id;?>);">Delete</a> | 
+										<a class="btn btn-sm btn-success" onclick="pinPost(<?php echo $item['pp_id'];?>, <?php echo $this->page_id;?>);">Pin Post</a>
+										</td>
+									</tr>
+								<?php endforeach;
+									endif;
+								?>
+								<tr>
+									<td colspan="4" style="text-align:center;">No Posts Found.</td>
+								</tr>
+						</tbody>
+					</table>
+					
+					
+				
+				</div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+		$('#post_button').click(function(){
+			$('#p_post').fadeIn(200);
+			if ($('#p_info').is(':visible')){
+				$('#p_info').fadeOut(200);
+			}
+		});
+		$('#info_button').click(function(){
+			if ($('#p_post').is(':visible')){
+				$('#p_post').fadeOut(200);
+			}
+			$('#p_info').fadeIn(200);
+		});
+        <?php if(!isset($this->msg)) { ?>
+      $('#msg').hide();
+        <?php  } else{ ?>
+          $('#msg').show().delay(5000).hide('slow');
+        <?php } ?>
+    }); // ready function end
+
+    function showHideEntryBox()
+    {
+        $('#entryBox').slideToggle("slow");
+    }
+    function showHidepostBox(){
+		$('#postBox').slideToggle("slow");
+	}
+    function hideShowDetails(id)
+    {
+        $('#detail_'+id).slideToggle("slow");
+    }
+    
+    var photo = '';
+     $('#photo').change(function(){
+        var file = this.files[0];
+        name = file.name;
+        size = file.size;
+        type = file.type;
+           
+        photo = name.split('.')[0].toLowerCase();
+     });
+     
+     $('#submit').click(function(){
+        if($('#name').val() =='' || $('#name').length==0){
+            $('#msg').html("<div class='alert alert-warning'>Please add product/sevice name</div>").show().delay(5000).hide('slow');
+            return false;
+        }
+        
+        if(photo ==''){
+            $('#msg').html("<div class='alert alert-warning'>Please choose a product photo</div>").show().delay(5000).hide('slow');
+            return false;
+        }
+     });
+     
+    function doDelete(id, pId){
+    	var r = confirm("Are you sure to Delete this product/service?");
+    	if (r == true) {
+    	   window.location.assign("<?php echo $this->baseUrl(); ?>/mem-pages/delete-product/id/" + id+"/page_id/"+pId);    
+    	} else {
+    	   return false;
+    	}
+	}
+	function pinPost(id,pId){
+		
+		 var url = "<?php echo $this->baseUrl(); ?>/mem-pages/pin-post";
+		 $.ajax({
+			type    : 'POST',
+			data    : { post_id: id
+			,page_id : pId
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#msgBox').html('Your post has been pinned').fadeIn(200).delay(1000).fadeOut();
+				
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 
+	}
+</script>

@@ -1,0 +1,59 @@
+<style>
+    #page-wrapper {
+        padding-bottom: 30px;
+        padding-top: 10px;
+    }
+    #entryBox {
+        padding-bottom: 25px;
+        margin-top: 5px;
+        display: none;
+    }
+    #msg, .details-box{
+        display: none;
+    }
+	#p_post,#p_info{
+		display:none;
+	}
+</style>
+<div id="page-wrapper">
+    
+	<div class="col-md-12" style="border-bottom:1px solid lightgray;padding-bottom:10px;">
+		<a class="btn btn-success" id="post_button">Product Post</a>
+		<a class="btn btn-success" id="info_button">Info Post</a>
+	</div>
+
+	<div class="col-md-12">
+		<div id="p_post">
+			This is a post section.
+		</div>
+		<div id="p_info">
+			This is a info section.
+		</div>
+	</div>
+
+    
+</div>
+
+<script type="text/javascript">
+    $(function(){
+		$('#post_button').click(function(){
+			$('#p_post').slideToggle(500);
+			if ($('#p_info').is(':visible')){
+				$('#p_info').slideUp(500);
+			}
+		});
+		$('#info_button').click(function(){
+			if ($('#p_post').is(':visible')){
+				$('#p_post').slideUp(500);
+			}
+			$('#p_info').slideToggle(500);
+		});
+        <?php if(!isset($this->msg)) { ?>
+      $('#msg').hide();
+        <?php  } else{ ?>
+          $('#msg').show().delay(5000).hide('slow');
+        <?php } ?>
+    }); // ready function end
+
+    
+</script>

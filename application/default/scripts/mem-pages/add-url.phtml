@@ -1,0 +1,162 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 10px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+</style>
+<div id="page-wrapper">
+   <div class="row">
+   <div class="col-md-12">
+<?php if(!$this->authorized){ ?>
+   <div class="alert alert-danger text-center" role="alert"><strong><h2>Sorry you don't have access permissions on this page.</h2><strong></div>
+ </div></div></div>  
+<?php } elseif($this->has_url){ ?>
+   <div class="alert alert-success text-center" role="alert"><strong><h2>Page Address is already registered. You can't modify it</h2><strong></div>
+ </div></div></div>  
+  <?php 
+   }else{ ?>
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong><h2>Page Address</h2></strong></div>
+  <div class="panel-body">
+  <div id="msg" style="margin-top: 10px;"><?php echo $this->msg ?></div>
+   
+  <form class="form-horizontal" id="frm" action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">	
+  <input type="hidden" name="page_id" id="page_id" value="<?php echo $this->page_id ?>"/>	 
+ <div class="col-md-8"><label>Add Page Address</label><?php echo $this->form->url_slug; ?></div>
+ <div class="col-md-4"><div style="margin-top:24px"><button class="btn btn-danger"type="button" onclick="return checkURL();">Check address availability</button></div></div>
+ <div class="col-md-8"><div id="url-msg" class="alert alert-danger" style="margin-top:10px, font-weight:bolder"></div><div>&nbsp;</div></div>
+ <div class="col-md-4"><img id="loader" src="<?php echo $this->baseUrl(); ?>/images/admin/ajax-loader.gif" style="height:50px"/></div>
+ 
+ <!--div class="col-md-12"><label>Select Page Type</label><?php echo $this->form->page_type; ?></div>
+  <div class="col-md-12">&nbsp;</div>
+ 
+ <div class="col-md-12"><label>Select Page Category</label><?php echo $this->form->categories; ?></div-->
+   
+ <div class="col-md-12 text-center"><?php echo $this->form->submit; ?></div>  
+	
+	
+	</div>
+   </div>
+   </div>
+   </div><!-- row page info ends -->
+   </div>
+   <?php } ?>
+   <script type="text/javascript">
+var valid_address = false; 
+    window.onload = function () { 
+    <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(5000).hide('slow');
+
+    <?php } ?>
+      $('#loader').hide();
+	  $('#url-msg').hide();
+	  
+	  $('input[type="submit"]').prop('disabled', true);
+	}
+	
+	function checkURL()
+    {
+	var newurl = $('#url_slug').val();
+	urlslug =  newurl.length;
+	if (urlslug  > 1 || newurl != '' ){
+	
+	Text = newurl.toLowerCase();
+	Text = $.trim(Text);
+    var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'-');
+    // alert(outputString);return;
+    $('#loader').show();
+    
+	$.ajax({
+			type: 'GET',
+             url: "<?php echo $this->baseUrl()?>/mem-pages/search-url-slug/url/"+outputString,
+                success: function(result) 
+                {
+					var result = $.trim(result);
+					// alert(result);
+                    if(result == 'exist')
+                    {
+                        $('#loader').hide();
+    					$("#url-msg").html("This Page Address is already registered. Please try another address").show().css("font-weight", "bold").css("margin-top", "10px").delay(5000).fadeOut(1000);
+					}
+                    else if(result == 'success')
+                    {
+						  $('#loader').hide();
+    					$("#url-msg").html("Congratulations Page Address is available! Please add remaing details.").show().css("font-weight", "bold").css("margin-top", "10px").attr("class", "alert alert-success").delay(5000).fadeOut(1000);
+$("#url_slug").val(outputString);            	       
+					   $('input[type="submit"]').prop('disabled', false);
+				   } else {
+				        $('#loader').hide();
+                        $('#msg').html("<div class='alert alert-danger'>Some error in saving record</div>").show().delay(5000).fadeOut(1000);
+				   }
+				},
+                error: function(result)
+                {
+                     console.log('error : '+ result);
+                     if(result == 'error')
+                     {
+                        $('#loader').hide();
+                        $('#msg').html("<div class='alert alert-danger'>Some error in saving record</div>").show().delay(5000).fadeOut(1000);
+                     }
+                }
+        }); //ajax end
+        return false;
+	}
+	else{
+		$("#url-msg").html("Enter Page Address").show().css("font-weight", "bold").css("margin-top", "10px").delay(5000).fadeOut(1000);
+		
+	}
+	
+	}
+	
+	function disableSubmit(){
+$('input[type="submit"]').prop('disabled', true);
+	
+	}
+	
+	function validateForm(){
+				//$( "#myselect option:selected" ).text();
+        var page_type = $("#page_type option:selected").text();
+        var categories = $("#categories option:selected").text();
+       
+        if (page_type == "-- Select --") {
+          	$("#url-msg").html("Select Page Type to proceed").show().css("font-weight", "bold").css("margin-top", "10px").attr("class", "alert alert-danger").delay(10000).fadeOut(1000);
+	  return false; 
+        }
+		
+		if (categories == "-- Select --") {
+          	$("#url-msg").html("Select Page Category to proceed").show().css("font-weight", "bold").css("margin-top", "10px").attr("class", "alert alert-danger").delay(10000).fadeOut(1000);
+	  return false; 
+        }
+		
+		return true;
+       
+	}
+	</script>

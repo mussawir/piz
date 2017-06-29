@@ -1,0 +1,20 @@
+<div id="page-wrapper" style="padding-top: 20px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="msg"><?php echo $this->msg ?></div>
+        
+            <h1>Start an Advertisement</h1>
+        
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+       <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();			
+		<?php  } else{ ?>
+			$('#msg').show().delay(5000).hide('slow');
+		<?php } ?> 
+    });
+</script>

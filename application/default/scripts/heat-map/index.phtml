@@ -1,0 +1,146 @@
+<style type="text/css">
+
+#clickmap-overlay { 
+    position:fixed; 
+    top:0; left:0; 
+    width:100%; height:100%;  
+    background-color:#000; 
+    filter:alpha(opacity=70); opacity: 0.7;
+} 
+
+#clickmap-loading { 
+    position:fixed; 
+    top:0; left:0; 
+    width:100%; height:100%;  
+    background:transparent url(<?php echo $this->baseUrl(); ?>/images/admin/loader.GIF) no-repeat center center; 
+} 
+
+#clickmap-container div { 
+    position:absolute; 
+    width:20px; height:20px; 
+    /*background:transparent url(<?php echo $this->baseUrl(); ?>/images/admin/click.png) no-repeat center center;*/
+    background: radial-gradient(circle, red,  green, blue);
+    border-radius: 25px;
+} 
+</style>
+
+<!--script src="<?php echo $this->baseUrl();?>/js/admin/plugins/heatmap/heatcanvas.js" type="text/javascript"></script-->
+<script type="text/javascript">
+    
+    (function($) { 
+
+    $.fn.saveClicks = function() { 
+        $(this).bind('mousedown.clickmap', function(evt) { 
+            $.post('<?php echo $this->baseUrl(); ?>/heat-map/index', {  
+                x:evt.pageX,  
+                y:evt.pageY,  
+                l:escape(document.location.pathname),
+                click_page_id:$('#click_page_id').val(),
+                click_page_type:$('#click_page_type').val()
+                //l:escape(document.location)
+            }); 
+        }); 
+    }; 
+    
+    $.fn.stopSaveClicks = function() { 
+         $(this).unbind('mousedown.clickmap'); 
+    }; 
+    
+    $.displayClicks = function(settings) { 
+                
+        $('<div id="clickmap-overlay"></div>').appendTo('.homepage'); 
+     
+        $('<div id="clickmap-loading"></div>').appendTo('.homepage');
+                
+        $.get('<?php echo $this->baseUrl(); ?>/heat-map/show-heatmap', 
+            { 
+                l:escape(document.location.pathname)
+            },  
+            function(html) { 
+                $(html).appendTo('.homepage');
+                //genData();
+                $('#clickmap-loading').remove(); 
+            } 
+        );
+    }; 
+     
+    $.removeClicks = function() { 
+        $('#clickmap-overlay').remove(); 
+        $('#clickmap-container').remove();
+        $('#main-menu').css({'filter':'alpha(opacity=100)','opacity':'1'});
+    };
+    
+    })(jQuery); 
+    
+    $(function() {
+        $(document).saveClicks();
+        
+        <?php if(isset($this->user_role)) { ?>
+            var query = $(location).attr('search');
+            if(query=='?heatmap'){
+                $('#main-menu').css({'filter':'alpha(opacity=30)','opacity':'0.3'});
+            
+                $.displayClicks();
+                
+                $(document).stopSaveClicks();
+                
+                $('a').attr('href','#');
+            }
+        <?php } ?>
+    });
+    
+    <?php if(isset($this->user_role)) { ?>
+    var query = $(location).attr('search');
+    if(query=='?heatmap'){
+        $(document).bind('keydown', 'alt+m', function(){
+            
+            $('#main-menu').css({'filter':'alpha(opacity=30)','opacity':'0.3'});
+            
+            $.displayClicks();
+            $('#clickmap-overlay').click(function() {
+                $.removeClicks();
+                $(document).saveClicks();
+            });
+            
+            $(document).stopSaveClicks();
+            return false;
+        });
+    }
+    <?php } ?>
+    
+    // create heatmap object
+    /*var heatmap = new HeatCanvas("heatmap-canv"); 
+    var pressure = 40;
+    
+    function addData(x, y, v){
+        // push data into the map
+        heatmap.push(x, y, v);
+        document.getElementById("heatmap-canv").getContext("2d").fillText(v, x, y);
+    }
+    
+    function genData(){
+        var amount = 30;
+        
+        var records = $('#clickmap-container').attr('class');
+        records = records.split('_')[1];
+                
+        $("#clickmap-container").each(function(){
+            var xAxis = $(this).find(".dp .x");
+            var yAxis = $(this).find(".dp .y");
+            
+            var x = Math.floor(xAxis * heatmap.width);
+            var y = Math.floor(yAxis * heatmap.height);
+            addData(x, y, pressure);
+        });        
+        
+        /*for (var i=0; i< amount; i++){
+            var x = Math.floor(xAxis * heatmap.width);
+            var y = Math.floor(yAxis * heatmap.height);
+            addData(x, y, pressure);
+        }
+        
+        // you can render the map with custom colors
+        heatmap.render(1, null, null); 
+    }*/
+    
+</script>

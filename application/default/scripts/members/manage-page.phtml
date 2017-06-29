@@ -1,0 +1,671 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 10px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+</style>
+<div id="page-wrapper">
+<div class="row">
+<div class="col-md-12">
+<?php //echo $this->render('/members/menu.phtml'); ?>
+
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/members/manage-page/id/<?php echo $this->page_id ?>">Poster Page</a></li>
+  <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/product-service/id/<?php echo $this->page_id ?>">Page Products/Services</a></li>
+  <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+  <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+</ul>
+</div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div id="banner-container" class="col-md-12" style="color: #000;padding: 0;margin-top: 10px;">
+            <img id="loader-banner" src="<?php echo $this->baseUrl(); ?>/images/admin/ajax-loader.gif" style="display: none; width: 150px;margin-left: 45%;margin-top: 5%;position: absolute;" />
+            
+            <form id="header-frm" action="<?php echo $this->baseUrl()?>/members/upload-banner" method="post" enctype="multipart/form-data">
+            
+                <input type="file" name="banner" class="banner" style="display: none;" accept="image/*" onchange="saveBanner();" />
+                <div id="preview" class="text-center" style="min-height: 200px;background-color: #eee;width: 300px;">                
+                <?php if(!empty($this->banner)) { ?>                
+                    <img  id="banner-img" src="<?php echo $this->baseUrl(). $this->member_dir_name. '/500X500/'.$this->banner;?>" alt="" class="img-responsive" />                    
+                <?php } else { ?>
+                    <img src="<?php echo $this->baseUrl();?>/images/placeholder_380X380.png" alt="placeholder image" class="img-responsive" />
+                <?php }?>
+                </div>    
+                <p id="file-selector"><span class="fa fa-camera fa-2x"></span>
+                    &nbsp;<strong>UPLOAD POSTER</strong></p>            
+                <input type="hidden" id="old_banner" name="old_banner" value="<?php echo $this->banner;?>" />
+                <input type="hidden" value="<?php echo $this->page_id;?>" name="page_id" />
+                <input type="hidden" value="<?php echo $this->baseUrl();?>" name="base_path" />
+            </form>
+            
+        </div>
+    </div>
+    
+    <div id="msg" style="margin-top: 10px;"><?php echo $this->msg ?></div>
+    
+    <form class="form-horizontal" id="frm" action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">	
+        <input type="hidden" name="page_id" id="page_id" value="<?php echo $this->page_id ?>"/>
+			<!-- row1 start-->
+  <div class="row">   
+	<div class="col-md-9">
+      <!--<input type="text" name="heading" id="heading" class="form-control head-title" required="true" placeholder="Enter post title here"  title="Enter post title here" value="<?php echo $this->heading; ?>" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete="off"/>-->
+	<?php echo $this->form->banner_link;?>	 
+	 <?php echo $this->form->title;?>
+	 <div class="row">
+	  <div class="col-md-12">
+	  <span class="set-parma" style="font-size:11px"><strong>Parmalink:</strong>
+           <span id="p_link" style="font-size: 11px; display: inline;"></span>
+    	   <input type="text" name="url_slug" id="url" value="<?php echo $this->errorSlug?>"  style="font-size: 11px; borderdisplay: none; display: none;background-color: #eee;"/>
+    	  
+    	  <!-- a class="btn btn-xs btn-default" onclick="editFunction()" id="edited" style="display: inline;margin-right: 10px;">Edit</a>
+    	  <a class="btn btn-xs btn-default" onclick="saveUrl()" id="saved" style="display: none;margin-right: 10px;">Save</a>
+          <a class="btn btn-xs btn-default" onclick="cancelFunction()" id="cancel" style="display: none;">Cancel</a --> 
+    	  <a class="btn btn-xs btn-default" href="javascript:void(0);" id="copy" style="display: inline;margin-right: 10px;">Copy Link</a>
+          <a class="btn btn-xs btn-default" href="javascript:void(0);" id="open_link" style="display: inline;">Open</a>
+          <img id="loader" style="display: none;margin-left: 40px;height: 50px;" src="<?php echo $this->baseUrl()?>/images/admin/ajax-loader.gif" />
+	  </span>    
+	  </div>
+	 </div>
+	</div>
+	
+	<div class="col-md-3">
+	<br />
+	   <!-- button class="btn btn-md btn-primary set-save" value="1" name="submit" type="submit">Save as Draft   </button -->
+	<button class="btn btn-md btn-primary" id="btn-publish" value="0" name="submit" type="submit">Update</button>
+    </div>
+  </div> <!-- row1 end-->
+  
+  <!-- row 2 start-->
+  <div class="row">
+	<div class="col-md-12">
+	 <div class="set-ck">
+		<?php echo $this->form->contents ?>
+	 </div> 
+	</div>
+   </div><!-- row 2 end-->
+   
+     <div class="row" style="margin-top: 20px;">
+   <div class="panel panel-info">
+      <div class="panel-heading"><strong><h4>Page Required Information</h4></strong></div>
+  <div class="panel-body">
+   <!--div class="col-md-6">
+        <label><span style="color:red">*</span> Page Type</label>
+      
+        <select name="page_type" id="page-type" class="dropdown form-control">       
+	       <option value="none"> Select </option>
+			<option value="Organization">Organization</option>
+            <option value="Product">Product</option>            
+            <option value="Religious">Religious</option>
+            <option value="Service">Service</option>
+            <option value="Trading">Trading</option>
+        </select>
+    </div-->
+	<div class="row">
+	  <div class="col-md-6"><span style="color:red">*</span> <label>Business Name </label><?php echo $this->form->business_name; ?></div>
+
+    <div class="col-md-6">
+        <label><span style="color:red">*</span> Category</label>
+        <?php //echo $this->form->categories;?>
+        
+        <select name="categories" id="category" class="dropdown form-control">
+        <option value="0" selected="">-- Select --</option>
+        <?php foreach($this->category_list as $item) : ?>
+            <option value="<?php echo $item['category_id'];?>"><?php echo $item['category_name'];?></option>
+        <?php endforeach; ?>
+        </select>
+    </div>
+		<div class="col-md-6"><span style="color:red">*</span> <label>Page Description</label><?php echo $this->form->page_description; ?></div>
+ 
+ </div>
+    <!--div class="col-md-6">
+        <div id="sub-cat1"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="sub-cat2"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="sub-cat3"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="sub-cat4"></div>
+    </div-->
+    <div class="col-md-2" style="display: none;"><label for="is_featured">Is Featured?</label><?php echo $this->form->is_featured; ?></div>
+   </div>
+   </div>
+   </div> <!-- row required ends -->
+   
+   <div class="row">
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong><h4>Page Information for Search Engine</h4></strong></div>
+  <div class="panel-body">
+  
+  <div class="row">
+     <div class="col-md-6">
+        <label>Contact Number</label><?php echo $this->form->contact_number; ?>
+        <label><input type="checkbox" id="set-number" /> Use same number for WhatsApp and Wechat</label>
+     </div>
+	    <div class="col-md-6"><label>Area Serviced</label><?php echo $this->form->area_serviced; ?></div> 
+  </div>
+  <div class="row">
+     <div class="col-md-6">
+        <label>WhatsApp Number</label><?php echo $this->form->wap_number; ?>
+     </div>
+     <div class="col-md-6">
+        <label>Wechat Number</label><?php echo $this->form->wechat_number; ?>
+     </div>
+  </div>
+  
+   <div class="row" style="margin-top: 20px;">
+    <img id="ajax-loader" style="display: none;margin-left: 40px;height: 50px;" src="<?php echo $this->baseUrl()?>/images/admin/ajax-loader.gif" />
+    
+    <div class="col-md-3"><label>Country &nbsp;<a href="javascript:void(0);" id="changeDdl">Change</a></label>
+        <input type="hidden" id="country_name" name="country_name" value="<?php echo $this->country_name;?>" />
+        <input type="hidden" id="country_id_saved" name="country_id" value="<?php echo $this->country_id;?>" />
+        <input type="text" class="country_name form-control" readonly="" value="<?php echo $this->country_name;?>" />
+        <?php echo $this->form->country_id;?>
+    </div>
+    
+    <div class="col-md-3"><label>State</label>
+        <input type="hidden" id="state_name" name="state_name" value="<?php echo $this->state_name;?>" />
+        <input type="hidden" id="state_id_saved" name="state_id" value="<?php echo $this->state_id;?>" />
+        <input type="text" class="state_name form-control" readonly="" value="<?php echo $this->state_name;?>" />
+        <select id="state" name="state_id" class="form-control" onchange="getCities();" style="display: none;" disabled="">
+            <option value="0">Select State</option>
+        </select>
+    </div>
+    
+    <div class="col-md-3"><label>City</label>
+        <input type="hidden" id="city_name" name="city_name" value="<?php echo $this->city_name;?>" />
+        <input type="hidden" id="city_id_saved" name="city_id" value="<?php echo $this->city_id;?>" />
+        <input type="text" class="city_name form-control" readonly="" value="<?php echo $this->city_name;?>" />
+        <select id="city" name="city_id" class="form-control" onchange="getPostcodes();" style="display: none;" disabled="">
+            <option value="0">Select City</option>
+        </select>
+    </div>
+    
+    <div class="col-md-3"><label>Postcode</label>
+        <input type="hidden" class="postcode" name="postcode" value="<?php echo $this->postcode;?>" />
+        <input type="hidden" class="pc_id_saved" name="pc_id" value="<?php echo $this->pc_id;?>" />
+         <input type="text" class="postcode_d form-control" readonly="" value="Not Required Now!" />
+		<!-- input type="text" class="postcode_d form-control" readonly="" value="<?php echo $this->postcode;?>" />
+        <select id="postcode" name="pc_id" class="form-control" style="display: none;" disabled="">
+            <option value="0">Select Postcode</option>
+        </select -->
+    </div >
+   </div>
+   
+
+   <div class="row">
+    <div class="col-md-12"><label>Address</label><?php echo $this->form->address; ?></div>
+	
+	</div>
+	</div>
+   </div>
+   </div><!-- row page info ends -->
+ 
+   <!--row 3 start-->
+   <div class="row" style="margin-top: 5px;">
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong><h4>Search Engin Optimization Information</h4></strong></div>
+  <div class="panel-body">
+	 <div class="col-md-4">
+		<?php echo $this->form->tags; ?>
+	</div>
+	<div class="col-md-5">
+		<?php echo $this->form->keyword_content; ?>
+	</div>
+	<div class="col-md-3">
+	<br/>
+		<label for="is_comment" style="text-align:center;">No Comments
+    	<?php echo $this->form->is_comment; ?>
+	</div>
+			<div class="col-md-12">
+	 <div class="set-ck">
+		<?php echo $this->form->description_content; ?>
+	 </div>
+ <br />    
+     <button class="btn btn-md btn-primary pull-right" id="btn-publish" value="0" name="submit" type="submit">Update</button>
+	</div>
+	
+	</div>
+	</div>
+	</div><!--row 3 ends-->
+	
+	</div><!-- col 12 ends -->
+   </form>
+   
+</div> <!-- wrapper end-->
+    
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin/jquery.form.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/admin/plugins/jquery.zclip.js"></script>
+<script type="text/javascript">
+
+    window.onload = function () { 
+    <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(5000).hide('slow');
+
+    <?php } ?>
+	
+	<?php if(isset($this->errorSlug)){ ?>
+  var url = "<?php echo $this->site_url;?>/";  	       
+		   $("#url").val('<?php echo $this->errorSlug ?>');  
+            $("#p_link").text(url).append('<?php echo $this->errorSlug ?>');  
+	//alert("<?php echo $this->errorSlug ?>");
+   <?php  } ?>
+	
+         var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/admin/fileman/index.html';
+         
+            CKEDITOR.replace( 'contents',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+            
+         load_parmalink();  
+         
+         $("#copy").zclip({
+           path:"<?php echo $this->baseUrl();?>/js/admin/plugins/ZeroClipboard.swf",
+           copy:function(){return $("#p_link").text();}
+        });
+        
+        $('#category').val(<?php echo $this->category;?>);
+        
+        var pagetype = $('#page-type option').filter(function () { return $(this).html() == "<?php echo trim($this->page_type);?>"; }).val();
+        $('#page-type').val(pagetype);
+        
+        $('#country_id').hide().attr('disabled', 'disabled');
+        
+ } // load function end
+
+    var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+ 
+ var url = "<?php echo $this->site_url;?>/";
+
+// make slug from title
+/*
+$("#title").keyup(function(){ 
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'');
+        //var regExp = /\s+/g;
+        //Text = Text.replace(regExp,'-');
+        $("#url").val(outputString);
+		$("#p_link").text(url).append(outputString);
+});
+ 
+  // make custom slug
+$("#url").keyup(function(){ 
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'-');
+            $("#url").val(outputString);
+         //   $("#p_link").text(url).append(outputString);
+        
+});
+*/
+   /* $("#tags").blur(function(){
+        
+        var result = setCommaSeparetedValues($(this));
+        
+        $(this).val(result);
+    });
+    
+    $("#keyword_content").blur(function(){
+        
+        var result = setCommaSeparetedValues($(this));
+        
+        $(this).val(result);
+    });
+
+function setCommaSeparetedValues(id)
+{
+    var data = $(id).val();
+        data = data.toLowerCase();
+        
+    var outputString = data.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>.\/? ])+/g, ', ').replace(/^(-)+|(-)+$/g,'');
+    data = outputString.split(/[ ,]+/).filter(function(v){return v!==''}).join(', ');
+    
+    return data;
+}*/
+
+function load_parmalink(){ 
+    
+		$("#p_link").text(url +$("#url").val());
+}
+
+
+    /* for hide and show input field and btn*/
+    function editFunction() {
+        //document.getElementById("url").style.display = "inline";
+        $("#url").css("display", "inline").css("border", "0");;
+        document.getElementById("saved").style.display = "inline";
+        document.getElementById("cancel").style.display = "inline";
+        document.getElementById("edited").style.display = "none";
+        	document.getElementById("copy").style.display = "none";
+            $('.zclip').css('display', 'none');
+        	/*for getting url with out slug*/
+        $("#p_link").text(url);      
+    }
+
+    function cancelFunction() {
+        document.getElementById("url").style.display = "none";
+        document.getElementById("saved").style.display = "none";
+        document.getElementById("cancel").style.display = "none";
+        document.getElementById("edited").style.display = "inline";	
+        document.getElementById("copy").style.display = "inline";
+        $('.zclip').css('display', 'inline');
+        document.getElementById("url").value ="<?php echo $this->errorSlug?>";
+        /*for getting url by default*/
+         $("#p_link").text(url +$("#url").val());
+    }
+    
+    $('#copy').on('click',function(){
+        $("#copy").zclip({
+           path:"<?php echo $this->baseUrl();?>/js/admin/plugins/ZeroClipboard.swf",
+           copy:function(){return $("#p_link").text();}
+        });
+        
+        $('#msg').html("<div class='alert alert-success'>Permalink copied to clipboard.</div>").show().delay(3000).hide('slow');
+        
+    });
+
+ function saveUrl()
+ {
+	var newurl = $('#url').val();
+	if (newurl != ''){
+	
+    Text = newurl.toLowerCase();
+     var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'-');
+    
+    $('#loader').show();
+    
+	$.ajax({
+			type: 'GET',
+             url: "<?php echo $this->baseUrl()?>/members/update-url-slug/id/<?php echo $this->page_id?>/url/"+outputString,
+                success: function(result) 
+                {
+                    if(result == 'exist')
+                    {
+                        $('#loader').hide();
+    				    $('#msg').html("<div class='alert alert-danger'>Page Unique Parmalink Is Already Exist. Please change url for unique parmalink.</div>").show().delay(5000).fadeOut(500);                         
+                    }
+                    else if(result == 'success')
+                    {
+            	        $("#url").val(outputString);
+                        $("#p_link").text(url).append(outputString);
+            			$('#msg').html("<div class='alert alert-success'>URL updated Successfully!</div>").show().delay(5000).fadeOut(500); 
+                        document.getElementById("url").style.display = "none";
+                        document.getElementById("saved").style.display = "none";
+                        document.getElementById("cancel").style.display = "none";
+                        document.getElementById("edited").style.display = "inline";	
+                        document.getElementById("copy").style.display = "inline";
+                        $('.zclip').css('display', 'inline');
+                        $('#loader').hide();
+				   } else {
+				        $('#loader').hide();
+                        $('#msg').html("<div class='alert alert-danger'>Some error in saving record</div>").show().delay(5000).fadeOut(1000);
+				   }
+				},
+                error: function(result)
+                {
+                     console.log('error : '+ result);
+                     if(result == 'error')
+                     {
+                        $('#loader').hide();
+                        $('#msg').html("<div class='alert alert-danger'>Some error in saving record</div>").show().delay(5000).fadeOut(1000);
+                     }
+                }
+        }); //ajax end
+        return false;
+	}
+	else{
+		alert("Please Enter Url Slug!");
+	}
+ } //saveUrl function end
+ 
+    $("#file-selector").click(function() {
+        $(".banner").trigger("click");
+     });
+     
+	 function saveBanner() {
+        $("#header-frm").trigger("submit");        
+     }
+     
+     $('#header-frm').ajaxForm({
+            beforeSubmit: function() {
+              // validate  
+			    $('#loader-banner').hide();
+            },
+            beforeSend:function(){
+    		   $('#loader-banner').show();
+    		},
+            success: function(msg) {
+    	    },
+    		complete: function(xhr) {
+                $('#loader-banner').hide();
+                var result = xhr.responseText; //console.log(result);
+                result = JSON.parse(result);
+                
+                if( result.status=='success'){ 
+                    $("#preview").html('');
+                    $("#preview").html(result.banner).fadeIn();
+                    $('#old_banner').val(result.old_banner);
+                    $("#header-frm")[0].reset();
+                } else if( result.status=='error'){
+                    $("#msg").html(result.msg).show().delay(7000).fadeOut('slow');    
+                }
+            }
+     }); //ajax form end
+     
+	 
+     $("#btn-publish").click(function() {
+       
+ if($('#title').val()==""){
+            $('#msg').html("<div class='alert alert-danger'><strong>Please add page title</strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+		/*
+		if($('#contents').val()== ""){
+            $('#msg').html("<div class='alert alert-danger'><strong>Please add page contents</strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+        */
+        
+        if($('#page-type').val()=='none'){
+            $('#msg').html("<div class='alert alert-danger'><strong>Please select a page type</strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+		
+		 if($('#category').val()==0){
+            $('#msg').html("<div class='alert alert-danger'><strong>Please select a category</strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+     });
+          
+     function getState()
+     {
+		$('#ajax-loader').show();
+		
+		var country_id = $('#country_id').val();//select item value from listbox
+		if(country_id == "")return;
+		$.post("<?php echo $this->baseUrl()?>/members/get-state", {country_id: country_id},
+		//this is response from controller
+		function(data){
+			$('#state').html(data);
+			
+            $('#ajax-loader').hide();
+			$.unblockUI();
+		});
+    } // getState end
+    
+    function getCities()
+    {	   
+       $('#ajax-loader').show();
+			var country_id = $('#country_id').val();//select item value from listbox
+			var state_id = $('#state').val();//select item value from listbox
+			 if(country_id == "")return;
+			 if(state_id == "")return;
+	   
+       $.post("<?php echo $this->baseUrl()?>/members/get-cities", {country_id: country_id, state_id: state_id},
+       function(data){
+            $('#city').html(data);
+            
+            $('#ajax-loader').hide();
+			$.unblockUI(); 
+	   });
+	} // getCities end
+    
+    function getPostcodes()
+    {
+	   $('#ajax-loader').show();
+			var country_id = $('#country_id').val();//select item value from listbox
+			var state_id = $('#state').val();//select item value from listbox
+	       var city_id = $('#city').val();
+			 if(country_id == "")return;
+			 if(state_id == "")return;
+			  if(city_id == "")return;
+	
+        $.post("<?php echo $this->baseUrl()?>/members/get-postcodes", {country_id: country_id, state_id: state_id, city_id: city_id},
+        function(data){
+		  $('#postcode').html(data);
+		  
+          $('#ajax-loader').hide();
+		  $.unblockUI(); 
+        });
+    } // getPostcodes end
+    
+    function validateForm()
+    {
+        if(!$("#country_id").is(":visible")){
+            return true;
+        }
+        
+        var state = $("#state").val();
+        var city = $("#city").val();
+        var postcode = $("#postcode").val();
+
+        if ($("#country_id").val() == 0) {
+            $("div#msg").html('<div class="alert alert-warning">Please select a country</div>').show().delay(5000).fadeOut(1000);
+            return false; 
+        }
+        
+        if (!state.trim() || state == 0) {
+            $("div#msg").html('<div class="alert alert-warning">Please select a state</div>').show().delay(5000).fadeOut(1000);
+            return false; 
+        }
+        
+        if (!city.trim() || city == 0) {
+            $("div#msg").html('<div class="alert alert-warning">Please select a city</div>').show().delay(5000).fadeOut(1000);
+            return false; 
+        }
+       /* 
+        if (!postcode.trim() || postcode == 0) {
+            $("div#msg").html('<div class="alert alert-warning">Please select a postcode</div>').show().delay(5000).fadeOut(1000);
+            return false; 
+        }*/
+    }
+    
+    $('#changeDdl').click(function(){
+        $(this).hide();
+                
+        $('.country_name').hide();
+        $('.state_name').hide();
+        $('.city_name').hide();
+        $('.postcode_d').hide();
+       
+        $('#country_id').show().removeAttr('disabled');
+        $('#state').show().removeAttr('disabled');
+        $('#city').show().removeAttr('disabled');
+        $('#postcode').show().removeAttr('disabled');
+    });
+    
+    $('#country_id').change(function(){
+        $('#country_name').val($('#country_id option:selected').text());
+     });
+     
+     $('#state').change(function(){
+        $('#state_name').val($('#state option:selected').text());
+     });
+     
+     $('#city').change(function(){
+        $('#city_name').val($('#city option:selected').text());
+     });
+     
+     $('#postcode').change(function(){
+        $('.postcode').val($('#postcode option:selected').text());
+     });
+     
+     $('#open_link').click(function(){
+        var page_url = $('#p_link').text();
+        window.open(page_url, '_blank');
+     });
+     
+     $('#category').select2().val(<?php echo $this->category;?>).trigger("change");
+     
+     $('#set-number').change(function(){
+        if($(this).is(':checked')){
+            var contact_number = $('#contact_number').val();
+            $('#wap_number').val(contact_number).attr('readonly', 'readonly');
+            $('#wechat_number').val(contact_number).attr('readonly', 'readonly');
+        } else {
+            $('#wap_number').val('').removeAttr('readonly');
+            $('#wechat_number').val('').removeAttr('readonly');
+        }
+     });
+     
+     $('#contact_number').keydown(function(){
+        var isChecked = $('#set-number').is(':checked');
+        if(isChecked){
+            $('#wap_number').val($(this).val());
+            $('#wechat_number').val($(this).val());
+        }
+     });
+     
+     $(function(){
+        if($('#contact_number').val()!=''){
+            $('#set-number').prop('checked', true);
+            $('#wap_number').attr('readonly', 'readonly');
+            $('#wechat_number').attr('readonly', 'readonly');
+        }
+     });
+     
+ </script>

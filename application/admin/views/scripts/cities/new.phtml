@@ -1,0 +1,141 @@
+﻿<div class="row" >
+            <div class="col-lg-9 col-lg-offset-1">
+			
+            <?php echo $this->render('/cities/menu.phtml');?>        
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-automobile fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">New City/City Council</div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <div class="panel-body">
+                                <span class="pull-left">Enter Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix">
+                                  
+                                    <form class="form-horizontal space-city" action="" method="POST" enctype="multipart/form-data" onsubmit=" return false;" >
+                                       	<table class="table table-striped table-bordered table-hover">
+                                    	<tr id='msg'><td id='td_msg' colspan='2'><?php echo $this->msg ?></td></tr>
+										<?php echo $this->form->country; ?>												
+        	               <tr>
+			                 <td><strong id="set-state-val"> Select State </strong></td>
+                            <td>
+							 <select id="state" name="state_id" class="form-control">
+                                 <option value="0">Select State</option>
+                             </select>
+                            </td>
+                            </tr>
+                                                <?php echo $this->form->city_name; ?>
+												
+												<?php echo $this->form->city_code; ?>
+                                       
+												   <tr><td></td><td><button class="btn btn-lg btn-primary" name="save" value="1" onclick="saveCity();">Save</button><?php //echo $this->form->Save; ?> </td>
+												 </tr>    
+											</form>
+	                              
+                                </div>
+                            </div>
+                       
+                    </div>
+                
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        
+<script type="text/javascript">
+window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('tr#msg').hide();
+			
+			$('tr#city_name').hide();
+			$('tr#city_code').hide();
+			
+		<?php  } else{
+		?>
+			$('tr#msg').show();
+		<?php } ?>
+        
+        
+ }  // load function end
+			function getState(){
+			var country_id = $('#country_id').val();//select item value from listbox
+					$('#country_id').val(country_id);
+			 if(country_id == "")return;
+						$.post("<?php echo $this->baseUrl()?>/admin/countries/get-state", {country_id: country_id},
+						//this is response from controller
+						function(data){
+							
+							$('#state').html(data);
+                            
+                            if($('#state option').size()>1){
+                                $('#set-state-val').text('* Select State');
+                            } else {
+                                $('#set-state-val').text('Select State');
+                            }
+						});
+			}
+			
+			function saveCity(){
+				var country_id = $('#country_id').val();//select item value from listbox
+				var state_id = $('#state').val();//select item value from listbox
+				var city_name = $('#city_name').val();
+				
+					if(country_id == 0){
+					$('tr#msg').show();
+					$('td#td_msg').html("<div class='alert alert-danger'>Please Select Country</div>")
+					$('tr#msg').hide(6000);
+					return;	
+				}
+				
+				if($('#state option').size()>1){
+    				if(state_id == 0){
+    					$('tr#msg').show();
+    					$('td#td_msg').html("<div class='alert alert-danger'>Please Select State</div>")
+    					$('tr#msg').hide(6000);
+    					return;	
+    				}
+				}
+                
+				if(city_name == ""){
+					$('tr#msg').show();
+					$('td#td_msg').html("<div class='alert alert-danger'>Please Enter City Name</div>")
+					$('tr#msg').hide(6000);
+					return;	
+				}
+				
+				$('#country_id').val(country_id);
+			 	if(country_id == "")return;
+						$.post("<?php echo $this->baseUrl()?>/admin/cities/save-city", {country_id: country_id, state_id: state_id, city_name: city_name},
+						//this is response from controller
+						function(data){
+					$('tr#msg').show();
+					$('td#td_msg').html(data)
+					$('tr#msg').hide(6000);
+					return;	
+							
+						});
+				}
+			
+			function getCities(country_id){
+				
+			
+				var state_id = $('select#state').val();//select item value from listbox
+					$('#state_id').val(state_id);
+					if(state_id == "")return;
+                    
+					$('state_id').val(state_id);
+					$('country_id').val(country_id);
+					$('tr#city_name').show();
+					$('tr#city_code').show();
+					$('input#submitbutton').show();
+						
+			}
+ </script>

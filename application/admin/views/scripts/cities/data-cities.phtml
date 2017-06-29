@@ -1,0 +1,55 @@
+				<div class="row-fluid">
+
+                    <div class="span12">
+						<div class="box gradient">
+
+                                <div class="title">
+                                    <h4>
+                                        <span>Data table</span>
+                                    </h4>
+                                </div>
+                                <div class="content noPad clearfix">
+								
+                                    <?php if (count($this->paginator)){ ?>
+                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Cities Name</th>
+                                                <th>Cities Code</th>
+                                            </tr>
+                                        </thead>
+										
+
+									    <tbody>
+                                    <?php foreach ($this->paginator as $key=>$val){?>
+											<?php if($key%2 != 0){?>
+											<tr class="odd gradeX">
+                                                <td><?php echo $val['city_name']?></td>
+                                                <td><?php echo $val['city_code']?></td>
+                                              
+                                            </tr>
+											<?php }else{?>
+                                            <tr class="even gradeC">
+                                                <td><?php echo $val['city_name']?></td>
+                                                <td><?php echo $val['city_code']?></td>
+                                                
+                                            </tr>
+											<?php }
+											}//end foreach?>
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Cities Name</th>
+                                                <th>Cities Code</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+									<?php }?>
+                                </div>
+								
+						</div><!-- End .box -->
+
+                    </div><!-- End .span12 -->
+
+                </div><!-- End .row-fluid -->

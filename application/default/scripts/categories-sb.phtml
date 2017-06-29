@@ -1,0 +1,247 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+<style>
+select, input{
+	font-size: 40px;
+	font-weight: bold;	
+}  
+ 
+.btn-find {
+    background: #52ba3d;
+    color: #ffffff;
+}
+ 
+.btn-find:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #52D43B;color: #181C4F;
+}
+ 
+.btn-find:active, .btn-find.active {
+    background: #52D43B;
+    box-shadow: none;
+}
+
+.navbar{
+/* border-bottom: 2px solid #40a52c; */	
+	
+} 
+.search-box{
+margin-top: 0px	
+}
+
+input, select{
+	padding: 20px;	
+}
+
+.jumbotron{
+height: 145px;
+/*  background-color: #2a2c4c; 	 */
+background-color:#e3e5e3; 
+}
+
+
+@media(max-width:720px) and (min-width:240px) {
+.search-box{
+margin-top: 23px	
+}
+.btn-find {
+border-radius:0;
+}
+
+select {
+border: 0;
+border-radius:0;	
+
+outline: 1px inset #EEEEEE; 
+outline-offset:-1px;
+}
+
+.jumbotron{
+height: 155px;	
+} 
+
+}
+
+@media(min-width:481px) {
+#location-mm{
+	display: none;	
+}
+#btn-search-small{
+	display: none;	
+}
+
+#browse2{
+	display: none;	
+}
+
+
+}
+
+@media(max-width:480px) and (min-width:1px) {
+#location{
+	display: none;	
+}	
+#btn-search{
+	display: none;	
+}
+#browse1{
+	display: none;	
+}
+
+}
+
+
+#contents h2{
+	color: #2f9e1e;	
+}
+#contents{
+	margin: 0px;
+	padding: 0px;
+	font-size: 1.3em;
+}
+
+.select2-selection{
+    height: 34px!important;
+    border-radius: 0!important;
+    text-align: left;
+}
+
+.select2-search__field{
+    padding:0!important;
+    font-size: 20px;
+}
+
+</style>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+	  <form class="" action="<?php echo $this->baseUrl(); ?>/categories/search" method="get" role="search">  
+
+      <div class="container">
+<div class="row search-box">
+   <div class="col-lg-12 text-center">
+ <div class="input-group">
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#area-location" aria-haspopup="true" aria-expanded="true" id="location">Location <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#area-location" aria-haspopup="true" aria-expanded="true" id="location-mm"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+   
+   <!-- Modal -->
+<div id="area-location" class="modal fade" role="dialog" >
+  <div class="modal-dialog" >
+  
+    <!-- Modal content-->
+    <div class="modal-content" style="background-color: #fffef2">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Select Location</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+	  <div class="col-md-12" style="margin-bottom: 10px">
+	  	<select name='state' id='states'  onchange="getCities();" class="form-control"style="font-size: 16px;"><option value="0"> Select State</option>
+ <?php if(isset($this->state_id)){
+ foreach($this->states_list as $list){
+	?>  
+  <option value="<?php echo $list['state_id'] ?>"  <?php if($list['state_id'] == $this->state){
+	  echo "selected = 'selected' ";  }?>><?php echo $list['state_name'] ?> 
+  </option>
+  
+  <?php } 
+  
+  }?>
+ </select>
+	  </div>
+	   <br/>
+	   <div class="col-md-12">
+	    <select name='city' id='cities' class="form-control" style="font-size: 16px;" onchange="getCityName();"><option value="0"> Select City </option>
+  
+ <?php if(isset($this->city_id)){
+ foreach($this->cities_list as $list){
+	
+	?>  
+  <option value="<?php echo $list['city_id'] ?>"  <?php if($list['city_id'] == $this->city){
+	  echo "selected = 'selected' ";  }?>><?php echo $list['city_name'] ?> 
+  </option>
+    
+  <?php } 
+  
+  }?>
+  </select>	
+	   
+	   </div>
+	  </div>
+      
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onClick="focusQ();">Continue >></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+   
+      </div><!-- /btn-group -->
+<!-- input type="text" name="q" id="q" class="form-control" style="font-size: 18px; text-center" placeholder="Enter business or page name" required="required" / -->
+        <select name="category" id='category' class="form-control" style="font-size: 16px;">
+            <option value="0">Select Category</option>
+            <?php foreach($this->category_list as $item) : ?>
+                <option value="<?php echo $item['category_id'];?>" <?php if($item['category_id'] == $this->category){
+	  echo "selected = 'selected' ";  }?>><?php echo $item['category_name'];?></option>
+            <?php endforeach; ?>    	  
+        </select>
+      <div class="input-group-btn">
+        <button type="submit" class="btn btn-success" onClick="setOT(1);" id="browse1">Browse <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+		<button type="submit" class="btn btn-success" onClick="setOT(1);" id="browse2"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+		<input type="hidden" id="operation_type" name="operation_type" />
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+
+  </div><!-- /.col-lg-12 -->
+  
+  <div class="col-lg-12">
+  <div style="font-size: 65%; margin-left: 4px; padding-top: 2px ">
+  <span style="color: #150A4D" id="city_name">City, </span><span style="color: #42387c" id="state_name"> State </span>
+  </div>
+  </div>
+ 
+</div><!-- /.row -->
+	   </div>
+    
+	      <div class="container">
+<div class="row">
+   <div class="col-lg-12 text-center">
+ <div class="input-group">
+<input type="text" name="q" id="q" class="form-control" style="font-size: 18px; text-center" placeholder="Enter business or page name" />
+     <div class="input-group-btn">
+        <button type="submit" class="btn btn-success" id="btn-search"  onClick="setOT(2);">Search By Category <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		<button type="submit" class="btn btn-success" id="btn-search-small"  onClick="setOT(2);"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+
+  </div><!-- /.col-lg-12 -->
+ 
+</div><!-- /.row -->
+	   </div>
+	
+	</div>
+
+<script type="text/javascript">
+    $('#category').select2().val(<?php echo $this->category;?>).trigger("change");
+    
+    function selectAlphabet($_char)
+    {
+        $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/categories/load-categories",
+             data: { category:$_char},
+             success: function(result) {
+                $('#category-list').html(result);
+			},
+            error: function(result)
+            {
+                console.log("Some error occur. Please try again.");
+            }
+        }); //ajax end
+             
+        return false;
+    }
+</script>

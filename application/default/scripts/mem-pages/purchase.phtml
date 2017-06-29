@@ -1,0 +1,97 @@
+<div id="page-wrapper" style="padding-bottom: 20px;">
+	
+    <div class="row">        
+        <div class="col-md-12">             
+		
+        <div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+        <h1 class="page-header">Purchase History</h1>
+        <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<thead>
+			<tr>
+					
+					<th class="grid-head"> Purchase No.</th>
+					<th class="grid-head">Status</th>
+					<th class="grid-head"> Pages</th>
+					<th class="grid-head"> Price</th>
+					<th class="grid-head"> Lag Time </th>												
+				</tr>
+			</thead>		
+			<tbody> 
+
+			<?php if (count($this->data)){ 
+			  foreach ($this->data as $item): ?>
+			<tr class="odd gradeX">
+				
+				
+				<td  style="text-align:center;">
+					<?php echo $item['mpm_id']; ?>
+				</td>
+
+				<td  style="text-align:center;">
+					<?php echo $item['status']; ?>
+				</td>
+				
+				<td style="text-align:center;">
+					<?php echo $item['pages']; ?>
+				</td>
+				
+				<td style="text-align:center;">
+					RM<?php echo $item['price']; ?>
+				</td>
+				
+				<td style="text-align:center;">
+					30 days
+				</td>
+					
+			</tr>  
+				<?php endforeach; } ?> 
+			</tbody>
+		</table>
+							
+                    </div><!-- div responsive end-->												
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+</div>
+
+<?php
+    function strip_single($tag, $string){
+        $string = preg_replace('/<'.$tag.'[^>]*>/i', '', $string);
+        $string = preg_replace('/<\/'.$tag.'>/i', '', $string);
+        return $string;
+    }
+?>
+
+  <script type="text/javascript">
+ window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(5000).hide('slow');
+		<?php } ?>
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 3, "asc" ]],
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false, 'aTargets': [2,3,4]}]
+	       }
+        );
+ }
+ 
+    function confirmDelete(id){
+    	var r = confirm("Do you realy want to delete this Page?" );
+    	if (r == true) {
+    	   window.location.assign("<?php echo $this->baseUrl(); ?>/admin/page/delete-page/id/" + id);    
+    	} else {
+    	   return false;
+    	}
+	}
+ </script>

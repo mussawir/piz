@@ -1,0 +1,96 @@
+<!-- Non form translator section starts-->
+<?php
+
+if(Zend_Registry::get("lang_id") == 1){
+$adapter = new Zend_Translate(
+    array(
+        'adapter' => 'array',
+        'content' => array('page_heading' => 'Adding Bulk States'),
+        'locale'  => 'en'
+    )
+);
+}
+if(Zend_Registry::get("lang_id") == 2){
+$adapter = new Zend_Translate(
+    array(
+        'adapter' => 'array',
+        'content' => array('page_heading' => 'بلک صوبوں کو شامل کرنے سے','Select State' => 'ریاست کا انتخاب کریں' ),
+        'locale'  => 'en'
+    )
+);
+}
+	?>
+
+  <div id="content" class="clearfix">
+            <div class="contentwrapper"><!--Content wrapper-->
+
+                <div class="heading">
+						<h3><?php 
+						$translate = new Zend_View_Helper_Translate($adapter);
+						print $translate->translate('page_heading');	?>
+						</h3>
+
+                    <div class="resBtnSearch">
+                        <a href="#"><span class="icon16 brocco-icon-search"></span></a>
+                    </div>
+
+                    <div class="search">
+
+                        <form id="searchform" action="#" />
+                            <input type="text" class="top-search" placeholder="Search here ..." />
+                            <input type="submit" class="search-btn" value="" />
+                        </form>
+                
+                    </div><!-- End search -->
+				</div><!-- End .heading-->
+    			
+				<div class="row-fluid">
+
+                        <div class="span6">
+
+                            <div class="box">
+
+                                <div class="title">
+
+                                    <h4>
+                                        <span class="icon16 brocco-icon-grid"></span>
+                                        <span>States</span>
+                                    </h4>
+                                    
+                                </div>
+                                <div class="content">
+                                   
+                                    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data" >
+                                        
+                                       <table class="table">
+											
+											<tr>
+												<td>*Select Country  :</td>
+												<td><?php echo ($this->form->country); ?></td>
+											</tr>
+											
+											<tr>
+											<td>Select A File(csv):</td>
+											<td><?php echo $this->form->bulk_states; ?></td>
+											</tr>
+											<table class="extra-fields" id="form-table" style="width:100%">               
+											   <?php echo $this->form->___h;?>     
+											</table>
+											 
+											<table id="form-table" style="width:100%" id="submitbutton">   
+												   <tr><td colspan='2'><?php echo $this->form->Save; ?> </td>
+												 </tr>          
+											</table> 
+										</table>
+										
+									</form>
+							
+    
+                                </div>
+
+                            </div><!-- End .box -->
+
+                        </div><!-- End .span6 -->
+						
+
+                </div><!-- End .row-fluid -->

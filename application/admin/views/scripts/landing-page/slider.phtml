@@ -1,0 +1,189 @@
+<style>
+body {
+  margin: 0; 
+  padding: 0;
+  background: #111;
+  height: 100%;
+}
+.diy-slideshow{
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+figure{
+  position: absolute;
+  opacity: none;
+  transition: 1s opacity;
+}
+figcaption{ 
+  position: absolute;
+  font-family: sans-serif;
+  font-size: .8em;
+  bottom: .75em;
+  right: .35em;
+  padding: .25em;
+  color: #fff;
+  background: rgba(0,0,0, .25);
+  border-radius: 2px;
+}
+figcaption a{
+  color: #fff;
+}
+figure.show{
+  opacity: 1;
+  position: static;
+  transition: 1s opacity;
+}
+.next, .prev{
+  color: #fff;
+  position: absolute;
+  background: rgba(0,0,0, .6);
+  top: 50%;
+  z-index: 1;
+  font-size: 2em;
+  margin-top: -.75em;
+  opacity: .3;
+  user-select: none;
+}
+.next:hover, .prev:hover{
+  cursor: pointer;
+  opacity: 1;
+}
+.next{
+  right: 0;
+  padding: 10px 5px 15px 10px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.prev{
+  left: 0;
+  padding: 10px 10px 15px 5px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+p{
+  margin: 10px 20px;
+  color: #fff;
+}
+
+.edit-box
+{
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+</style>
+
+
+
+<div class="row">
+<div class="col-lg-12">
+
+<div class="diy-slideshow"> 
+    <figure class="show">
+        <img src="<?php echo $this->baseUrl();?>/images/user/slides/<?php echo $this->slides[1]['slide1']?>" width="100%" /> 
+    </figure>
+  <figure>
+    <img src="<?php echo $this->baseUrl();?>/images/user/slides/<?php echo $this->slides[1]['slide2']?>" width="100%" /> 
+    </figure>
+    <figure>
+        <img src="<?php echo $this->baseUrl();?>/images/user/slides/<?php echo $this->slides[1]['slide3']?>" width="100%" /> 
+    </figure>
+  <figure>
+        <img src="<?php echo $this->baseUrl();?>/images/user/slides/<?php echo $this->slides[1]['slide4']?>" width="100%" /> 
+    </figure>
+  <figure>
+        <img src="<?php echo $this->baseUrl();?>/images/user/slides/<?php echo $this->slides[1]['slide5']?>" width="100%" />
+    </figure>
+  <figure>
+        <img src="<?php echo $this->baseUrl();?>/images/user/slides/<?php echo $this->slides[1]['slide6']?>" width="100%" />
+    </figure>
+  <span class="prev">&laquo;</span>
+  <span class="next">&raquo;</span>
+  <a href="#" id="edit-slider"><span class="edit-box pull-right">Edit Slider</span></a>
+</div>  
+
+</div>
+</div>
+
+<div id="popup-dialog"></div>
+
+ <script type="text/javascript">
+    $(function(){
+  
+    var counter = 0, // to keep track of current slide
+        $items = document.querySelectorAll('.diy-slideshow figure'), // a collection of all of the slides, caching for performance
+        numItems = $items.length; // total number of slides
+    
+    // this function is what cycles the slides, showing the next or previous slide and hiding all the others
+    var showCurrent = function(){
+      var itemToShow = Math.abs(counter%numItems);// uses remainder (aka modulo) operator to get the actual index of the element to show  
+      
+      // remove .show from whichever element currently has it 
+      // http://stackoverflow.com/a/16053538/2006057
+      [].forEach.call( $items, function(el){
+        el.classList.remove('show');
+      });
+      
+      // add .show to the one item that's supposed to have it
+      $items[itemToShow].classList.add('show');    
+    };
+    
+    // add click events to prev & next buttons 
+    document.querySelector('.next').addEventListener('click', function() {
+         counter++;
+         showCurrent();
+      }, false);
+    
+    document.querySelector('.prev').addEventListener('click', function() {
+         counter--;
+         showCurrent();
+      }, false);
+  
+  // dialog box code
+  $('#popup-dialog').dialog({
+      autoOpen: false,
+      modal: true,
+      //minHeight: 400,
+      //minWidth: 400,
+      buttons: {
+        'Save Changes': function(){
+          $.ajax({
+            url: '<?php echo $this->baseUrl();?>/admin/sliders/edit/',
+            type: 'POST',
+            data: $(this).find('form').serialize(),
+            success: function(data){
+              //some logic to show that the data was updated
+              //then close the window
+              $(this).dialog('close');
+            }
+          });
+        },
+        'Discard & Exit' : function(){
+          $(this).dialog('close');
+        }
+      }
+    });
+    
+    $('#edit-slider').click(function(e){
+      e.preventDefault();
+      
+      var sliderId = "<?php echo $this->slides[1]['slider_id']; ?>";
+      
+      $.ajax({
+        url: '<?php echo $this->baseUrl();?>/admin/sliders/edit/',
+        type: 'POST',
+        data: {id : sliderId},
+        success: function(result){
+          //construct the data however, update the HTML of the popup div 
+          $('#popup-dialog').html(result).dialog('open');
+          //$('#popup-dialog').dialog('open');
+        }
+      });
+      return false;
+    });
+  
+  });  
+</script>

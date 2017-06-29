@@ -1,0 +1,39 @@
+ <?php echo $this->render("categories-sb.phtml"); ?>
+<div class="container">
+    <!-- search body -->
+    <div class="row" style="min-height: 400px; padding: 20px 0;">
+        <div class="col-md-12">
+            <?php if(count($this->paginator)>0){?>
+                <div class="row">
+                <?php foreach($this->paginator as $sr): ?>
+                        <div class="col-md-3">
+                            <a href="<?php echo $this->baseUrl().'/'.$sr['url_slug']?>">
+                                <div class="banner-thumbnail">
+                                <?php if(isset($sr['banner_img'])){?>
+                                <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/uploads/<?php echo $sr['dir_name'] ?>/500X500/<?php echo $sr['banner_img'] ?>" alt="<?php echo $sr['title'];?>" />
+                                <?php } else {?>
+                                <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/banner-placeholder-360X500.jpg" alt="<?php echo $sr['title'];?>" />
+                                <?php } ?>
+                                    <!--div class="txt-over">
+                                        <span class="content">Click Here</span>
+                                    </div-->
+                                </div>
+                                <strong class="text-primary"><?php echo $sr['title'];?></strong>                            
+                                
+                            </a>                            
+                            <p style="min-height: 170px;"><?php echo $sr['page_description'];?></p>                            
+                        </div>
+                <?php endforeach;?>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'my_pagination_control.phtml'); ?>
+                    </div>                
+                </div>
+            <?php } else { ?>
+                <div class="alert alert-info">Search not found</div>
+            <?php }?>
+        </div> <!-- left col end -->        
+    </div>
+</div>

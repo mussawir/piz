@@ -1,0 +1,465 @@
+<style type="text/css">
+#clickmap-overlay { 
+    position:fixed; 
+    top:0; left:0; 
+    width:100%; height:100%;  
+    background-color:#000; 
+    filter:alpha(opacity=70); opacity: 0.7; 
+}
+
+#clickmap-loading { 
+    position:fixed; 
+    top:0; left:0; 
+    width:100%; height:100%;  
+    background:transparent url(<?php echo $this->baseUrl(); ?>/images/admin/loader.GIF) no-repeat center center; 
+} 
+
+#clickmap-container div { 
+    position:absolute; 
+    width:20px; height:20px; 
+    background:transparent url(<?php echo $this->baseUrl(); ?>/images/admin/click.png) no-repeat center center; 
+} 
+</style>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header" style="color: #337AB7;">
+			Dashboard
+		</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3 col-md-6">
+        <a href="<?php echo $this->baseUrl(); ?>/admin/post-comments/index/status/1">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-comments fa-4x">
+						</i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">
+							<?php echo $this->PendingPostsComments; ?>
+						</div>
+						<div>
+							Post Comments
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel-footer">
+			<span class="pull-left">View Details</span>
+			<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+			<div class="clearfix"></div>
+			</div>
+			
+		</div>
+        </a>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<?php if($this->role != 2 && $this->role != 3 && $this->role != 4){ ?>
+                <a href="<?php echo $this->baseUrl(); ?>/admin/comments/index/status/1">
+            <?php }else{?>
+                <a href="#">
+            <?php }?>
+        <div class="panel panel-red">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-comments fa-4x">
+						</i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">
+							<?php echo $this->PendingPageComments; ?>
+						</div>
+						<div>
+							Page Comments
+						</div>
+					</div>
+				</div>
+			</div>
+			            
+			<div class="panel-footer">
+			<span class="pull-left">View Details</span>
+			<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+			<div class="clearfix"></div>
+			</div>
+			
+		</div>
+        </a>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<a href="<?php echo $this->baseUrl(); ?>/admin/posts/index/status/1">
+        <div class="panel panel-green">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-thumb-tack fa-4x">
+						</i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">
+							<?php echo $this->DraftedPosts; ?>
+						</div>
+						<div>
+							Drafted Posts
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel-footer">
+			<span class="pull-left">View Details</span>
+			<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+			<div class="clearfix"></div>
+			</div>
+			
+		</div>
+        </a>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<?php if($this->role != 2 && $this->role != 3 && $this->role != 4){ ?>
+			    <a href="<?php echo $this->baseUrl(); ?>/admin/page/index/status/1">
+            <?php }else{?>
+                <a href="#">
+            <?php }?>
+        <div class="panel panel-yellow">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-files-o fa-4x">
+						</i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">
+							<?php echo $this->DraftedPages; ?>
+						</div>
+						<div>
+							Drafted Pages
+						</div>
+					</div>
+				</div>
+			</div>
+            
+			<div class="panel-footer">
+			<span class="pull-left">View Details</span>
+			<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+			<div class="clearfix"></div>
+			</div>
+			
+		</div>
+        </a>
+	</div>
+</div>
+<!-- analytics start here -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+                <h2 class="panel-title text-center" style="color: #337AB7;">
+					<strong>Site Analytics</strong>
+				</h2>                            
+			</div>
+        </div>        
+	</div>
+</div>
+
+<div id="dialog" class="popover modal-dialog"></div>
+
+<!-- Heatmap start here -->
+<?php if($this->role == 1) { ?>
+<div class="row">
+	<div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-heading">                
+                <!--form action="" method="post">
+                    <span><strong>Select Date: </strong></span>
+                    <input type="text" class="text-center" id="dtp" name="click_date" readonly="" value="" />&nbsp;
+                    <input type="submit" value="Load" class="btn btn-primary" id="dtp-btn" />
+                </form--> 
+                  <h2 class="panel-title text-center" style="color: #337AB7;">
+					<strong>Heatmap Clicks</strong>
+				</h2>                        
+			</div>
+            <div class="panel-body" style="max-height: 320px; overflow-x: hidden; overflow-y: scroll;">
+                <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="grid-head" style="vertical-align: middle;">Page URLs</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <!-- convert to json object to array -->
+                <?php if(count($this->heatmap_data)) { ?>
+                <?php foreach($this->heatmap_data as $item): ?>
+                    <tr>
+                        <td><a href="http://netefct.com<?php echo $item['location']; ?>?heatmap" class="url" onclick="getLink(this);" target="_blank"><?php echo $item['location']; ?></a></td>                        
+                    </tr>                    
+                <?php endforeach; ?>
+                <?php } else { ?>
+                    <tr><td>No record found.</td></tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        </div>
+            </div>
+        </div>    
+	</div>
+</div>
+<?php } ?>
+<!-- Heatmap end here -->
+
+<!-- Graphs start here -->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title" style="color: #337AB7;">
+					Visitor Countries for the Current Week
+				</h3>
+			</div>
+			<div class="panel-body">
+				<iframe src="http://netefct.com/analytics/index.php?module=API&method=ImageGraph.get&idSite=3&apiModule=UserCountry&apiAction=getCountry&token_auth=8e2d25e2492ec21931d399f12dce23be&graphType=horizontalBar&period=month&date=today&width=500&height=300"
+				style="width: 100%; min-height: 250;" height="350">
+				</iframe>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title" style="color: #337AB7;">
+					Visits over the Last 30 Days
+				</h3>
+			</div>
+			<div class="panel-body">
+				<iframe src="http://netefct.com/analytics/index.php?module=API&method=ImageGraph.get&idSite=3&apiModule=VisitsSummary&apiAction=get&token_auth=8e2d25e2492ec21931d399f12dce23be&graphType=evolution&period=day&date=previous30&width=500&height=300"
+				style="width: 100%; min-height: 250;" height="350">
+				</iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title" style="color: #337AB7;">
+					Browsers for the Current Month
+				</h3>
+			</div>
+			<div class="panel-body">
+				<iframe src="http://netefct.com/analytics/index.php?module=API&method=ImageGraph.get&idSite=3&apiModule=UserSettings&apiAction=getBrowser&token_auth=8e2d25e2492ec21931d399f12dce23be&graphType=horizontalBar&period=month&date=today&width=500&height=300"
+				style="width: 100%; min-height: 250;" height="350">
+				</iframe>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title" style="color: #337AB7;">
+					Social Networks
+				</h3>
+			</div>
+			<div class="panel-body">
+				<iframe src="http://netefct.com/analytics/index.php?module=API&method=ImageGraph.get&idSite=3&apiModule=Referrers&apiAction=getSocials&token_auth=8e2d25e2492ec21931d399f12dce23be&graphType=pie&period=month&date=today&width=500&height=300&colors=FFFF00,00FF00,FF0000,0000FF,555555,C3590D"
+				style="width: 100%; min-height: 250;" height="350">
+				</iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Graphs end here -->
+
+<div class="row">
+
+	<div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-heading">
+                <h2 class="panel-title text-center" style="color: #337AB7;" id="btn-csv">&nbsp;</h2>                            
+			</div>
+          
+        <div class="panel-body">
+        <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="grid-head" style="vertical-align: middle;">Date</th>
+                    <th class="grid-head" style="vertical-align: middle;">Unique visitors</th>
+                    <th class="grid-head" style="vertical-align: middle;">Users</th>
+                    <th class="grid-head" style="vertical-align: middle;">Visits</th>
+                    <th class="grid-head" style="vertical-align: middle;">Actions</th>
+                    <th class="grid-head" style="vertical-align: middle;">Visits with Conversions</th>
+                    <th class="grid-head" style="vertical-align: middle;">Bounces</th>
+					<th class="grid-head" style="vertical-align: middle;">Total time spent by visitors (in seconds)</th>
+                    <th class="grid-head" style="vertical-align: middle;">Maximum actions in one visit</th>
+                    <th class="grid-head" style="vertical-align: middle;">Bounce Rate</th>
+                    <th class="grid-head" style="vertical-align: middle;">Actions per Visit</th>
+                    <th class="grid-head" style="vertical-align: middle;">Avg. Visit Duration (in seconds)</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <!-- convert to json object to array -->
+                <?php foreach(json_decode($this->VisitsSummary, true) as $vs=>$value): ?>
+                    <tr>
+                        <td class="text-center"><?php echo $vs; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["nb_uniq_visitors"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["nb_users"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["nb_visits"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["nb_actions"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["nb_visits_converted"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["bounce_count"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["sum_visit_length"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["max_actions"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["bounce_rate"]; else echo '0%'; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["nb_actions_per_visit"]; else echo 0; ?></td>
+                        <td class="text-center"><?php if(count($value)>0) echo $value["avg_time_on_site"]; else echo 0; ?></td>
+                    </tr>                    
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	// functin for heatmap
+    (function($) { 
+ 
+    $.fn.stopSaveClicks = function() { 
+         $(this).unbind('mousedown.clickmap'); 
+    }; 
+    
+    $.displayClicks = function(settings) { 
+        //$('<iframe id="map-frame" src=<?php echo $this->baseUrl(); ?>'+clickedLink+' style="width:100%;border:0;" allowfullscreen></iframe>').appendTo('#dialog');
+        $('<div id="clickmap-overlay"></div>').appendTo('.container-fluid'); 
+     
+        $('<div id="clickmap-loading"></div>').appendTo('.container-fluid');
+                
+        $.get('<?php echo $this->baseUrl(); ?>/admin/index/show-heatmap', 
+            { 
+                l:escape(clickedLink)
+                //dtp:$('#dtp').val()
+            },  
+            function(html) { 
+                $(html).appendTo('.container-fluid');
+                     
+                $('#clickmap-loading').remove(); 
+            } 
+        );
+    }; 
+     
+    $.removeClicks = function() { 
+        $('#clickmap-overlay').remove(); 
+        $('#clickmap-container').remove();
+        
+    }; 
+             
+    })(jQuery);
+    // heatmap function end
+    
+    var clickedLink='';
+    function getLink(ele)
+    {
+        clickedLink = $(ele).text();
+    }
+    
+$(function(){
+   
+   var dialog = $('#dialog').appendTo(".container-fluid").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: "96%",
+        height:'auto',
+        close: function () {
+            //iframe.attr("src", "");
+            //$('#map-frame').remove();
+        }
+    });
+   
+   /*$.ajax({
+    type:'GET',
+    url: "http://netefct.com/analytics/index.php?module=API&method=ImageGraph.get&idSite=2&apiModule=VisitsSummary&apiAction=get&token_auth=anonymous&graphType=evolution&period=day&date=previous7&width=500&height=250",
+    success: function(result){
+        $('#VisitsSummaryGraph').html(result);
+    },
+    error: function(){
+        $('#VisitsSummaryGraph').html("Data not found");
+    }
+   });*/ //ajax end
+   /*
+   <?php //if(isset($this->selected_date)) { ?>     
+           $("#dtp").datepicker().datepicker("setDate",'<?php //echo $this->selected_date;?>');
+       <?php //} else {?>
+        var date= new Date(); 
+        $("#dtp").datepicker().datepicker("setDate",date);
+   <?php //}?>*/
+    
+   
+   /*$('.url').click(function() {
+        $.displayClicks();
+        $('#clickmap-overlay').click(function() {
+            $.removeClicks();
+            //$(document).saveClicks();
+        });
+        
+        $(document).stopSaveClicks();
+        //dialog.load("<?php echo $this->baseUrl(); ?>"+clickedLink).dialog("open");
+        
+        return false;
+   });*/
+   
+});
+
+    jQuery.fn.toCSV = function () 
+    {
+        var data = $(this).first(); //Only one table
+        var csvData = [];
+        var tmpArr = [];
+        var tmpStr = '';
+        data.find("tr").each(function () {
+            if($(this).find("th").length) {
+              $(this).find("th").each(function() {
+                tmpStr = $(this).text().replace(/"/g, '""');
+                tmpArr.push('"' + tmpStr + '"');
+              });
+              csvData.push(tmpArr);
+          } else {
+            tmpArr = [];
+            $(this).find("td").each(function () {
+                if ($(this).text().match(/^-{0,1}\d*\.{0,1}\d+$/)) {
+                    tmpArr.push(parseFloat($(this).text()));
+                } else {
+                    tmpStr = $(this).text().replace(/"/g, '""');
+                    tmpArr.push('"' + tmpStr + '"');
+                }
+            });
+            csvData.push(tmpArr.join(','));
+             } 
+        });
+        
+        var output = csvData.join('\n');
+        
+        var uri = 'data:application/csv;charset=UTF-8,' + encodeURIComponent(output);
+        
+        $('#btn-csv').append('<a id="table2csvlink" style="font-weight:bold;" class="pull-right" href="' + uri + '" download="Visits Summary.csv">Export To CSV</a>');        
+    }
+    
+    $('#dataTables-example').toCSV(); // conver table data to csv file
+        
+</script>

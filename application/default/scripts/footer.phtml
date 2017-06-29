@@ -1,0 +1,163 @@
+<style>
+    footer {
+        background-color: #2e2e2e;
+        padding: 20px 0;
+    }
+    footer h5 {
+        color: #fff !important;
+        font-weight: bolder;
+    }
+    h6 {
+        color: #FFF;
+        font-weight: bold;
+        font-style: italic;
+    }
+    .btn-sbsl {
+        color: #ffffff;
+        background-color: #4EC435;
+        border-color: #4EC435;
+        border-radius: 0px;
+        margin: 5px 0 !important;
+    }
+    .btn-sbsl:hover {
+        color: #1B1C52;
+    }
+    
+    footer p {
+        color: #fff !important;
+        text-align: center;
+    }
+    .headline {
+        border-bottom: 1px dotted #e4e9f0;
+        margin: 20px 0 15px;
+    }
+    footer ul {
+        margin: 0px !important;
+        padding: 0px !important;
+        
+    }
+    footer a{
+        color: #fff;
+    }
+    
+    footer a:hover{
+        color: #4EC435;
+    }
+    footer i{
+        font-size: 18px!important;
+    }
+    .affiliations{
+        padding-bottom: 90px;
+    }
+    @media (max-width:960px){
+        #frm-page-address{
+            display: flex;
+        }
+    }
+</style>
+    <div class="container" style="background-color:#2E2E2E"> <!-- /container -->
+        <div class="row">
+	 
+        <div id="footer-msg" style="display: none;"></div>
+     
+         <div class="col-md-3 ">
+		   <div class="directory">
+		    <div class="headline">
+		 
+              <h5>SITE DIRECTORY</h5>
+			  </div>
+			    
+              <ul class="list-unstyled">
+              <li><a href="<?php echo $this->baseUrl(); ?>/index/index">Search Pages</a></li>
+              <li><a href="<?php echo $this->baseUrl(); ?>/index/packages"><span>Create a New Page</span> </a></li>
+              <!-- li><a href="<?php echo $this->baseUrl(); ?>/categories/index"><span>Search and Browse by Category</span> </a></li -->
+              <!-- li><a href="#"><span>Daily Deals</span> </a></li>
+              <li><a href="#"><span>Advertise With Us</span> </a></li -->
+              <li><a href="<?php echo $this->baseUrl();?>/index/get-quotes"><span>Quote Finder for Marketing</span> </a></li>
+              </ul><br/>
+			  </div>  <!--directory div end-->
+              
+        </div>  <!--col-md-3 end-->
+ 
+           <div class="col-md-3 ">
+		     <div class="affiliations">
+		      <div class="headline">
+               <h5>AFFILIATIONS</h5>
+              </div>			   
+              
+			  <ul class="list-unstyled">  
+              <!-- li><a href="#"><span>Resource Centre</span> </a></li>
+              <li><a href="#"><span>Join the Forum</span> </a></li>
+			  <li><a href="#"><span>Become an Affiliate</span> </a></li -->
+          
+              <li><a href="<?php echo $this->baseUrl(); ?>/index/send-testimonial"><span>Provide a Testimonial</span> </a></li>
+             <li><a href="<?php echo $this->baseUrl(); ?>/index/m-reg"><span>Join Marketers Network</span> </a></li>
+              </ul> 
+			   </div><!--resource div end-->
+               
+        </div>    <!--col-md-2 end-->
+                
+             <div class="col-md-3">
+			  <div class="about1">
+		       <div class="headline">
+                <h5>ABOUT</h5>
+               </div>			  
+              
+			  <ul class="list-unstyled">
+              <li><a href="/how-it-works"><span>How it Works</span> </a></li>
+              <li><a href="/about-us"><span>About Us</span> </a></li>
+              <li><a href="<?php echo $this->baseUrl();?>/index/contact-us"><span>Contact Us</span> </a></li>
+              <li><a href="/terms-and-conditions"><span>Terms and Conditions</span> </a></li>
+              <li><a href="/privacy-policy"><span>Privacy Policy</span> </a></li>
+			  <!-- li><a href="#"><span>Site Map</span> </a></li -->
+			  
+              </ul>  </br>
+			  </div>  <!--about1 div end-->
+              </div>   <!--col-md-2 end-->
+
+	
+           <div class="col-md-3 ">
+              <div class="subscribe1">
+		       <div class="headline">
+			     <h5>SUBSCRIBE</h5>
+               </div>
+              <p style="float:left">Receive the latest Business Daily Deals:</p></br></br>
+                
+				<div class="sign-up-butn">
+                <button class="btn btn-sbsl" id="embedded-signup" onclick="window.location='<?php echo $this->baseUrl(); ?>/index/newsletter'" type="signup">Sign Up Now</button>
+                   
+					</div>
+         
+             <h6> Follow Us:</h6>
+
+               <a class="btn btn-sbsl" target="_blank" href="#">
+                <i class="fa fa-twitter"></i>
+               </a>
+               <a class="btn btn-sbsl" target="_blank" href="#">
+                 <i class="fa fa-facebook"></i>
+               </a>
+               <a class="btn btn-sbsl" target="_blank" href="#">
+                <i class="fa fa-linkedin"></i>
+               </a>
+               <a class="btn btn-sbsl" target="_blank" href="#">
+                <i class="fa fa-google-plus"></i>
+               </a>
+              <a class="btn btn-sbsl" target="_blank" href="#">
+                <i class="fa fa-youtube"></i>
+               </a>
+ 
+               
+             </div> <!--about1 div end-->
+			 </div> <!--col-md-3 end-->
+        
+        </div><!--row end-->
+            
+              <hr/>
+              
+              <div class="fineprint row">
+              
+              <p class="text-center">&copy; Copyright 2016. Design and Develop by: <a href="http://aliinfotech.com" target="_blank">aliinfotech.com</a></p>
+              
+        </div><!--fineprint row ends-->        
+    
+    </div> <!-- /container -->

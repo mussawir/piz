@@ -1,0 +1,52 @@
+<div class="container" style="padding: 40px 0;">
+     <form action="" method="post" class="form-horizontal">
+     <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div id="msg" style="display: none;"><?php echo $this->msg;?></div>
+            
+            <h2>Requirement Details</h2>
+                <div class="form-group">
+                <label for="name" class="col-sm-3"><span style="color: red;">*</span> Your full name:</label>
+                    <div class="col-sm-9"><?php echo $this->form->name;?></div>
+                </div>
+                <div class="form-group">
+                <label for="biz_name" class="col-sm-3">Business name:</label>
+                    <div class="col-sm-9"><?php echo $this->form->biz_name;?></div>
+                </div>
+                
+                <div class="form-group">
+                <label for="contact_number" class="col-sm-3"><span style="color: red;">*</span> Contact number:</label>
+                    <div class="col-sm-9"><?php echo $this->form->contact_number;?></div>
+                </div>
+                
+                <div class="form-group">
+                <label for="email" class="col-sm-3"><span style="color: red;">*</span> Email:</label>
+                    <div class="col-sm-9"><?php echo $this->form->email;?></div>
+                </div>
+                
+                <div class="form-group">
+                <label for="category" class="col-sm-3">Category:</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="category" id="category" class="form-control" value="<?php echo $this->cat_name;?>" readonly="" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                <label for="biz_requirements" class="col-sm-3">Business requirements:</label>
+                    <div class="col-sm-9"><?php echo $this->form->biz_requirements;?></div>
+                </div>
+        </div>
+     </div>
+     <hr />
+     <div class="row">
+        <?php $counter=1; foreach($this->samples as $item):?>
+        <div class="col-md-2">
+            <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/photo_gallery/200X200/<?php echo $item['photo_name'];?>" alt="Sample Banner/Poster" />
+            <p><strong class="text-primary"><?php echo $item['caption'];?></strong></p>            
+        </div>
+        <?php $counter++; endforeach;?>
+     </div>
+     
+     <?php echo $this->form->submit;?>
+     </form>
+</div>

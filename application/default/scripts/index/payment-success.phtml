@@ -1,0 +1,75 @@
+<div class="container" style="padding: 40px 0;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info">Thank you for choosing pageiz.com. Please create your page URL.</div>            
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <form action="" method="post" id="frm-page-address">
+        <div class="col-md-12">
+            <div id="msg" style="display: none;"></div>
+            
+            <h5>Check Page Address Availability</h5>
+            <input type="text" id="txt_page_address" name="page_address" class="form-control" required="" placeholder="address like: tarik jeans" />
+            <small id="sample-address" style="color: #fff;font-weight: bold;">e.g: <?php echo $this->baseUrl().'/tarik-jeans';?></small>            
+        </div>
+        <div class="col-md-9">
+            <button type="button" id="btn-check-address" class="btn btn-warning pull-right" >Process</button>
+        </div>
+        <div class="col-md-3">
+            <input type="submit" id="btn-continue" class="btn btn-success form-control" disabled="" value="Continue" />
+        </div>
+        </form>
+    </div>        
+</div>
+
+<script type="text/javascript">
+    // check page address
+    $('#btn-check-address').click(function(){
+        
+    	var newurl = $('#txt_page_address').val();
+        if(newurl=='' || newurl.length==0){
+            $('#msg').html("<div class='alert alert-warning'>Please enter page address you want to check</div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+             
+    	var text = newurl.toLowerCase();
+    	text = $.trim(text);
+        var outputString = text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'-');
+        
+        $(this).attr('disabled', 'disabled');
+        $(this).val('Processing...');
+        
+        $('#btn-continue').attr('disabled', 'disabled');
+        
+    	$.ajax({
+    			type: 'GET',
+                 url: "<?php echo $this->baseUrl()?>/members/search-url-slug/url/"+outputString,
+                    success: function(result) {
+                        if(result == 'exist') {
+                            $("#msg").html("<div class='alert alert-info'>This Page Address is already registered. Please try another</div>").show().delay(5000).fadeOut(1000);
+                            $("#txt_page_address").val('');
+                            $(this).prop('disabled', false);
+                            $(this).val('Process');
+                        }
+                        
+                        if(result == 'success') {
+    						$("#msg").html("<div class='alert alert-success'>Congratulations! Page Address is available</div>").show().delay(5000).fadeOut(1000);
+                            $("#txt_page_address").val(outputString);
+                            $('#sample-address').text('e.g: <?php echo $this->baseUrl();?>/'+outputString);
+                            $('#btn-continue').prop('disabled', false);
+                            $(this).prop('disabled', false);
+                            $(this).val('Process');
+    				   }
+    				},
+                    error: function(result) {
+                        console.log('error : '+ result);
+                        $('#msg').html("<div class='alert alert-danger'>Some error occur. Please try again</div>").show().delay(5000).fadeOut(1000);
+                        $(this).prop('disabled', false);
+                        $(this).val('Process');
+                    }
+            }); //ajax end
+            return false;    	
+	});
+</script>

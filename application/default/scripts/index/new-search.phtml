@@ -1,0 +1,202 @@
+ <style>
+	
+.form-control{
+	border-radius:0;
+}
+.container.small_form{
+	padding:40px;
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+@media only screen and (max-width: 768px) {
+    /* For desktop: */
+	
+}
+ </style>
+ <nav class="navbar  navbar-inverse" style="background:#333333;">
+  <div class="container">
+  <button type="button" class="navbar-toggle"
+  data-toggle="collapse"
+  data-target=".navbar-collapse"
+  >
+  <span class="sr-only"> Toggle navigation</span>
+  <span class="icon-bar"> </span>
+  <span class="icon-bar"> </span>
+  <span class="icon-bar"> </span>
+  </button>
+  
+   
+   
+       <div class="navbar-collapse collapse">
+           <ul class="nav navbar-nav navbar-right">
+				<li><a href="<?php echo $this->baseUrl(); ?>/index/become-member">Become a Member</a></li>
+				<li><a href="<?php echo $this->baseUrl(); ?>/index/packages">Create a Page</a></li>
+				<li><a href="<?php echo $this->baseUrl(); ?>/index/poster-samples">Banner/Poster Samples</a></li>
+				<?php if(isset($this->user_role) && isset($this->logged_user_id)) {?>
+				<li><a href="<?php echo $this->baseUrl(); ?>/mem-pages/index"> <i class="fa fa-user fa-home"></i> Dashboard</a></li>
+				<?php } else {?>
+				<li><a href="<?php echo $this->baseUrl();?>/authentication/login">Login</a></li>
+				<?php }?>           
+			    <li><a href="<?php echo $this->baseUrl(); ?>/marketer/index">Become a Marketer</a></li>
+				<!-- li><a href="<?php echo $this->baseUrl(); ?>/categories/index">Resellers</a></li -->
+				<li><a href="<?php echo $this->baseUrl(); ?>/blog">Blog <span class="sr-only">(current)</span></a></li>
+		   </ul>
+       </div>
+  </div>
+</nav>
+<div class="" style="background: #4285F4;">
+	<div class="container small_form" > 
+                            
+                            <div class="row">
+							<div class="container">
+                                <div class=" col-md-12">  
+									<div class="">
+									<div class="col-md-1"></div>
+										<div class="small_img col-md-2" >
+											<img src="../images/pageizlogo.png" class="img-responsive">  
+										</div>
+										<div class="col-md-8 no-padding" style="padding:0">
+											<form action="<?php echo $this->baseUrl(); ?>/index/new-search" method="get" role="search">
+											  
+											  <div class="input-group" style="height:60px;" class="small_frm">
+												  <input type="text" class="form-control" placeholder="Enter Business or Page Name"  style="height:60px;border-radius:0" required  name="q" id="q">
+												  <span class="input-group-btn"  style="height:60px;">
+													<button class="btn btn-secondary" type="submit"  style="height:60px;border-radius:0;background: #019587; border: 1px solid #019587;color:white;font-size: 25px; width: 62px;"> <i class="fa fa-search" aria-hidden="true"></i></button>
+												  </span>
+												</div>
+												
+										   </form>
+										</div>
+										<div class="col-md-1"></div>
+									</div>
+                                <!--div class="mbr-hero">
+                                    <h1 class="mbr-hero__text">Full-Screen Bootstrap Carousel</h1>
+
+                                    <p class="mbr-hero__subtext">Slide 2. Centered content</p>
+                                </div>
+                                <div class="mbr-buttons btn-inverse mbr-buttons--center"><a class="mbr-buttons__btn btn btn-lg btn-danger" href="#">FREE DOWNLOAD</a> <a class="mbr-buttons__btn btn btn-lg btn-default" href="#">VIEW DEMO</a></div-->
+                                </div>
+                            </div>
+                        </div>
+						</div>
+</div>
+<div class="container">
+	<div class="row" style="padding:40px;">
+        <div class="col-md-6 col-md-offset-3">
+            <?php if(count($this->paginator)>0){?>
+                <div class="row">
+                <?php foreach($this->paginator as $sr): ?>
+				                                <?php if($sr['is_blocked'] == 0){?>
+				   <div class="col-md-12 text-center" style="box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); padding: 2px 0; margin-bottom: 25px; ">
+                            <a href="<?php echo $this->baseUrl().'/'.$sr['url_slug']?>">
+                                <div class="banner-thumbnail" style="    height: auto;    margin-bottom: 0;">
+                                <?php if(isset($sr['banner_img'])){?>
+                                <img  class="img-responsive" src="<?php echo $this->baseUrl();?>/images/uploads/<?php echo $sr['dir_name'] ?>/500X500/<?php echo $sr['banner_img'] ?>" alt="<?php echo $sr['title'];?>" style="margin:auto;" />
+                                <?php } else {?>
+                                <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/banner-placeholder-360X500.jpg" alt="<?php echo $sr['title'];?>" />
+                                <?php } ?>
+                                    <!--div class="txt-over">
+                                        <span class="content">Click Here</span>
+                                    </div-->
+                                </div>
+								<div class="text-thumbnail" style="background: #F5F5F5; color: black; padding: 20px;">
+                                <strong class=""><?php echo $sr['title'];?></strong>
+							             
+                                </div>
+                            </a>      
+							<div class="para-thumbnail" style="padding: 20px;">
+                            <p><?php echo $sr['page_description'];?></p> 
+							
+							</div>							
+                        </div>
+												<?php } //is_blocked if ends?>
+                <?php endforeach;?>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'my_pagination_control.phtml'); ?>
+                    </div>                
+                </div>
+            <?php } else { ?>
+                <div class="alert alert-info">Search not found</div>
+            <?php }?>
+        </div> <!-- left col end -->
+        
+    </div>
+</div>
+
+  
+<div class="navbar  navbar-inverse"> 
+     <div class="container">
+       <div class="navbar-text pull=left">
+	    <p>&copy; Pageiz.</p>
+	   </div>
+	      
+	 </div>
+</div>
+
+
+  <script type="text/javascript">
+  $('document').ready(function(){
+	  var isShow = true;
+	 $(window).scroll(function() {
+					if ($(document).scrollTop() > 20) {
+						if(isShow){
+						  $('#myModal').modal('show');
+						  isShow=false;
+						}
+						
+					} 
+		  });
+		  $("#subscriber-form").submit(function(e){
+			e.preventDefault();
+			var formData = $(this).serialize();
+			$('#sub-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+			var name = $('#customer_name').val();
+			var getURL = $('#base_url').val()+'/index/subscribers';
+			console.log(getURL);
+			$.ajax({
+			type    : 'POST',
+			data    : formData,
+			async: true,
+			url : getURL,
+			success: function (result) {
+				
+				$('#sub-btn').html('<i class="fa fa-check" aria-hidden="true"></i> Subscribed');
+				setTimeout(function() { $('#myModal').modal('hide'); }, 2000);
+			return;
+
+			},
+			error:function (error) {
+				alert('please try again!');
+			}
+			});
+			
+		  });
+  });
+	
+  </script>

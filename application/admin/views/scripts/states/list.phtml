@@ -1,0 +1,179 @@
+  <style>/*
+  @media only screen and (min-width: 323px) and (max-width: 500px)
+{
+.banner-slider{ 
+    height:485px;
+}
+}     */
+</style>
+	   <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                         <div class="col-lg-13 col-md-26">
+                         <div class="row" style="height:50px; padding:0; margin:0"><!-- row 1-->
+                 <div class="col-xs-3">
+                 	<table class="table">
+                    <tr><td> <a href="<?php echo $this->baseUrl(); ?>/admin/states/list"> <i class="fa fa-list  alert-warning"> List</i></a></td>
+                    <td>  <a href="<?php echo $this->baseUrl(); ?>/admin/states/new"> <i class="fa fa-plus alert-warning"> New</i></a></td>
+                    </tr>
+                    </table>
+                 </div>
+                 </div><!-- ./ row 1-->
+                 
+                 
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-1">
+                                    <i class="fa fa-globe fa-5x"></i>
+                                </div>
+                                <div class="col-xs-6">
+                                <form action="<?php echo $this->baseUrl(); ?>/admin/states/list" action="post">
+                                <div class="input-group custom-search-form col-xs-6 text-right" style="padding-top:20px">
+                                <input type="text" name="query_string" id="query_string" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            
+                            </div>
+                            </form>
+                                </div>
+                                <div class="col-xs-5 text-right">
+                                    <div class="huge">States List
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+                        
+                             <div class="panel-body">
+                         <span class="pull-left">Use buttons for operations</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix">
+                               
+							   <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
+										<tbody>
+										<tr><td>
+                               <?php echo $this->countries; ?>
+                               </td></tr>
+                                </tbody></table>
+							   
+							   <div id="list">
+													<table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
+														<thead>
+															<tr>
+																<th>State Name</th>
+																<th>Edit</th>
+																<th>Block</th>
+															 	</tr>
+														</thead>		
+														<tbody>
+                                          
+														<?php if (count($this->paginator)){ ?>
+													
+														<?php foreach ($this->paginator as $item): ?>
+														<tr class="odd gradeX">
+															<td>
+															<?php echo $item['state_name'] ?>
+															</td>
+                                                        
+<td><a class="btn btn-sm btn-warning float-right" href="<?php echo $this->baseUrl(); ?>/admin/states/edit/state_id/<?php echo $item['state_id'] ?>">Edit</a></td>
+<td>
+<?php if($item['is_blocked'] == 1){ ?>
+<a class="btn btn-sm btn-success float-right" href="#" onclick="return confirmUnblock('<?php echo $item['state_name'] ?>',<?php echo $item['state_id'] ?>)">Unblock</a>
+<?php }else{ ?>
+<a class="btn btn-sm btn-danger float-right" href="#" onclick="return confirmBlock('<?php echo $item['state_name'] ?>',<?php echo $item['state_id'] ?>)">Block</a>
+<?php } ?>
+
+</td>
+														</tr>
+															<?php endforeach; ?>
+															<tr><td colspan='9'>
+															<?php echo $this->paginationControl($this->paginator, 'Sliding', 'my_pagination_control.phtml'); ?>
+															</td>
+															</tr><?php }else{ ?>
+											
+											
+															<tr><td colspan="7"><h4>There are no states created! Please create one</h4></td></tr>
+															<?php } ?>
+														</tbody>
+
+														</table>
+													</div>	
+												</div>
+                                     <div id="result"></div>
+                               
+                                
+                                </div>
+                                
+                               <a href="#">
+                            <div class="panel-footer">
+                             
+                            </div>
+                        </a>
+                       
+                    </div>
+                </div>
+                
+          
+                
+                
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+
+
+  <script language="Javascript" type="text/javascript">
+window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('tr#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('tr#msg').show();
+		<?php } ?>
+ }
+  
+function confirmBlock(name, id){
+var r = confirm("Blocking "+ name +" will block this state from search!");
+if (r == true) {
+window.location.assign("<?php echo $this->baseUrl(); ?>/admin/states/block/id/" + id);    
+} else {
+return false;
+}
+}
+
+function confirmUnblock(name, id){
+var r = confirm("Unblocking "+ name +" will open state for search!");
+if (r == true) {
+window.location.assign("<?php echo $this->baseUrl(); ?>/admin/states/unblock/id/" + id);    
+} else {
+return false;
+}
+}
+ 
+ function getState(){
+			var country_id = $('#country').val();//select item value from listbox
+			//$('#country_id').val(country_id);
+			  
+						
+						$.post("<?php echo $this->baseUrl()?>/admin/states/states-country", {country_id: country_id},
+						//this is response from controller
+						function(data){
+						$('#list').hide();
+						// $('#result').empty();
+							$('div#result').html(data);
+							$('div#result').show();
+							
+							//$('div#state').show();
+						});
+			}
+			
+ </script>

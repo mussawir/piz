@@ -1,0 +1,33 @@
+<style type="text/css">
+#wrapper {
+    padding-left: 0px !important;
+}
+</style>
+
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="w-col w-col-3 logo">
+          <a href="<?php echo $this->image_block[10]['link']?>"><img class="logo" src="<?php echo $this->baseUrl();?>/images/user/image-blocks/<?php echo $this->image_block[10]['block']?>" alt="Netefct Logo"></a>
+        </div>
+    
+<div class="w-nav navbar" data-collapse="medium" data-animation="default" data-duration="400" data-contain="1">
+            <div class="w-container nav">
+              <nav class="w-nav-menu nav-menu" role="navigation">  
+				<a class="w-nav-link menu-li" href="#">Netefct</a>
+				<a class="w-nav-link menu-li" href="#">Portfolio</a>
+				<a class="w-nav-link menu-li"href="#">Team</a>
+                <a class="w-nav-link menu-li" href="#">Services</a>
+				<a class="w-nav-link menu-li" href="#">Blog</a>
+				<a class="w-nav-link menu-li" href="#">About</a>
+                <a class="w-nav-link menu-li" href="#">Contact</a>
+              </nav>
+              <div class="w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+<?php echo $this->render("/landing-page/slider.phtml");  ?>

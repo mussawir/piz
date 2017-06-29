@@ -1,0 +1,35 @@
+
+
+	<div class="col-md-6 col-md-offset-3" style="background:white;padding:60px;">
+		<div class="row">
+		
+			<div class="col-md-6">
+				<img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->dir['dir_name'];?>/500X500/<?php echo $this->products['photo']?>"/>
+			</div>
+			<div class="col-md-6">
+				<h2 class=""><strong class="text-primary"><?php echo $this->products['name'] ?></strong></h2>
+				<a href="tel:<?php echo $this->details['contact_number'];?>" class="btn btn-info btn-call"  style="float:left;margin-left: 2px;"><span class="fa fa-phone"></span></a>
+				<div class="dropdown" style="float:left;margin-left: 2px;">
+                           <button type ="button" class ="btn btn-success dropdown-toggle" id="whatsapp-menu" data-toggle="dropdown">
+                              <span class="fa fa-whatsapp"></span> <span class="caret"></span>
+                           </button>
+                           <ul class="dropdown-menu" role="menu" aria-labelledby="whatsapp-menu">                            
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->details['contact_number'];?>#Intent;scheme=callto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Call <?php echo $this->details['contact_number'];?></a></li>
+                            <li role="presentation"><a role="menuitem" href="intent:<?php echo $this->details['contact_number'];?>#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" data-action="share/whatsapp/share">Message</a></li>
+                          
+                           </ul>
+						   
+                        </div>
+						<span style="margin-left: 2px;"  style="float:left;">
+                        <a onclick="window.open(this.href, '."'newwindow'".', '."'width=680, height=460'".'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=<?php $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; echo $actual_link;?>" class="btn btn-primary"><span class="fa fa-facebook"><span></a>
+                        </span>
+				<p style="margin-top:10px;"><strong>Posted at: </strong> <?= $this->products['date_created'] ?></p>
+				<p><strong>Price: </strong> RM<?= $this->products['price'] ?></p>
+				<a class="btn btn-success" style="margin:10px 0;" href="<?php echo $this->products['buy_link']; ?>">BUY PRODUCT</a>
+				
+			</div>
+			<div class="col-md-12">
+				<p><?php echo $this->products['description'];?></p> 
+			</div>
+		</div>
+	</div>

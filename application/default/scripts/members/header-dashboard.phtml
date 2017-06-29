@@ -1,0 +1,161 @@
+<style>
+.btn-default {
+ width: auto !important; 
+ float: none !important;
+ color: none !important; 
+ padding:6px 12px !important; 
+ opacity:1 !important; 
+}
+
+/* for top button 1*/
+.bghovr1{
+background-color: #f2dede !important;
+}
+.bghovr1 a:hover {
+    background-color: #f2dede !important;
+}
+/* for top button 1 end*/
+
+   /* for top button 2 end*/
+.bghovr2{
+background-color: #d9edf7 !important;
+}
+.bghovr2 a:hover {
+    background-color: #d9edf7 !important;
+}
+  /* for top button 2 end*/
+
+
+   /* for top button 3 end*/
+.bghovr3{
+background-color: #fcf8e3 !important;
+}
+.bghovr3 a:hover {
+    background-color: #fcf8e3 !important;
+}
+
+   /* for top button 3 end*/
+
+@media only screen and (min-width : 300px) and (max-width : 380px) {
+.right-togle{
+float:right;}
+
+.bghovr2{
+margin: 7px 0 0px 13px;}
+
+.alert-warning {
+background-color: none !important;}
+
+
+.bghovr3{
+margin: 7px 0 0px 13px;}
+
+.alert-info {
+background-color: none !important;}
+}
+   
+ @media only screen and (min-width : 385px) and (max-width : 545px) {
+
+ .bghovr2{
+margin: 1px;}
+
+.alert-warning {
+background-color: none !important;}
+
+alert-info {
+background-color: none !important;}
+
+.right-togle{
+float:right;}
+ }
+ 
+
+</style>
+
+
+<!-- Navigation -->
+        
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="<?php echo $this->baseUrl();?>/images/logo.png" alt="pageiz logo" class="img-responsive" style="height: 35px; margin-top: -7px"/></a>                
+            </div>
+            <!-- /.navbar-header -->
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <!--ul class="nav navbar-top-links" style="display: inline-block;">
+                <li>
+                    <a href="<?php echo $this->baseUrl(); ?>/members/profile">
+                    <img class="img-responsive" style="height: 30px;display: inline-block;" src="<?php echo $this->baseUrl(); ?>/images" alt="User Photo" />
+                    Kamran</a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->baseUrl(); ?>/members">Home</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-users"></span></a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-weixin"></span></a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-globe"></span></a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-lock"></span></a>
+                </li>
+                <li class = "dropdown">
+                    <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                       <b class = "caret"></b>
+                    </a>
+                    <ul class = "dropdown-menu">
+                        <li>
+                            <a href="#">Create Page</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul-->
+            
+        
+            <ul class="nav navbar-top-links navbar-right">
+                <?php /*
+				<?php if($this->role==2) {?>
+                <li><a class="btn btn-sm btn-info" href="<?php echo $this->baseUrl();?>/members/interested-in-campaign">Interested Marketers <strong>4</strong></a></li>
+                <li><a class="btn btn-sm btn-info" href="<?php echo $this->baseUrl();?>/members/start-campaign">Start a Campaign</a></li>
+                <li><a class="btn btn-sm btn-info" href="<?php echo $this->baseUrl();?>/members/new-advert">Advertise with us</a></li>
+                <?php }?>
+                <?php if($this->role==3) {?>
+                <li><a class="btn btn-sm btn-info" href="<?php echo $this->baseUrl();?>/members/new-campaign">Campaign Offers <strong>4</strong></a></li>
+                <?php }?>
+                <li>
+            */ ?>
+                <!-- /.dropdown -->
+                <li class="dropdown right-togle">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <?php echo $this->logged_member_name; ?> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <!--li><a href="<?php echo $this->baseUrl(); ?>/members/profile"><i class="fa fa-user fa-fw"></i> My Profile</a>
+                        </li-->
+						 <li><a href="<?php echo $this->baseUrl(); ?>/members/pass-update/id/<?php echo $this->logged_member_id; ?>">Change Password</a>
+						</li> 
+                      <!--  <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>-->                      
+                        <li class="divider"></li>
+                        <li><a href="<?php echo $this->baseUrl(); ?>/authentication/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+        </div>
+    </nav> 
+ <?php echo $this->render("/members/left-panel.phtml"); ?>
+<?php /*?>   <img src="<?php echo $this->baseUrl()?>/css/supr/images/avatar.jpg" alt="" class="image" /> 
+                                <span class="txt"><?php echo $this->user['user_name'] ?> <?php echo $this->user['role_name'] ?></span><?php */?>

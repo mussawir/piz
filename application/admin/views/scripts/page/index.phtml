@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-md-12">
+       <?php echo $this->render("/page/menu.phtml"); ?>
+    </div>
+</div>
+		
+<div class="row">        
+                    <div class="col-md-12">             
+		
+        <div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+
+                     <div class="table-responsive">
+<form method="post" name="data_table">		
+<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+														<thead>
+														<tr>
+																<th class="grid-head"> Title</th>
+																<th class="grid-head"> Author</th>
+                                                                <th class="grid-head"> Status</th>
+																<th class="grid-head"> Publish Date</th>
+																<th class="grid-head"> Comments</th>
+																<th class="grid-head">Edit </th>
+																<th class="grid-head">Delete</th>
+																<th class="grid-head">
+                                                                <input type="submit" name="submit" class="btn btn-sm btn-danger" id="submit" value="Delete"/>
+                                                                <label><input type="checkbox" name="allbox" id="allbox" value="0" onclick="checkAll(this.value);" /> All</label>
+                                                                </th> 
+                                                        	</tr>
+														</thead>		
+														<tbody> 
+                                          
+														<?php if (count($this->data)){ 
+														  $counter=0; foreach ($this->data as $item): ?>
+														<tr class="odd gradeX">
+															<td>
+															<?php echo $item['title'] ?>
+															</td> 
+															<td style="text-align:center;">
+															<?php echo $item['user_name'] ?>
+															</td>
+															
+                                                            <td style="text-align:center;">
+															     <?php if($item['is_in_draft'] > 0 ) echo "Drafted"; else echo "Published"; ?>
+															</td>
+															<td style="text-align:center;">
+															     <?php if($item['is_in_draft'] > 0 ) echo ""; else echo date('m/d/Y h:i A', strtotime($item['date_published'])); ?>
+															</td>
+
+															<td style="text-align:center;"><a class="btn btn-sm btn-success" href="<?php echo $this->baseUrl(); ?>/admin/comments/comments-list/id/<?php echo $item['page_id'] ?>">Comments</a></td>
+                                                            <td style="text-align:center;"><a class="btn btn-sm btn-warning float-right" href="<?php echo $this->baseUrl(); ?>/admin/page/edit/id/<?php echo $item['page_id'] ?>">Edit</a></td>
+															 <td  style="text-align:center;"><a class="btn btn-sm btn-danger" href="#" onclick="return confirmDelete(<?php echo $item['page_id'] ?> )" href="">Delete </a></td>
+															 <td  style="text-align:center;"><input type="checkbox" name="bulkdata[]" id="check_<?php echo $counter++;?>" class="form-control" value="<?php echo $item['page_id'] ?>"></td>
+														</tr>  
+															<?php endforeach; } ?> 
+														</tbody>
+					 								</table>
+													</form>
+                    </div><!-- div responsive end-->												
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+  <script language="Javascript" type="text/javascript">
+ window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(3000).hide('slow');
+		<?php } ?>
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 3, "desc" ]],
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false, 'aTargets': [5,6,7]}]
+	       }
+        );
+ }
+ 
+  function confirmDelete(id){
+	var r = confirm("Are you sure to Delete this Page! " );
+	if (r == true) {
+	window.location.assign("<?php echo $this->baseUrl(); ?>/admin/page/delete-page/id/" + id);    
+	} else {
+	return false;
+	}
+	}
+	
+    function checkAll(a)
+	{
+	    var total = $('#dataTables-example tr:not(:has(th))').length;
+        
+		if(a == 0)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', true);
+			}
+            $('#allbox').val(1);
+		}
+
+		if(a == 1)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', false);
+			}
+
+            $('#allbox').val(0);
+		}
+	}
+    
+		jQuery(function($) {
+	
+	$("form input[id='submit']").click(function() {  // triggred submit
+		
+		var count_checked = $("[name='bulkdata[]']:checked").length; // count the checked
+		if(count_checked == 0) {
+			alert("Please select a Pages to delete.");
+			return false;
+		} 
+		 else {
+			return confirm("Are you sure you want to delete these pages?");	
+		  }		
+	});
+}); // jquery end
+ </script>

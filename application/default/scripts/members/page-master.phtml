@@ -1,0 +1,95 @@
+<div id="page-wrapper">
+	
+    <div class="row">        
+        <div class="col-md-12">             
+		
+        <div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+        <h2>Business Pages</h2>
+        <div class="table-responsive">
+            		
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+														<thead>
+														<tr>
+																<!--th class="grid-head"> Status</th-->
+																<th class="grid-head"> Pages</th>
+                                                                <!--th class="grid-head"> Price</th-->
+                                                                <th class="grid-head"> Activation Date</th>
+																<th class="grid-head"> Expire Date</th>
+                                                                <th class="grid-head"> Days Left</th>
+																<th class="grid-head"> Detail</th>
+                                                                <th class="grid-head"> Renew</th>
+                                                        	</tr>
+														</thead>		
+														<tbody> 
+                                          
+														<?php if (count($this->data)){ 
+														  foreach ($this->data as $item): ?>
+														<tr class="odd gradeX">
+															<!--td>
+															<?php echo $item['status'] ?>
+															</td--> 
+															<td style="text-align:center;">
+															<?php echo $item['pages'] ?>
+															</td>
+															
+                                                            <!--td style="text-align:center;">
+															     <?php echo 'RM '.$item['price']; ?>
+															</td-->
+															<td style="text-align:center;">
+															     <?php echo date('m/d/Y', strtotime($item['start_date'])); ?>
+															</td>
+                                                            <td style="text-align:center;">
+															     <?php echo date('m/d/Y', strtotime($item['end_date'])); ?>
+															</td>
+                                                            <td style="text-align:center; color: green;">
+                                                                <?php $dateDiff = strtotime($item['end_date']) - strtotime(date('Y-m-d')); $days = floor($dateDiff/(60*60*24)); if($days <= 0) echo '<span style="color:#FF0000;">'.$days.'</span>'; else echo $days; ?>
+                                                            </td>
+                                                            <td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-warning " href="<?php echo $this->baseUrl(); ?>/members/detail-pages/id/<?php echo $item['mpm_id'] ?>">Show</a>
+                                                            </td>
+                                                            <td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-info " href="<?php echo $this->baseUrl(); ?>/members/renew-pages/id/<?php echo $item['mpm_id'] ?>">Renew</a>
+                                                            </td>
+														</tr>  
+															<?php endforeach; } ?> 
+														</tbody>
+					 								</table>
+													
+                    </div><!-- div responsive end-->												
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+</div>
+
+  <script language="Javascript" type="text/javascript">
+ window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(5000).hide('slow');
+		<?php } ?>
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 3, "desc" ]],
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false, 'aTargets': [4,5]}]
+	       }
+        );
+ }
+ 
+    function confirmDelete(id){
+    	var r = confirm("Do you realy want to delete this Page?" );
+    	if (r == true) {
+    	   window.location.assign("<?php echo $this->baseUrl(); ?>/admin/page/delete-page/id/" + id);    
+    	} else {
+    	   return false;
+    	}
+	}
+ </script>

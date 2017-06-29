@@ -1,0 +1,40 @@
+<div id="page-wrapper">
+    <div class="row" style="padding-top: 50px;">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="alert alert-info"><strong>Note: To complete this process you need to login again after saving this information</strong></div>
+            <div id="msg" style="display: none;"></div>
+            
+            <form id="startup" method="post" action="">
+                <div class="col-lg-6">
+                    <h2>Become a marketer</h2>
+                    <label><input type="radio" name="role_id" value="3" />&nbsp;I want to become a marketer</label>
+                </div>
+                <div class="col-lg-6">
+                    <h2>Start business</h2>
+                    <label><input type="radio" name="role_id" value="2" />&nbsp;Let's start business</label>
+                
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-lg btn-primary pull-right" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () { 
+     <?php if(!isset($this->msg)){ ?>
+    			$('#msg').hide();
+    			
+    		<?php  } else{
+    		?>
+    			$('#msg').show().delay(7000).hide('slow');
+    		<?php } ?>
+            
+        $('#startup').submit(function() {
+            var c = confirm("Are you sure, you want to submit the selected information?");
+            return c;
+        });
+     }     
+     	
+ </script>

@@ -1,0 +1,92 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+ 
+<div class="row">
+    <div class="col-md-12">
+	<ul class="menu-links">
+	<li><a href="<?php echo $this->baseUrl(); ?>/admin/gallery/new-photo" title="Add new photo"> Add Photo</a></li>       
+    <li><a href="<?php echo $this->baseUrl(); ?>/admin/gallery" title="View gallery list">Gallery List</a></li>       
+	<li><a href="<?php echo $this->baseUrl(); ?>/admin/photo-categories/new" title="Add new category"> Add New Category</a></li>       
+	<li><a href="<?php echo $this->baseUrl(); ?>/admin/photo-categories"> Category List</a></li>       
+	</ul>    
+	</div>
+</div>
+
+ <div class="row">
+    <div class="col-md-12">
+    <div id='msg'><?php echo $this->msg; ?></div>
+    
+   <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+   
+    <div class="row form-group">
+      <div class="col-md-4">
+          <?php if (isset($this->photo)) { ?>
+          <img src="<?php echo $this->baseUrl();?>/images/photo_gallery/500X500/<?php echo $this->photo;?>" alt="gallery-image" style="float:left; width:300px"/></td>
+          <?php } else { ?>
+          <img src="<?php echo $this->baseUrl();?>/images/admin/placeholder200X200.png" alt="gallery-image" style="float:left; width:300px"/></td>
+          <?php } ?>
+      </div>
+      <div class="col-md-4">
+          <strong>Change Image:</strong>  <?php echo $this->form->photo_name; ?>
+      </div>
+      <div class="col-md-4">
+      <?php echo $this->form->submit?>
+      </div>
+    </div>
+    <div class="row form-group">
+                    <div class="col-md-2">
+                        <strong>Select Category:</strong>
+                    </div>
+                    
+                    <div class="col-md-10">
+                        <?php echo $this->form->category;?>
+                    </div>
+    </div>  
+    <div class="row form-group">
+                    <div class="col-md-6">
+                              <?php echo $this->form->caption;?>
+                    </div>
+    
+                    <div class="col-md-6">
+                              <?php echo $this->form->link;?>  
+                    </div>
+    </div>
+    <div class="row form-group">
+                    <div class="col-md-12">
+      <?php echo $this->form->description; ?>
+     </div>
+    </div> 
+    
+    </form>
+  </div><!-- /.col-md-6-->
+ </div><!-- /.row -->
+
+<script language="Javascript" type="text/javascript">
+window.onload = function () {
+ <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(3000).hide('slow');
+
+    <?php } ?>
+         // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+         var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/admin/fileman/index.html';
+         
+            CKEDITOR.replace( 'editor1',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+            
+           $('#submit-btn').click(function(){
+                if($('#category').val()==0){
+                    $('#msg').html('<div class="alert alert-warning"><strong>Please select a category</strong></div>').show().delay(5000).hide('slow');
+                    return false;
+                }
+           });
+ }
+ </script>

@@ -1,0 +1,64 @@
+<div class="row form-center">
+    <div class="col-md-10 col-md-offset-1">
+        <form class="" action="<?php echo $this->baseUrl(); ?>/index/business-pages" method="get" role="search">
+	  
+            <div class="row">       
+                <div class="col-md-10 col-md-offset-1">
+                    <h1 class="text-center" style="color: #fff;">Search Pages</h1>
+                    <div class="col-md-10">		  
+                        <input type="text" name="q" class="form-control" value="<?php echo $this->query;?>" />		  
+                    </div>
+                    <div class="col-md-2"> 
+                        <button type="submit" id="busines-btn" class="btn btn-sbsl form-control" style="margin: 0!important;"><span class="fa fa-search"></span> Search</button>           
+                    </div>
+               </div>
+           </div>
+            
+             <!--div for hide combo box-->
+            <div class="row" style="margin-top: 20px;">   
+                <div class="col-md-9 col-md-offset-2">
+                <div class="col-md-3"> 
+                     <select id="state" name="state" class="form-control" onchange="getCities();">
+                        <option value="0">Select State</option>
+                        <?php foreach($this->state_list as $state): ?>
+                            <option value="<?php echo $state['state_id'];?>"><?php echo $state['state_name'];?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>   
+           
+                <div class="col-md-3">
+                    <select id="city" name="city" class="form-control">
+                        <option value="0">Select City</option>
+                    </select>
+                </div>
+        
+                <div class="col-md-3">
+                   <a href="#" class="btn btn-sbsl form-control" style="margin: 0!important;">Browse By Category</a>     
+                </div>
+                </div>
+            </div>
+        <!--div for hide combo box end here-->
+        
+        </form>
+    </div>
+</div>
+
+<section id="search-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <?php foreach($this->search_result as $item):?>
+                    <div class="col-md-12">                    
+                        <h3 style="text-overflow: ellipsis;-webkit-text-overflow: ellipsis;white-space: nowrap;"><a href="<?php echo $this->baseUrl().'/'.$item['url_slug'];?>" target="_blank"><?php echo ucwords($item['title']);?></a></h3>
+                        <p class="text-success"><?php echo $this->url.$item['url_slug'];?></p>
+                        <p><?php echo $item['page_description'];?></p>                    
+                    </div>
+                    <br />
+                <?php endforeach; ?>
+            </div>
+            <div class="col-md-6">
+            
+            </div>
+        </div>
+    </div>
+</section>

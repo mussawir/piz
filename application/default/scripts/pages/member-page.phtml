@@ -1,0 +1,777 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<style>
+.loader-overlay{
+	display:none;
+}
+	.modal-dialog {
+    margin: 150px auto;
+}
+.modal-content {
+    border-radius: 0;
+	width:416px;
+	margin:auto;
+    // background-image:url('https://cdn.shutterstock.com/shutterstock/videos/8987008/thumb/1.jpg');
+	// background:#1B1C52;
+    
+}
+.modal-content > .button-close{
+	color: black;
+    background: white;
+    font-size: 16px;
+    border: 1px solid white;
+    padding: 6px 12px;
+    border-radius: 50%;
+    /* float: right; */
+    position: absolute;
+    right: -19px;
+    top: -18px;
+}
+.modal-content > .button-close:hover{
+	text-decoration:none;
+	cursor:pointer;
+}
+
+.modal-body > h4{
+	color:#fff;
+		font-family: 'montserratlight',sans-serif;
+		font-size: 1.4em
+		// font-weight:bold;
+}
+.modal-body > p{
+	color:#fff;
+	font-family: 'montserratlight',sans-serif;
+	font-size: 0.9em;
+}
+.modal-body > .row > .col-md-8 > p{
+	    color: #fff;
+    font-family: 'montserratlight',sans-serif;
+    font-size: 1.6em;
+    margin-top: 24px;
+		
+}
+.download_form > .row > .col-md-4 > input{
+	border-radius:0;
+	background:white;
+	border:1px solid white;
+}
+.form-control{
+	border-radius:0;
+}
+// input[type="email"]::-webkit-input-placeholder {
+// color: blue !important;
+// }
+</style>
+<div class="row panel-container">
+<div class="col-md-6 col-md-offset-3 panel-area"> 
+<?php echo $this->render("/pages/mem-left-panel.phtml"); ?>
+</div>
+ 
+ <!--div class="col-md-3 panel-area">  
+ <?php //echo $this->render("/pages/mem-right-panel.phtml"); ?>
+ </div-->
+ 
+ <?php $is_logged_in=0; if(isset($this->user_role) && isset($this->logged_user_id)) { $is_logged_in=1; } ?>
+ <?php if($is_logged_in==0) echo $this->render("/pages/register-login-popup.phtml"); ?>
+ <input type="hidden" id="hid_title" value="<?php echo $this->list['title'];?>">
+ <input type="hidden" id="hid_mem_id" value="<?php echo $this->list['member_id'];?>">
+ <input type="hidden" id="hid_form_hidden" value="<?php echo $this->list['form_hidden'];?>">
+ <input type="hidden" id="hid_pop_hidden" value="<?php echo $this->list['popup_hidden'];?>">
+ <?php 
+	if(isset($this->custom)){ ?>
+		<input type="hidden" id="cta_heading" value="<?php echo $this->custom['cta_heading'];?>">
+		<input type="hidden" id="cta_paragraph" value="<?php echo $this->custom['cta_paragraph'];?>">
+		<input type="hidden" id="cta_button_color" value="<?php echo $this->custom['cta_button_color'];?>">
+		<input type="hidden" id="cta_button_text" value="<?php echo $this->custom['cta_button_text'];?>">
+		<input type="hidden" id="cta_background" value="<?php echo $this->custom['cta_background'];?>">
+		<input type="hidden" id="cta_heading_color" value="<?php echo $this->custom['cta_heading_color'];?>">
+		<input type="hidden" id="cta_paragraph_color" value="<?php echo $this->custom['cta_paragraph_color'];?>">
+		<input type="hidden" id="member_dir" value="<?php echo $this->member_dir?>">
+	<?php }
+ 
+ ?>
+</div>
+
+ <script type="text/javascript">
+ 
+		  $('.loader-overlay').hide();
+		// Dropdown toggle
+		$('.sort_dropdown.dropdown-toggle').click(function(){
+		  $(this).next('.sort_dropdown_open').toggle();
+		});
+
+		$(document).click(function(e) {
+		  var target = e.target;
+		  if (!$(target).is('.sort_dropdown.dropdown-toggle') && !$(target).parents().is('.sort_dropdown.dropdown-toggle')) {
+			$('.sort_dropdown_open').hide();
+		  }
+		});
+   $(function(){
+	   
+	   $('#t_up').click(function(){
+			var el = $(this).addClass('scaleup');
+			setTimeout(function() {
+				el.removeClass('scaleup');
+			}, 1000);
+			
+		});
+		$('#t_down').click(function(){
+			var el = $(this).addClass('scaleup');
+			setTimeout(function() {
+				el.removeClass('scaleup');
+			}, 1000);
+			
+		});
+		$("#comment_form").submit(function(e){
+			e.preventDefault();
+			if($('#login_valid').val() > 0){
+				var formData = $(this).serialize();
+			$('#comment_btn').html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+			// alert(formData);return;
+			var getURL = $('#base_url').val()+'/pages/upload-comment';
+			console.log(getURL);
+			$.ajax({
+			type    : 'POST',
+			data    : formData,
+			async: true,
+			url : getURL,
+			success: function (result) {
+				
+				result = JSON.parse(result);
+				
+				$('#comment_btn').html('Leave Feedback');
+				$('#response').html('Your comment has been posted').delay(500).fadeOut();
+				$('#comment').val('');
+				// swal({"Thank You!", "We highly appreciate your feedback!", "success"});
+				swal({
+				  title: "Thank You!",
+				  text: "We highly appreciate your feedback!",
+				  type: "success",
+				  timer: 2000
+				});
+				// if($('#no_comments').length)         
+					// {
+						 // $('#no_comments').remove();
+					// }
+				// $('#comment_form').append('<li class="media" style="margin-top:50px;"> <div class="media-left"> <img src="http://placehold.it/60x60" class="img-circle"> </div> <div class="media-body"> <h4 class="media-heading" style="font-size: 14px;">' + result.Name + '<br> <small> Posted at ' +result.comment_date+ ' </small> </h4> <p style=" font-size: 12px;"> '+result.comment+' </p> </div> </li>');
+			return;
+
+			},
+			error:function (error) {
+				alert('please try again!');
+			}
+			});
+			}else{
+				$('#login-modal').modal('show');
+			}
+			
+			
+		  });
+	$('#post_title').hide();
+	 var isShow = true;
+	 $(window).scroll(function() {
+					if ($(document).scrollTop() > 1000) {
+						if(isShow){
+							if($('#hid_pop_hidden').val() == 0){
+								$('#myModal').modal('show');
+								isShow=false;
+							}
+						}
+						
+					} 
+		  });
+		  
+   $("#comment").css('height','80');
+   $("#first_name").keyup(function(){
+		
+	   
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').css('color', 'red').text('Name is required.').show();
+        }
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').hide();
+        }
+    });
+    
+    $("#email").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').text('Eamil is required.').show();
+        }
+        else if(txt.val() != '' && !isValidEmailAddress(txt.val()))
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').val('Eamil address is not valid.').show();
+        }
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').hide();
+        }
+    });
+    
+    $("#comment").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').css('color', 'red').text('Comment is required.').show();
+        }        
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').hide();
+        }
+        
+        var cs = $(this).val().length;
+        $('#count').text(cs);
+    });
+	
+    //function saveComments()
+    $('#frm').submit(function(e) 
+    {    
+        e.preventDefault();
+        <?php if($is_logged_in==0) {?>
+        var name = $('#first_name');
+        if(name.val() == '' || name.length == 0)
+        {
+            name.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').css('color', 'red').text('Name is required.').show();
+            return false;
+        }
+        
+        var email = $('#email');
+        if((email.val() == '' || email.length == 0) && (!isValidEmailAddress(email.val())))
+        {
+            email.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').val('Eamil address is not valid.').show();
+            return false;
+        }
+        <?php }?>
+        
+        var comment = $('#comment');
+        if(comment.val() == '' || comment.length == 0)
+        {
+            comment.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').css('color', 'red').text('Comment is required.').show();
+            return false;
+        }
+        
+        // show loader
+        $('#comment-btn').hide();
+        $('#ajax-loader').show();
+        
+       $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/save-page-comments",
+             data: $(this).serialize(),
+                success: function(result) {
+               //console.log('success : '+ result);
+                  //  if(result == 'success')
+                    {
+                        // hide loader
+                        $('#ajax-loader').hide();
+                        $('#comment-btn').show();
+                        
+                        $('.msg').html("<div class='alert alert-success'><strong>Your comment saved successfully and will shown after approval.</strong></div>").show().delay(5000).fadeOut(1000);
+                        <?php if($is_logged_in==0) {?>
+                        name.val('');
+                        email.val('');
+                        <?php }?>
+                        comment.val('');
+                    }
+				},
+                error: function(result)
+                {
+                     console.log('error : '+ result);
+                     //if(result == 'error')
+                     {
+                        $('.msg').html("<div class='alert alert-danger'><strong>Some error in saving record</strong></div>").show().delay(5000).fadeOut(1000);
+                        }
+                }
+        }); //ajax end
+             
+            return false;
+            
+    }); // comments save end
+    
+    // load page ads after page load
+    // loadAdsByAjax(); // load in right panel
+    
+    // load page products/services
+    loadProducts();
+	$(window).load(function(){
+    // Remove the # from the hash, as different browsers may or may not include it
+    var hash = location.hash.replace('#','');
+	
+    if(hash != ''){
+
+       // Clear the hash in the URL
+       // location.hash = '';   // delete front "//" if you want to change the address bar
+        $('html, body').animate({ scrollTop: $('#'+hash).offset().top}, 100);
+
+       } 
+   });
+  
+	
+	
+    
+	
+  }); // ready function end
+  
+  function scrollToElement(ele) {
+    $(window).scrollTop(ele.offset().top).scrollLeft(ele.offset().left);
+}
+  
+    function isValidEmailAddress(emailAddress) {
+        var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+         //alert( pattern.test(emailAddress) );
+        return pattern.test(emailAddress);
+    };
+    
+
+    function doRate(value)
+    {
+        
+    }
+    
+    function showHideCommentBox()
+    {
+        $('#comment-section').slideToggle("slow");
+        //$("html, body").animate({ scrollTop: $(document).height() }, 2000);
+        $('html, body').animate({
+            'scrollTop' : $("#comment-section").position().top
+        });
+    }
+    
+    function showHideComments()
+    {
+        $('#user_comments').slideToggle("slow");
+        $('html, body').animate({
+            'scrollTop' : $("#user_comments").position().top
+        });
+    }
+    $("#subscriber_form").submit(function(e){
+			e.preventDefault();
+			var formData = $(this).serialize();
+			
+			$('#sub-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+			var name = $('#customer_name').val();
+			var getURL = $('#base_url').val()+'/index/subscribers';
+			console.log(getURL);
+			$.ajax({
+			type    : 'POST',
+			data    : formData,
+			async: true,
+			url : getURL,
+			success: function (result) {
+				$('.form-control').val('');
+				$('#form_msg').css('color','green').html('Thank you for subscribing.');
+				$('#sub-btn').html('<i class="fa fa-envelope" aria-hidden="true"></i> Subscribe');
+				setTimeout(function() { $('#myModal').modal('hide'); }, 2000);
+			return;
+
+			},
+			error:function (error) {
+				alert('please try again!');
+			}
+			});
+			
+		  });
+		  
+    // register member
+    $('#registration-frm').submit(function(){
+        $('#reg-ajax-loader').show();
+        
+        $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/registration-ajax",
+             data: $(this).serialize(),
+                success: function(result) 
+                {
+                    result = JSON.parse(result);
+                    
+                    if(result.status == 'success') {
+                        $('#reg-ajax-loader').hide();
+                        $('#reg-msg').html("<div class='alert alert-success'>Please check email to verify your email address</div>").show().delay(5000).fadeOut(1000);
+                        $("#registration-frm")[0].reset();
+                    }
+                    
+                    if(result.status == 'warning'){
+                        $('#reg-ajax-loader').hide();
+                        $('#reg-msg').html(result.msg).show().delay(5000).fadeOut(1000);
+                    }
+                    
+                    if(result.status == 'error') {
+                        $('#reg-ajax-loader').hide();
+                        $('#reg-msg').html("<div class='alert alert-danger'>Some error occur. Please try again.</div>").show().delay(5000).fadeOut(1000);
+                    }
+				},
+                error: function(result)
+                {
+                    console.log('error: ' +result);
+                }
+            }); //ajax end
+             
+            return false;
+    });
+    
+
+    function doLike(value)
+    {
+        $('#activity').val('like_page');
+        
+        if(value>0){        
+            $.ajax({
+             type: 'GET',
+             url: "<?php echo $this->baseUrl()?>/pages/save-like",
+             data: { page_id:<?php echo $this->list['page_id']; ?> },
+                success: function(result) {
+                    if(result=='success'){
+                        //$('#like-icon').addClass('liked');
+                        var likes_count = $('#likes_count').text();
+                        $('#likes_count').text((parseInt(likes_count)+1));
+                    }
+				},
+                error: function(result)
+                {
+                     if(result == 'error') {
+                        $('.msg').html("<div class='alert alert-danger'>Some error occur. Please try again.</div>").show().delay(5000).fadeOut(1000);
+                     }
+                }
+            }); //ajax end
+             
+            return false;
+        }
+    }
+    
+    function loadAdsByAjax()
+    {
+        //var page = $(elm).data('slide');
+        var pageId = $('#ad_page_id').val();
+        var memberId = $('#ad_member_id').val();
+        var catId = $('#ad_category_id').val();
+        
+        $.ajax({
+             type: 'GET',
+             url: "<?php echo $this->baseUrl()?>/pages/load-page-ads",
+             data: { page_id:pageId, member_id:memberId, category_id:catId},
+             success: function(result) {
+                result = JSON.parse(result);
+                
+                if(result.status=='success'){ 
+                    $('#ads-container').html(result.data);
+                }
+                if(result.status == 'error') {
+                    console.log("Some error occur. Please try again.");
+                }
+			},
+            error: function(result)
+            {
+                if(result.status == 'error') {
+                    console.log("Some error occur. Please try again.");
+                }
+            }
+        }); //ajax end
+             
+        return false;
+    }
+    
+    function loadProducts()
+    {
+        var pageId = $('#ad_page_id').val();
+        var memberId = $('#ad_member_id').val();
+         
+        $.ajax({
+             type: 'GET',
+             url: "<?php echo $this->baseUrl()?>/pages/load-products",
+             data: { page_id:pageId, member_id:memberId, contact_number: '<?php echo $this->list['contact_number'];?>', wap_number:'<?php echo $this->list['wap_number'];?>', share_url:'<?php echo $this->site_url['site_url'].'/'.$this->list['url_slug'];?>'},
+             success: function(result) { 
+                result = JSON.parse(result);
+                
+                if(result.status=='success'){
+                    if(result.data.length==0){
+                        $('#products-container').remove();
+                    } else {
+						
+						
+                        // $('#products-container').html(result.data); 
+						if($('#hid_form_hidden').val() == 0){
+							<?php 
+							if(isset($this->custom)){ ?>
+								$( "div[id^='social_']" ).eq(1).before('<div class="row text-center" id="subscribe-container" style="padding:40px; background:url('+$('#base_url').val()+'/images/uploads/'+$('#member_dir').val()+'/'+$('#cta_background').val()+');margin-right: 1px; margin-left: 1px; margin-top:10px;background-size: cover;background-repeat:no-repeat;"> <h4 style="color:'+$('#cta_heading_color').val()+'">'+$('#cta_heading').val()+'</h4><p style="color:'+$('#cta_paragraph_color').val()+'">'+$('#cta_paragraph').val()+'</p> <form action="'+$('#base_url').val()+'/index/subscribers" method="POST" class="down_form" id="inpage_form"> <div class="row"> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="full_name" id="full_name" placeholder="Full Name" class="form-control" required> </div> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="phone" id="phone" class=" form-control" placeholder="Phone" required> </div> <div class="col-md-12" style=" padding: 0 2px;margin-bottom:5px;"> <input type="email" name="email" id="email" class=" form-control" placeholder="Email" required>  <input type="hidden" id="mem_id" name="mem_id" value="'+$('#hid_mem_id').val()+'"> </div> <div class="col-md-12" style=" padding: 0 2px;"> <button id="sub-btn" type="submit" class="submit" style="border: 1px solid '+$('#cta_button_color').val()+'; border-radius: 0; background: '+$('#cta_button_color').val()+'; width: 100%; line-height: 2.3;color:white;"><i class="fa fa-envelope" aria-hidden="true"></i> '+$('#cta_button_text').val()+' </button> </div> </div> </form> <p id="inpage_msg" style="color:black;font-size:10px;margin-top:10px;">Dont worry you will not be spammed.</p> </div>');
+							<?php }else{
+								?>
+								$( "div[id^='social_']" ).eq(1).before('<div class="row text-center" id="subscribe-container" style="padding:40px; background: #fff;margin-right: 1px; margin-left: 1px; margin-top:10px;"> <h4>Subscribe to <strong>'+$('#hid_title').val()+'</strong> Newsletter</h4> <form action="'+$('#base_url').val()+'/index/subscribers" method="POST" class="down_form" id="inpage_form"> <div class="row"> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="full_name" id="full_name" placeholder="Full Name" class="form-control" required> </div> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="phone" id="phone" class=" form-control" placeholder="Phone" required> </div> <div class="col-md-12" style=" padding: 0 2px;margin-bottom:5px;"> <input type="email" name="email" id="email" class=" form-control" placeholder="Email" required>  <input type="hidden" id="mem_id" name="mem_id" value="'+$('#hid_mem_id').val()+'"> </div> <div class="col-md-12" style=" padding: 0 2px;"> <button id="sub-btn" type="submit" class="submit" style="border: 1px solid #54D33F; border-radius: 0; background: #54D33F; width: 100%; line-height: 2.3;color:white;"><i class="fa fa-envelope" aria-hidden="true"></i> SUBSCRIBE</button> </div> </div> </form> <p id="inpage_msg" style="color:black;font-size:10px;margin-top:10px;">Dont worry you will not be spammed.</p> </div>');
+								
+								<?php
+							}
+							
+							?>
+							
+						}
+						$('#post_title').show();
+						$('.unique-heavy-heavy-bike').find('img').attr('class','img-responsive');
+						$(".products_details").each(function(){ 
+						   $(this).hide();
+					   });
+					   $("#inpage_form").submit(function(e){
+			e.preventDefault();
+			var formData = $(this).serialize();
+			
+			$('#sub-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+			var name = $('#customer_name').val();
+			var getURL = $('#base_url').val()+'/index/subscribers';
+			console.log(getURL);
+			$.ajax({
+			type    : 'POST',
+			data    : formData,
+			async: true,
+			url : getURL,
+			success: function (result) {
+				$('.form-control').val('');
+				$('#inpage_msg').css('color','green').html('Thank you for subscribing.');
+				$('#sub-btn').html('<i class="fa fa-envelope" aria-hidden="true"></i> Subscribe');
+				setTimeout(function() { $('#myModal').modal('hide'); }, 2000);
+			return;
+
+			},
+			error:function (error) {
+				alert('please try again!');
+			}
+			});
+			
+		  });
+                    }
+                }
+                if(result.status == 'error') {
+                    console.log("Some error occur. Please try again.");
+                }
+			},
+            error: function(result)
+            {
+                if(result.status == 'error') {
+                    console.log("Some error occur. Please try again.");
+                }
+            }
+        }); //ajax end
+             
+        return false;
+    }
+
+		  function doFeedbackLike(value)
+    {
+        
+        <?php
+			if(isset($this->feedback)){
+				?>
+				if(value>0){
+            $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/save-feedbacklike",
+             data: { page_id: <?php echo $this->feedback['page_id']; ?>,
+					feed_id:<?php echo $this->feedback['feed_id']; ?> },
+                success: function(result) {
+					var result = JSON.parse(result);
+					// var result = $.trim(result);
+					// alert(result.status);return;
+                    if(result.status=='success'){
+                        //$('#like-icon').addClass('liked');
+                        var likes_count = $('#feedback_likes').text();
+                        $('#feedback_likes').text((parseInt(likes_count)+1));
+                    }if(result.status=='exist'){
+						var likes_count = $('#feedback_dislikes').text();
+                        $('#feedback_dislikes').text((parseInt(likes_count)-1));
+						var likes_count = $('#feedback_likes').text();
+                        $('#feedback_likes').text((parseInt(likes_count)+1));
+					}
+				},
+                error: function(result)
+                {
+                     // if(result == 'error') {
+                        // $('.msg').html("<div class='alert alert-danger'>Some error occur. Please try again.</div>").show().delay(5000).fadeOut(1000);
+                     // }
+                }
+            }); //ajax end
+             
+            return false;
+        }
+				
+				<?php
+			}
+		?>
+				
+			
+        
+    }
+	function doFeedbackdisLike(value)
+    {
+        
+        <?php
+			if(isset($this->feedback)){
+				?>
+				if(value>0){
+            $.ajax({
+             type: 'GET',
+             url: "<?php echo $this->baseUrl()?>/pages/save-feedbackdislike",
+             data: { page_id: <?php echo $this->feedback['page_id']; ?>,
+					feed_id:<?php echo $this->feedback['feed_id']; ?> },
+                success: function(result) {
+					var result = $.trim(result);
+                    if(result=='success'){
+                        //$('#like-icon').addClass('liked');
+                        var likes_count = $('#feedback_dislikes').text();
+                        $('#feedback_dislikes').text((parseInt(likes_count)+1));
+                    }
+					else if(result=='exist'){
+						var likes_count = $('#feedback_likes').text();
+                        $('#feedback_likes').text((parseInt(likes_count)-1));
+						var likes_count = $('#feedback_dislikes').text();
+                        $('#feedback_dislikes').text((parseInt(likes_count)+1));
+					}
+				},
+                error: function(result)
+                {
+                     // if(result == 'error') {
+                        // $('.msg').html("<div class='alert alert-danger'>Some error occur. Please try again.</div>").show().delay(5000).fadeOut(1000);
+                     // }
+                }
+            }); //ajax end
+             
+            return false;
+        }
+				
+				<?php
+			}
+		?>
+				
+			
+        
+    }
+	function submit_comment(id){
+		var text = $('#comment_'+id).val();
+		console.log($.trim(text));
+		if($.trim(text)==''){
+			$('#comment_'+id).val('');
+		}
+		   $("#comment_post_"+id).submit(function(e){
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			if($('#login_valid').val() > 0){
+				var formData = $(this).serialize();
+			$('#post_btn_'+id).html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+			// alert(formData);return;
+			var getURL = '<?php echo $this->baseUrl()?>/pages/post-comment';
+			$.ajax({
+			type    : 'POST',
+			data    : formData,
+			async: false,
+			url : getURL,
+			success: function (result) {
+				var result1 = JSON.parse(result);
+				// alert(result1.Name);return;
+				$('#post_btn_'+id).html('Comment <i class="fa fa-paper-plane" aria-hidden="true">');
+				
+				if($('#hrline_'+id).length==0){
+					
+					$('#comment_post_'+id).after('<hr id="hrline_'+id+'">');
+				}
+				appendInForm("hrline_"+id,$('#comment_'+id).val(),result1.Name);
+				$('#comment_'+id).val('');
+				$(this).unbind('submit');
+
+			},
+			error:function (error) {
+				alert('please try again!');
+				
+			}
+			
+			});
+			}else{
+				$('#login-modal').modal('show');
+			}
+			
+			return false;
+		  });
+	}
+	function opencomment(id){
+		$('#comments_'+id).toggle();
+	}
+	function appendInForm(id,text,name){
+		if(text == ''){
+			return;
+		}
+		$('#'+id).after('<div class="row" style="padding:10px 0;background:#F6F7F9"><div class="col-md-2 col-xs-2" ><img src="https://gitlab.com/uploads/user/avatar/56386/tt_avatar_small.jpg" class="img-responsive" style="margin: auto;"></div><div class="col-md-10 col-xs-10" style="padding-right: 31px;padding-left:0;"><p style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 300;"><span style="font-weight: bold; color: #36589F; font-size: 13px; font-family: Open Sans, Helvetica, Arial, sans-serif;"> '+name+'</span> ' +text+'</p><div style="font-size: 10px;font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 300;">Now</div></div></div>');
+}
+function sorting(page_id,type){
+		// alert(page_id+' '+ type);
+		$('.loader-overlay').show();
+		$.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/sorting",
+             data: { 
+			 page_id: page_id,
+			 type:type 
+			},
+                success: function(result) {
+					var result = JSON.parse(result);
+					// console.log(result);
+					// var result1 = JSON.parse(result);
+					$('#sorting_result').html(result);
+					$('.unique-heavy-heavy-bike').find('img').attr('class','img-responsive');
+					if($('#hid_form_hidden').val() == 0){
+							<?php 
+							if(isset($this->custom)){ ?>
+								$( "div[id^='social_']" ).eq(1).before('<div class="row text-center" id="subscribe-container" style="padding:40px;    margin-bottom: 15px; background:url('+$('#base_url').val()+'/images/uploads/'+$('#member_dir').val()+'/'+$('#cta_background').val()+');margin-right: 1px; margin-left: 1px; margin-top:10px;background-size: cover;background-repeat:no-repeat;"> <h4 style="color:'+$('#cta_heading_color').val()+'">'+$('#cta_heading').val()+'</h4><p style="color:'+$('#cta_paragraph_color').val()+'">'+$('#cta_paragraph').val()+'</p> <form action="'+$('#base_url').val()+'/index/subscribers" method="POST" class="down_form" id="inpage_form"> <div class="row"> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="full_name" id="full_name" placeholder="Full Name" class="form-control" required> </div> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="phone" id="phone" class=" form-control" placeholder="Phone" required> </div> <div class="col-md-12" style=" padding: 0 2px;margin-bottom:5px;"> <input type="email" name="email" id="email" class=" form-control" placeholder="Email" required>  <input type="hidden" id="mem_id" name="mem_id" value="'+$('#hid_mem_id').val()+'"> </div> <div class="col-md-12" style=" padding: 0 2px;"> <button id="sub-btn" type="submit" class="submit" style="border: 1px solid '+$('#cta_button_color').val()+'; border-radius: 0; background: '+$('#cta_button_color').val()+'; width: 100%; line-height: 2.3;color:white;"><i class="fa fa-envelope" aria-hidden="true"></i> '+$('#cta_button_text').val()+' </button> </div> </div> </form> <p id="inpage_msg" style="color:black;font-size:10px;margin-top:10px;">Dont worry you will not be spammed.</p> </div>');
+							<?php }else{
+								?>
+								$( "div[id^='social_']" ).eq(1).before('<div class="row text-center" id="subscribe-container" style="padding:40px;    margin-bottom: 15px; background: #fff;margin-right: 1px; margin-left: 1px; margin-top:10px;"> <h4>Subscribe to <strong>'+$('#hid_title').val()+'</strong> Newsletter</h4> <form action="'+$('#base_url').val()+'/index/subscribers" method="POST" class="down_form" id="inpage_form"> <div class="row"> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="full_name" id="full_name" placeholder="Full Name" class="form-control" required> </div> <div class="col-md-12" style="padding: 0 2px;margin-bottom:5px;"> <input type="text" name="phone" id="phone" class=" form-control" placeholder="Phone" required> </div> <div class="col-md-12" style=" padding: 0 2px;margin-bottom:5px;"> <input type="email" name="email" id="email" class=" form-control" placeholder="Email" required>  <input type="hidden" id="mem_id" name="mem_id" value="'+$('#hid_mem_id').val()+'"> </div> <div class="col-md-12" style=" padding: 0 2px;"> <button id="sub-btn" type="submit" class="submit" style="border: 1px solid #54D33F; border-radius: 0; background: #54D33F; width: 100%; line-height: 2.3;color:white;"><i class="fa fa-envelope" aria-hidden="true"></i> SUBSCRIBE</button> </div> </div> </form> <p id="inpage_msg" style="color:black;font-size:10px;margin-top:10px;">Dont worry you will not be spammed.</p> </div>');
+								
+								<?php
+							}
+							
+							?>
+							
+						}
+					$('.loader-overlay').hide();
+					
+					// var result = $.trim(result);
+                    
+				},
+                error: function(result)
+                {
+                     alert('error');
+                }
+            }); //ajax end
+	}
+ </script>

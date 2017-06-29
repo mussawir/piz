@@ -1,0 +1,60 @@
+<div id="page-wrapper" style="padding-top: 20px;">
+<div class="row">
+    <div class="col-md-12">
+        <div id="msg"><?php echo $this->msg ?></div>
+    
+        <h1 class="text-center">Start a Campaign</h1>
+        <div class="col-md-9 col-md-offset-1">
+            <form class="form-horizontal" action="" method="post">
+            
+                <div class="form-group">
+                    <label for="campaign_name" class="col-sm-3 control-label">Campaign Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="campaign_name" name="campaign_name" class="form-control" required="" />
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="campaign_type" class="col-sm-3 control-label">Select Campaign Type</label>
+                    <div class="col-sm-9">
+                        <select id="campaign_type" name="campaign_type" class="form-control">
+                            <option value="Business">Business</option>
+                            <option value="Product">Product</option>
+                            <option value="Service">Service</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="campaign_budget" class="col-sm-3 control-label">Campaign Budget</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="campaign_budget" name="campaign_budget" class="form-control" required="" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="about_campaign" class="col-sm-3 control-label">About Campaign</label>
+                    <div class="col-sm-9">
+                        <textarea maxlength="250" id="about_campaign" name="about_campaign" class="form-control" required=""></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="submit" class="btn btn-success pull-right" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function(){
+       <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();			
+		<?php  } else{ ?>
+			$('#msg').show().delay(5000).hide('slow');
+		<?php } ?> 
+    });
+</script>

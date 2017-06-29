@@ -1,0 +1,135 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 35px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+	text-decoration: none !important;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+.li_btn{
+		border-radius:0;
+		background:#1B1C52;
+		border:1px solid #1B1C52;
+		
+	}
+	.li_btn > a{
+		color:white;
+	}
+	.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:white;
+		background:#1B1C52;
+}
+</style>
+<div id="page-wrapper" style="padding-top:20px;">
+<div class="row row-fluid">
+    <div class="col-md-12">
+    <?php //echo $this->render('/members/menu.phtml'); ?>
+    
+        <ul class="nav nav-pills">
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Main Page</a></li>
+		  <!--li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-slider/id/<?php echo $this->page_id ?>">Upload Slider</a></li-->
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-product-post/id/<?php echo $this->page_id ?>">New Product Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-social-post/id/<?php echo $this->page_id ?>">New Social Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-post/id/<?php echo $this->page_id ?>">Product Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/social-posts/id/<?php echo $this->page_id ?>">Social Posts</a></li>
+          <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $this->page_id ?>">Comments</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/feedback/id/<?php echo $this->page_id ?>">Get Feedback</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/popup-design/id/<?php echo $this->page_id ?>">Customize CTA</a></li>
+         <!--li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads/Description</a></li-->
+		 
+          <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+          <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+        </ul>
+    </div>
+</div>
+	<h3>Social Posts</h3>
+	<div id="product-service-list"  style="margin-top:40px;">
+                <div class="row">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead>
+							<tr>
+								<th>Post No. </th>
+								<th>Post Description </th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$count = 1;
+								if(count($this->posts)):
+								foreach ($this->posts as $item): ?>
+									<tr>
+										<td><?php echo $count++; ?></td>
+										<td><?php echo stripslashes($item['description']); ?></td>
+										<td>
+										<a class="btn btn-sm btn-danger" onclick="doDelete(<?php echo $item['pp_id'];?>, <?php echo $this->page_id;?>);">Delete</a> | 
+										
+										<a class="btn btn-sm btn-primary" href="<?php echo $this->baseUrl();?>/mem-pages/edit-social-post/id/<?php echo $item['pp_id'];?>/page_id/<?php echo $this->page_id;?>">Edit</a>
+										</td>
+									</tr>
+								<?php endforeach;
+									else:
+								?>
+								<tr>
+									<td colspan="4" style="text-align:center;">No Posts Found.</td>
+								</tr>
+								<?php
+									endif;
+
+								?>
+						</tbody>
+					</table>
+					
+					
+				
+				</div>
+            </div>
+</div>
+</script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin/jquery.form.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/admin/plugins/jquery.zclip.js"></script>
+<script type="text/javascript">
+ window.onload = function () { 
+ 
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 3, "asc" ]],
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false}]
+	       }
+        );
+ }
+	function doDelete(id, pId){
+    	var r = confirm("Are you sure to Delete this post?");
+    	if (r == true) {
+    	   window.location.assign("<?php echo $this->baseUrl(); ?>/mem-pages/delete-post/id/" + id+"/page_id/"+pId);    
+    	} else {
+    	   return false;
+    	}
+	}
+</script>

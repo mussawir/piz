@@ -1,0 +1,114 @@
+<style>
+select, input{
+	font-size: 40px;
+	font-weight: bold;	
+}  
+ 
+.btn-find {
+    background: #52ba3d;
+    color: #ffffff;
+}
+ 
+.btn-find:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #52D43B;color: #181C4F;
+}
+ 
+.btn-find:active, .btn-find.active {
+    background: #52D43B;
+    box-shadow: none;
+}
+
+.navbar{
+/* border-bottom: 2px solid #40a52c; */	
+	
+} 
+.search-box{
+margin-top: 0px	
+}
+
+input, select{
+	padding: 20px;	
+}
+
+.jumbotron{
+height: 100px;
+/*  background-color: #2a2c4c; 	 */
+background-color:#e3e5e3; 
+}
+
+
+@media(max-width:720px) and (min-width:240px) {
+.search-box{
+margin-top: 23px	
+}
+.btn-find {
+border-radius:0;
+}
+
+select {
+border: 0;
+border-radius:0;	
+
+outline: 1px inset #EEEEEE; 
+outline-offset:-1px;
+}
+
+.jumbotron{
+height: 108px;	
+} 
+
+}
+
+@media(min-width:481px) {
+#location-mm{
+	display: none;	
+}
+#btn-search-small{
+	display: none;	
+}
+
+}
+
+@media(max-width:480px) and (min-width:1px) {
+#location{
+	display: none;	
+}	
+#btn-search{
+	display: none;	
+}
+
+}
+
+
+#contents h2{
+	color: #2f9e1e;	
+}
+#contents{
+	margin: 0px;
+	padding: 0px;
+	font-size: 1.3em;
+}
+
+</style>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+	  <form class="" action="<?php echo $this->baseUrl(); ?>/index/search" method="get" role="search">  
+
+      <div class="container">
+<div class="row search-box">
+   <div class="col-lg-12 text-center">
+ <div class="input-group">
+    
+    <input type="text" name="q" id="q" value="<?php echo $this->query;?>" class="form-control" style="font-size: 18px; text-center" placeholder="Enter business or page name" />
+      <div class="input-group-btn">
+        <button type="submit" class="btn btn-success" id="btn-search">Pageiz Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		<button type="submit" class="btn btn-success" id="btn-search-small"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+
+  </div><!-- /.col-lg-12 -->
+  
+</div><!-- /.row -->
+	   </div>
+    </div>

@@ -1,0 +1,233 @@
+<!--Header Image-->
+	  <div id="header-image">
+	 <div class="container-fluid">
+    <!--Searh box landing page start here-->
+   <div class="form1">
+     <div class="form-center">
+      <form action="<?php echo $this->baseUrl(); ?>/index/business-pages" method="get" role="search">
+	  
+    <div class="row">       
+        <div class="col-md-10 col-md-offset-1">
+            <h1 class="text-center" style="color: #fff;">Search Pages</h1>
+            <div class="col-md-10">		  
+                <input type="text" name="q" class="form-control" value="<?php echo $this->query;?>" />		  
+            </div>
+            <div class="col-md-2"> 
+                <button type="submit" id="busines-btn" class="btn btn-sbsl form-control" style="margin: 0!important;"><span class="fa fa-search"></span> Search</button>           
+            </div>
+       </div>
+   </div>
+    
+     <!--div for hide combo box-->
+    <div class="row" style="margin-top: 20px;">   
+        <div class="col-md-9 col-md-offset-2">
+        <div class="col-md-3"> 
+             <select id="state" name="state" class="form-control" onchange="getCities();">
+                <option value="0">Select State</option>
+                <?php foreach($this->state_list as $state): ?>
+                    <option value="<?php echo $state['state_id'];?>"><?php echo $state['state_name'];?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>   
+   
+        <div class="col-md-3">
+            <select id="city" name="city" class="form-control">
+                <option value="0">Select City</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+           <a href="#" class="btn btn-sbsl form-control" style="margin: 0!important;">Browse By Category</a>     
+        </div>
+        </div>
+    </div>
+<!--div for hide combo box end here-->
+
+</form>  
+
+<div id="loader" style="position: fixed;
+    left: 45%;
+    top: 20%;
+    display: none;
+    background: transparent;
+    z-index: 1000;
+    height: 21px;
+    width: 21px;">
+  
+<img src="<?php echo $this->baseUrl();?>/images/ajax_loader-4.gif" alt="loader">
+</div>
+
+   </div> <!--center form-->
+
+   </div> <!--form1 end here-->
+   
+   </div><!--container-fluid end-->
+
+
+ </div><!--header image end--> 
+ 
+ <script language="Javascript" type="text/javascript">
+window.onload = function(){
+$('#loader').hide();
+$('#optionRadio2').hide();
+$('#optionRadio3').hide();
+$('#optionRadio1').hide();
+
+$('div#radio-1').addClass("active" ).css("border-color", "#f60").css("border-width", "2px").css("border-style", "solid");
+$('#optionRadio3').prop("checked", true);
+//$('.search_field').show();
+
+$( ".opensearch" ).on( 'click', tapHandler );
+	
+	function tapHandler( event ) {
+	  $('.search_field').slideToggle();
+	  setTimeout(function(){
+		 $('#search').focus().tap();
+		},0);
+	}
+
+ getStates();
+ 
+}
+
+  function select1(){
+	 $('#optionRadio1').prop("checked", true);
+	 $("#radio-1").css("border-color", "#f60").css("border-width", "2px").css("border-style", "solid");
+	 document.getElementById("form2").placeholder = "Search Business";
+		
+	if(document.getElementById("optionRadio1").checked){
+	document.getElementById("radio-2").style.borderStyle='none';
+	document.getElementById("radio-3").style.borderStyle='none';
+
+	 }
+	 else{
+		document.getElementById("optionRadio1").style.display='block';
+		}
+		
+	 }
+
+  function select2(){
+	 $('#optionRadio2').prop("checked", true);
+	 $("#radio-2").css("border-color", "#f60").css("border-width", "2px").css("border-style", "solid");
+
+	 document.getElementById("form2").placeholder = "Search Daily Deals Coming Soon";
+	 
+	if(document.getElementById("optionRadio2").checked){
+	document.getElementById("radio-1").style.borderStyle='none';
+	document.getElementById("radio-3").style.borderStyle='none';
+
+	 }
+	 else{
+     document.getElementById("optionRadio2").style.display='block';
+	}
+	} 
+	
+  function select3(){
+	 $('#optionRadio3').prop("checked", true);
+	 $("#radio-3").css("border-color", "#f60").css("border-width", "2px").css("border-style", "solid");
+	
+	document.getElementById("form2").placeholder = "Search Products";
+		 
+	if(document.getElementById("optionRadio3").checked){
+	document.getElementById("radio-1").style.borderStyle='none';
+	document.getElementById("radio-2").style.borderStyle='none';
+
+	}
+	else{
+	document.getElementById("optionRadio3").style.display='block';
+		}
+	}
+	
+	// for search on radio buttons
+	function dosearch() {
+	var sf=document.searchform;
+	for (i=sf.sengines.length-1; i > -1; i--) {
+	if (sf.sengines[i].checked) {
+	var submitto = sf.sengines[i].value + escape(sf.key_word.value);
+	}
+	}
+	window.location.href = submitto;
+	return false;
+	}
+		
+
+function getStates(){
+	//$('#loader').show();
+	var country_id = $('#countries').val();//select item value from listbox
+   //alert(country_id);
+ if(country_id == "Select Country")return;
+var parent_id = 5;
+$.post("<?php echo $this->baseUrl()?>/index/get-states", {country_id: country_id},
+//this is response from controller.
+function(data){
+	var obj = jQuery.parseJSON(data);
+//alert( obj.name === "John" );
+$('select#states').empty();
+$('#states')
+         .append($("<option></option>")
+         .attr("value",0)
+         .text("Select State")); 
+		 $('#loader').hide();
+		 $(document).ajaxStop($.unblockUI); 
+	$.each( obj, function( index, value ) {
+  //alert( value.state_name + ": " + value.state_id );
+   
+ $('#states')
+         .append($("<option></option>")
+         .attr("value",value.state_id)
+         .text(value.state_name));
+  
+  });   
+		
+	});
+	}
+	
+function getCities(){
+	$('#loader').show();
+	var state_id = $('#states').val();//select item value from listbox
+ //alert(state_id);
+	 if(state_id == "Select State")return;
+$.post("<?php echo $this->baseUrl()?>/index/get-cities", {state_id: state_id},
+//this is response from controller.
+function(data){
+	var obj = jQuery.parseJSON(data);
+//alert( obj.name === "John" );
+$('select#cities').empty();
+$('#cities')
+         .append($("<option></option>")
+         .attr("value",0)
+         .text("Select City")); 
+		 $('#loader').hide();
+		$.unblockUI(); 		 
+	$.each( obj, function( index, value ) {
+  //alert( value.state_name + ": " + value.state_id );
+   
+ $('#cities')
+         .append($("<option></option>")
+         .attr("value",value.city_id)
+         .text(value.city_name)); 
+  
+  }); 
+		
+	});
+	}
+ function catBrowsing(){
+var cat_selected; 
+cat_selected = $("#cat_browsing").val();
+if(cat_selected == 1){
+window.location.replace("<?php echo $this->baseUrl(); ?>/categories/biz-main");  
+}
+else if(cat_selected == 2){
+window.location.replace("<?php echo $this->baseUrl(); ?>/categories/dd-main");  
+}
+else if(cat_selected == 3){
+window.location.replace("<?php echo $this->baseUrl(); ?>/categories/ho-main");  
+}
+else{
+
+ return false; 
+}
+
+ }
+
+</script>

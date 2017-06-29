@@ -1,0 +1,118 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 10px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+</style>
+<div id="page-wrapper">
+<div class="row">
+<div class="col-md-12">
+<?php //echo $this->render('/members/menu.phtml'); ?>
+
+<ul class="nav nav-pills">
+  <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/manage-page/id/<?php echo $this->page_id ?>">Main Page</a></li>
+  <li role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+  <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li>
+</ul>
+</div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div id="banner-container" class="col-md-12" style="color: #000;padding: 0;margin-top: 10px;">
+            <img id="loader-banner" src="<?php echo $this->baseUrl(); ?>/images/admin/ajax-loader.gif" style="display: none; width: 150px;margin-left: 45%;margin-top: 5%;position: absolute;" />
+            
+            <form id="header-frm" action="<?php echo $this->baseUrl()?>/members/upload-ad-image" method="post" enctype="multipart/form-data">
+            
+                <input type="file" name="adimage" class="banner" style="display: none;" accept="image/*" onchange="saveBanner();" />
+                <div id="preview" class="text-center" style="min-height: 200px;background-color: #eee;width: 300px;">                
+                <?php if(!empty($this->ad_img)) { ?>                
+                    <img  id="banner-img" src="<?php echo $this->baseUrl(). $this->member_dir_name. '/500X500/'.$this->ad_img;?>" alt="" class="img-responsive" />                    
+                <?php } else { ?>
+                    <img src="<?php echo $this->baseUrl();?>/images/placeholder_380X380.png" alt="placeholder image" class="img-responsive" />
+                <?php }?>
+                </div>    
+                <p id="file-selector"><span class="fa fa-camera fa-2x"></span>
+                    &nbsp;<strong>UPLOAD Advertisement Image</strong></p>            
+                <input type="hidden" id="old_banner" name="old_banner" value="<?php echo $this->ad_img;?>" />
+                <input type="hidden" value="<?php echo $this->page_id;?>" name="page_id" />
+                <input type="hidden" value="<?php echo $this->baseUrl();?>" name="base_path" />
+            </form>
+            </div>
+    </div>
+    <div id="msg" style="margin-top: 10px;"><?php echo $this->msg ?></div>
+       
+</div> <!-- wrapper end-->
+    
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin/jquery.form.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/admin/plugins/jquery.zclip.js"></script>
+<script type="text/javascript">
+
+ window.onload = function () { 
+  
+ } // load function end
+   var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+    $("#file-selector").click(function() {
+        $(".banner").trigger("click");
+     });
+     
+	 function saveBanner() {
+        $("#header-frm").trigger("submit");        
+     }
+     
+     $('#header-frm').ajaxForm({
+            beforeSubmit: function() {
+              // validate  
+			    $('#loader-banner').hide();
+            },
+            beforeSend:function(){
+    		   $('#loader-banner').show();
+    		},
+            success: function(msg) {
+    	    },
+    		complete: function(xhr) {
+                $('#loader-banner').hide();
+                var result = xhr.responseText;
+                result = JSON.parse(result);
+                //console.log(result);
+                if( result.status=='success'){ 
+                    $("#preview").html('');
+                    $("#preview").html(result.banner).fadeIn();
+                    $('#old_banner').val(result.old_banner);
+                    $("#header-frm")[0].reset();
+                } else if( result.status=='error'){
+                    $("#msg").html(result.msg).show().delay(7000).fadeOut('slow');    
+                }
+				window.location = "<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>";
+            }
+     }); //ajax form end
+ </script>

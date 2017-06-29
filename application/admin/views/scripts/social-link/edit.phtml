@@ -1,0 +1,51 @@
+
+ <div class="row">
+ <div class="col-md-12">
+ <div class="page-title">Edit Social Links</div>
+</div><!-- /.col-md-12-->
+</div><!-- /.row -->
+<br />
+
+ <div class="row">
+ <div class="col-md-10">
+ <div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+        
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+<table class="table space-mangead">
+<input type="hidden" name="id" value="<?php echo $this->id?>"/>
+<tr><td><strong>Facebook</strong></td></tr>
+  <?php echo $this->form->facebook; ?>
+<tr><td><strong>LinkedIn</strong></td></tr>
+  <?php echo $this->form->linkedin; ?>
+<tr><td><strong>Twitter</strong></td></tr>
+  <?php echo $this->form->twitter; ?>
+<tr><td><strong>Youtube</strong></td></tr>
+  <?php echo $this->form->youtube; ?>
+<tr><td><strong>Istagram</strong></td></tr>
+  <?php echo $this->form->instagram; ?>
+<tr><td><strong>Google Plus</strong></td></tr>
+  <?php echo $this->form->google_plus; ?>
+<tr><td><strong>Tumblr</strong></td></tr>
+  <?php echo $this->form->tumblr; ?>
+  
+<tr><td > <?php echo $this->form->submit?></td></tr>
+</table>
+</form>
+ </div><!-- /.col-md-12-->
+</div><!-- /.row -->
+
+
+ <script language="Javascript" type="text/javascript">
+window.onload = function () {
+ <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(3000).hide('slow');
+
+    <?php } ?>
+ }
+ </script>

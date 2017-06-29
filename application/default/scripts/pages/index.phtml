@@ -1,0 +1,6 @@
+<?php
+if($this->list['is_member_pg']==1){
+    echo $this->render("/pages/member-page.phtml");
+} else {
+    echo $this->render("/pages/page.phtml");
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Pageiz - Dashboard<?php //echo $this->escape($this->title); ?></title>
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo $this->baseUrl(); ?>/css/admin/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->baseUrl(); ?>/css/admin/plugins/metisMenu.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="<?php echo $this->baseUrl(); ?>/css/admin/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="<?php echo $this->baseUrl(); ?>/css/admin/plugins/morris.css" rel="stylesheet">
+ <!-- DataTables CSS -->
+    <link href="<?php echo $this->baseUrl(); ?>/css/admin/plugins/dataTables.bootstrap.css" rel="stylesheet">
+ <link href="<?php echo $this->baseUrl(); ?>/css/admin/jquery.fileupload.css" rel="stylesheet">
+ 
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+ <link href="<?php echo $this->baseUrl(); ?>/css/admin/members-dashboard.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/js/admin/jquery-ui-1.11.1/jquery-ui.css" rel="stylesheet"> 
+<link rel="shortcut icon" href="<?php echo $this->baseUrl();?>/images/favicon.ico">
+ <!-- jQuery Version 1.11.0 -->
+    <script src="<?php echo $this->baseUrl(); ?>/js/admin/jquery.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+ <?php echo $this->render("members/header-dashboard.phtml"); ?>
+ 
+    <?php echo $this->layout()->content; ?>
+ 
+ <?php //echo $this->render("footer-dashboard.phtml"); ?> 
+    </div>
+    <!-- /#wrapper -->
+
+    
+<script src="<?php echo $this->baseUrl(); ?>/js/admin/jQuery-File-Upload-9.8.0/js/vendor/jquery.ui.widget.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="<?php echo $this->baseUrl(); ?>/js/admin/jQuery-File-Upload-9.8.0/js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="<?php echo $this->baseUrl(); ?>/js/admin/jQuery-File-Upload-9.8.0/js/jquery.fileupload.js"></script> 
+<!-- Bootstrap Core JavaScript -->
+<script src="<?php echo $this->baseUrl(); ?>/js/admin/bootstrap.min.js"></script>
+
+
+<!-- Metis Menu Plugin JavaScript -->
+    <script src="<?php echo $this->baseUrl(); ?>/js/admin/plugins/metisMenu.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="<?php echo $this->baseUrl(); ?>/js/admin/plugins/morris/raphael.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+   <script src="<?php echo $this->baseUrl(); ?>/js/admin/plugins/sb-admin-2.js"></script>
+<!-- Page-Level Plugin Scripts - Tables -->
+   <script src="<?php echo $this->baseUrl()?>/js/admin/plugins/dataTables/jquery.dataTables.js"></script>
+   <script src="<?php echo $this->baseUrl()?>/js/admin/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+</body>
+</html>

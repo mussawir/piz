@@ -1,0 +1,521 @@
+<style>
+.set-summary h4{
+	color: #464646;
+}
+.container-fluid{
+    background-color: #f6f5f2;
+}
+.post-head{
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-default:hover #like-icon {
+    color:#E62052;
+}
+.btn-default:hover #rate-icon {
+    color:#FFD203;
+}
+.btn-default:hover #comment-icon {
+    color:#45aed6;
+}
+
+.btn-default:hover #comments-icon {
+    color:#53C7AE;
+}
+
+.liked{
+    color:#E62052;
+}
+
+body {
+    background-color: #eee;
+}
+
+.card {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-clip: padding-box;
+}
+</style>
+<head>
+	<!-- Open Graph Protocol Meta -->   
+<!--FACEBOOK--> 
+<meta property="og:title" content="<?php echo $this->list['title'];?>" />
+<meta property="og:description" content="<?php echo strip_tags($this->list['contents']);?>" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>" />
+<!--TWITTER-->
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="<?php echo $this->list['title'];?>" />
+<meta property="twitter:description" content="<?php echo strip_tags($this->list['contents']);?>" />
+<meta property="twitter:url" content="<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>" />
+<!-- END Open Graph Protocol Meta -->
+</head>
+
+<div class="container" style="padding: 20px 0; margin-top: 20px">
+<div class="row">
+    <div class="col-md-9">  
+              <div class="row">
+	   <div class="col-md-12">
+			<input type="hidden" value="<?php echo $this->list['page_id']; ?>" id="click_page_id" />
+            <input type="hidden" value="page" id="click_page_type" />
+            
+			<div class="post-head text-center">
+			<h1><?php echo $this->list['title'];?></h1>
+			</div><!--post-heading end-->
+    </div>
+	</div>
+	
+    <div class="row">
+	   <div class="col-md-12">
+        <div class="header-social">
+            <a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://twitter.com/intent/tweet?text=<?php echo $this->list['title'];?>&url=<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>&description=<?php echo strip_tags($this->list['contents']);?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/twt.png" /></a>
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://pinterest.com/pin/create/button/?url=<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>&description=<?php echo strip_tags($this->list['contents']);?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/pinterest.png" /></a>  
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/fb.png" /></a>   
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="https://plus.google.com/share?url=<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/google.png" /></a>
+    		<a onclick="window.open(this.href, 'newwindow', 'width=680, height=460'); return false;" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $this->site_url['site_url'];?>/<?php echo $this->list['url_slug'];?>&title=<?php echo $this->list['title'];?>&summary=<?php echo strip_tags($this->list['contents']);?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/linkedin.png"/></a> 
+        </div> 
+	   </div>
+	</div>
+    
+	<div class="row" style="min-height: 500px;margin-top: 20px;margin-bottom: 30px;">
+        <div class="col-md-12 set-summary">
+            <center>
+            <div id="banner-wrapper" style="position: relative;background-color: #fff;">
+                <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir .'/'.$this->list['banner_img'];?>" alt="Banner Image" />
+            </div></center>
+            <div style="background-color: #fff; padding: 30px;"><?php echo stripslashes($this->list['contents']);?></div>
+        </div>
+    </div>
+    <hr />
+    
+    <div class="row">
+        <div class="col-md-12">
+            <?php if($this->ad_list['banner_url1']) {?>
+            <div style="background-color: #fff; padding: 20px;">
+            <center><a href="<?php echo $this->ad_list['banner_url1'];?>">
+                <img style="height: 80px;" class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['banner_img1'];?>" alt="<?php echo $this->ad_list['banner_title1'];?>" />
+            </a>
+            <br />
+            <?php } if($this->ad_list['banner_url2']) {?>
+            <a href="<?php echo $this->ad_list['banner_url2'];?>">
+                <img style="height: 80px;" class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['banner_img2'];?>" alt="<?php echo $this->ad_list['banner_title2'];?>" />
+            </a></center>            
+            </div>
+            <br />
+            <?php }?>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <?php if($this->likes_count>0) {?>
+            <div class="alert alert-info">
+                <strong><span id="likes_count"><?php echo $this->likes_count; ?><span> member(s) likes this page</strong>
+            </div>
+            <?php }?>
+        
+            <?php $is_logged_in=0; if(isset($this->user_role) && isset($this->logged_user_id)) { $is_logged_in=1; } ?>
+            
+            <a href="javascript:void(0);" class="btn btn-default" onclick="doLike(<?php echo $is_logged_in; ?>);" <?php if($is_logged_in==0) echo 'data-toggle="modal" data-target="#login-modal"';?>>Like this page <span id="like-icon" class="fa fa-heart <?php if($this->is_liked) echo 'liked';?>"></span></a>
+            &nbsp;
+            <a href="javascript:void(0);" class="btn btn-default" onclick="doRate(<?php echo $is_logged_in; ?>);">Rate this page <span id="rate-icon" class="fa fa-star"></span></a>
+            &nbsp;
+            <a href="javascript:void(0);" class="btn btn-default" onclick="showHideCommentBox();">Add your comments <span id="comment-icon" class="fa fa-comment"></span></a>
+            <?php if(count($this->comment)>0){?>
+            &nbsp;
+            <a href="javascript:void(0);" class="btn btn-default" onclick="showHideComments();">Read comments <span id="comments-icon" class="fa fa-comments"></span></a>
+            <?php }?>
+        </div>
+    </div>
+    
+    <?php if(count($this->comment)>0){?>    
+    <!-- veiw approved comment-->
+    <div class="row" id="user_comments" style="display: none;">    
+	   <div class="col-md-12 set-head">
+       <hr /><div style="background-color: #fff;padding: 20px;"> 
+			<h2> <i class="fa fa-comments fa-2x"></i> Comments</h2>
+			<?php $c_counter=1; foreach ($this->comment as $items):?>
+			<div class="row">
+            <div class="col-md-3">
+                <h5><i class="fa fa-user"></i>&nbsp;<?php echo ucwords($items['name']) ?></h5>
+                <h5><i class="fa fa-clock-o" ></i>&nbsp;<?php echo date('m/d/Y h:i A', strtotime($items['comment_date'])) ?></h5>
+            </div>
+	       <div class="col-md-9 set-summary" style="border-left: 1px solid #ddd;min-height: 50px;">
+			<p class="set-comment"><?php echo $items['comment'] ?></p>
+			</div>
+			</div>
+			<?php $c_counter++; if($c_counter==5) break; endforeach;?>
+            </div>            
+		</div>
+    </div>
+    <!-- end approved comment -->
+    <?php } ?>        
+    
+    <div class="msg" style="margin-top: 10px;"> </div>
+    
+    <div id="comment-section" class="row" style="display: none;">
+        <div class="col-md-12 set-head"> 
+        <hr />
+			<form id="frm" method="post">
+             	 <?php echo $this->form->csrf ?>
+				 <h3 class="reply">Leave a Comment</h3>
+				 
+                <input type="hidden" name="page_id" value="<?php echo $this->list['page_id']; ?>" />       	  
+                <?php if($is_logged_in==0) {?>
+                <h5 class="c-headings"> * Name:</h5>
+				<?php echo $this->form->name; ?>
+				<span id="name-error"></span>
+                <h5 class="c-headings"> * Email:</h5>
+				<?php echo $this->form->email; ?>
+				<span id="email-error"></span>
+                <?php } else {?>
+                <input type="hidden" name="name" value="<?php echo $this->member_name;?>" />
+                <input type="hidden" name="email" value="<?php echo $this->member_email;?>" />
+                <?php } ?>
+                <h5 class="c-headings">* Comment:</h5>
+				<?php echo $this->form->comment; ?>
+				<span id="comment-error"></span>  &nbsp;
+                
+            <div class="row col-md-12">
+                <span id="comment-btn" class="pull-right"><?php echo $this->form->submit?></span>
+                <span id="ajax-loader" style="display:none;" class="pull-right"><img src="<?php echo $this->baseUrl(); ?>/images/admin/ajax-loader.gif" style="width: 150px;" /></span>
+                <strong>Total Characters: <span id="count">0</span>/2000</strong>        
+            </div>
+            </form>
+ 
+        </div><!--col-12 end-->
+    </div><!--row end-->
+    
+  </div><!--col-md-9 end-->
+  
+  <!-- col for ads -->
+  <div class="col-md-3" style="min-height: 300px; background-color: #fff; padding-top: 15px; padding-bottom: 15px;box-shadow: 1px 2px 1px #ccc;border: 1px solid #ddd;">
+    <?php if($this->ad_list['ad_type1']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url1'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image1'];?>" alt="<?php echo $this->ad_list['ad_title1'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type1']==2) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url1'];?>"><?php echo $this->ad_list['ad_text1'];?></a>
+    <?php } else if($this->ad_list['ad_type1']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url1'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image1'];?>" alt="<?php echo $this->ad_list['ad_title1'];?>" />
+            <?php echo $this->ad_list['ad_text1'];?>
+        </a>
+    <?php }?>
+    <br />
+    
+    <?php if($this->ad_list['ad_type2']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url2'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image2'];?>" alt="<?php echo $this->ad_list['ad_title2'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type2']==2) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url2'];?>"><?php echo $this->ad_list['ad_text2'];?></a>
+    <?php } else if($this->ad_list['ad_type2']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url2'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image2'];?>" alt="<?php echo $this->ad_list['ad_title2'];?>" />
+            <?php echo $this->ad_list['ad_text2'];?>
+        </a>
+    <?php }?>
+    <br />
+    
+    <?php if($this->ad_list['ad_type3']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url3'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image3'];?>" alt="<?php echo $this->ad_list['ad_title3'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type3']==2) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url3'];?>"><?php echo $this->ad_list['ad_text3'];?></a>
+    <?php } else if($this->ad_list['ad_type3']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url3'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image3'];?>" alt="<?php echo $this->ad_list['ad_title3'];?>" />
+            <?php echo $this->ad_list['ad_text3'];?>
+        </a>
+    <?php }?>
+    <br />
+    
+    <?php if($this->ad_list['ad_type4']==1) {?>    
+        <a href="<?php echo $this->ad_list['ad_target_url4'];?>">
+        <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image4'];?>" alt="<?php echo $this->ad_list['ad_title4'];?>" />
+        </a>        
+    <?php } else if($this->ad_list['ad_type4']==2) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url4'];?>"><?php echo $this->ad_list['ad_text4'];?></a>
+    <?php } else if($this->ad_list['ad_type4']==3) { ?>
+        <a href="<?php echo $this->ad_list['ad_target_url4'];?>">
+            <img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/user/ads/<?php echo $this->ad_list['ad_image4'];?>" alt="<?php echo $this->ad_list['ad_title4'];?>" />
+            <?php echo $this->ad_list['ad_text4'];?>
+        </a>
+    <?php }?>
+  </div>
+</div>
+    
+    <?php if($is_logged_in==0) echo $this->render("/pages/register-login-popup.phtml"); ?>
+</div> </div> 
+  </div><!-- container end -->
+  <script type="text/javascript">
+  
+   $(function(){
+   
+   $("#comment").css('height','80');
+   
+   $("#first_name").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').css('color', 'red').text('Name is required.').show();
+        }
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').hide();
+        }
+    });
+    
+    $("#email").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').text('Eamil is required.').show();
+        }
+        else if(txt.val() != '' && !isValidEmailAddress(txt.val()))
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').val('Eamil address is not valid.').show();
+        }
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').hide();
+        }
+    });
+    
+    $("#comment").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').css('color', 'red').text('Comment is required.').show();
+        }        
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').hide();
+        }
+        
+        var cs = $(this).val().length;
+        $('#count').text(cs);
+    });
+   
+    //function saveComments()
+    $('#frm').submit(function(e) 
+    {    
+        e.preventDefault();
+        
+        <?php if($is_logged_in==0) {?>
+        var name = $('#first_name');
+        if(name.val() == '' || name.length == 0)
+        {
+            name.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').css('color', 'red').text('Name is required.').show();
+            return false;
+        }
+        
+        var email = $('#email');
+        if((email.val() == '' || email.length == 0) && (!isValidEmailAddress(email.val())))
+        {
+            email.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').val('Eamil address is not valid.').show();
+            return false;
+        }
+        <?php }?>
+        
+        var comment = $('#comment');
+        if(comment.val() == '' || comment.length == 0)
+        {
+            comment.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').css('color', 'red').text('Comment is required.').show();
+            return false;
+        }
+        
+        // show loader
+        $('#comment-btn').hide();
+        $('#ajax-loader').show();
+        
+       $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/save-page-comments",
+             data: $(this).serialize(),
+                success: function(result) {
+               //console.log('success : '+ result);
+                  //  if(result == 'success')
+                    {
+                        // hide loader
+                        $('#ajax-loader').hide();
+                        $('#comment-btn').show();
+                        
+                        $('.msg').html("<div class='alert alert-success'><strong>Your comment saved successfully and will shown after approval.</strong></div>").show().delay(5000).fadeOut(1000);
+                        <?php if($is_logged_in==0) {?>
+                        name.val('');
+                        email.val('');
+                        <?php }?>
+                        comment.val('');
+                    }
+				},
+                error: function(result)
+                {
+                     console.log('error : '+ result);
+                     //if(result == 'error')
+                     {
+                        $('.msg').html("<div class='alert alert-danger'><strong>Some error in saving record</strong></div>").show().delay(5000).fadeOut(1000);
+                        }
+                }
+        }); //ajax end
+             
+            return false;
+            
+    });
+  });
+  
+    function isValidEmailAddress(emailAddress) {
+        var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+         //alert( pattern.test(emailAddress) );
+        return pattern.test(emailAddress);
+    };
+    
+    function doLike(value)
+    {
+        if(value==0){
+            
+        } else {
+            $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/save-like",
+             data: { page_id:<?php echo $this->list['page_id']; ?> },
+                success: function(result) {
+                    if(result=='success'){
+                        $('#like-icon').addClass('liked');
+                        var likes_count = $('#likes_count').text();
+                        $('#likes_count').text((parseInt(likes_count)+1) + " member(s) likes this page");
+                    }
+				},
+                error: function(result)
+                {
+                     if(result == 'error') {
+                        $('.msg').html("<div class='alert alert-danger'>Some error occur. Please try again.</div>").show().delay(5000).fadeOut(1000);
+                     }
+                }
+            }); //ajax end
+             
+            return false;
+        }
+    } 
+    
+    function doRate(value)
+    {
+        
+    }
+    
+    function showHideCommentBox()
+    {
+        $('#comment-section').slideToggle("slow");
+    }
+    
+    function showHideComments()
+    {
+        $('#user_comments').slideToggle("slow");
+    }
+    
+    // login by ajax
+    $('#login-frm1').submit(function(){
+        $('#ajax-loader').show();
+        
+        $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/registration-ajax",
+             data: $(this).serialize(),
+                success: function(result) 
+                {
+                    if(result == 'success') {
+                        $('#ajax-loader').hide();
+                        $('#reg-msg').html("<div class='alert alert-success'>Please check email to verify your email address</div>").show().delay(5000).fadeOut(1000);
+                        $("#registration-frm")[0].reset();
+                    }
+				},
+                error: function(result)
+                {
+                     if(result == 'error') {
+                        $('#reg-msg').html("<div class='alert alert-danger'>Some error occur. Please try again.</div>").show().delay(5000).fadeOut(1000);
+                     }
+                }
+            }); //ajax end
+             
+            return false;
+    });
+    
+    // register member
+    $('#registration-frm').submit(function(){
+        $('#reg-ajax-loader').show();
+        
+        $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/registration-ajax",
+             data: $(this).serialize(),
+                success: function(result) 
+                {
+                    result = JSON.parse(result);
+                    
+                    if(result.status == 'success') {
+                        $('#reg-ajax-loader').hide();
+                        $('#reg-msg').html("<div class='alert alert-success'>Please check email to verify your email address</div>").show().delay(5000).fadeOut(1000);
+                        $("#registration-frm")[0].reset();
+                    }
+                    
+                    if(result.status == 'warning'){
+                        $('#reg-ajax-loader').hide();
+                        $('#reg-msg').html(result.msg).show().delay(5000).fadeOut(1000);
+                    }
+                    
+                    if(result.status == 'error') {
+                        $('#reg-ajax-loader').hide();
+                        $('#reg-msg').html("<div class='alert alert-danger'>Some error occur. Please try again.</div>").show().delay(5000).fadeOut(1000);
+                    }
+				},
+                error: function(result)
+                {
+                    console.log('error: ' +result);
+                }
+            }); //ajax end
+             
+            return false;
+    });
+    
+ </script>
+ 

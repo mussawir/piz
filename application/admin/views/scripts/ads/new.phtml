@@ -1,0 +1,160 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+<style>
+.tab-pane{
+    padding: 10px;
+}
+.tab-pane img{
+    max-height:200px;
+}
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Manage Ads</h2>
+        <div id="msg"><?php echo $this->msg ?></div>
+        
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#block_1">Ad Block 1</a></li>
+          <li><a data-toggle="tab" href="#block_2">Ad Block 2</a></li>
+          <li><a data-toggle="tab" href="#block_3">Ad Block 3</a></li>
+          <li><a data-toggle="tab" href="#block_4">Ad Block 4</a></li>
+          <li><a data-toggle="tab" href="#banner_1">Ad Banner 1</a></li>
+          <li><a data-toggle="tab" href="#banner_2">Ad Banner 2</a></li>
+        </ul>
+        
+        <div class="tab-content">
+            <div id="block_1" class="tab-pane fade in active">
+            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col-md-3"><?php echo $this->form->ad_image1;?></div>
+                    <div class="col-md-3"><?php if(isset($this->ad_image1)) {?>
+                        <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/user/ads/<?php echo $this->ad_image1;?>" alt="<?php echo $this->ad_title1;?>" /><?php }?>
+                    </div>
+                    <div class="col-md-6" style="padding-top: 20px;"><label>Ad Type: </label><?php echo $this->form->ad_type1;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_title1;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_target_url1;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><label>Ad Text:</label><?php echo $this->form->ad_text1;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><input type="submit" value="Save" class="btn btn-primary pull-right" /></div>
+                </div>
+            </form>
+            </div>
+            <div id="block_2" class="tab-pane fade in">
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col-md-3"><?php echo $this->form->ad_image2;?></div>
+                    <div class="col-md-3"><?php if(isset($this->ad_image2)) {?>
+                        <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/user/ads/<?php echo $this->ad_image2;?>" alt="<?php echo $this->ad_title2;?>" /><?php }?>
+                    </div>
+                    <div class="col-md-6" style="padding-top: 20px;"><label>Ad Type: </label><?php echo $this->form->ad_type2;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_title2;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_target_url2;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><label>Ad Text:</label><?php echo $this->form->ad_text2;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><input type="submit" value="Save" class="btn btn-primary pull-right" /></div>
+                </div>
+                </form>
+            </div>
+            <div id="block_3" class="tab-pane fade in">
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col-md-3"><?php echo $this->form->ad_image3;?></div>
+                    <div class="col-md-3"><?php if(isset($this->ad_image3)) {?>
+                        <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/user/ads/<?php echo $this->ad_image3;?>" alt="<?php echo $this->ad_title3;?>" /><?php }?>
+                    </div>
+                    <div class="col-md-6" style="padding-top: 20px;"><label>Ad Type: </label><?php echo $this->form->ad_type3;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_title3;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_target_url3;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><label>Ad Text:</label><?php echo $this->form->ad_text3;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><input type="submit" value="Save" class="btn btn-primary pull-right" /></div>
+                </div>
+                </form>
+            </div>
+            <div id="block_4" class="tab-pane fade in">
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col-md-3"><?php echo $this->form->ad_image4;?></div>
+                    <div class="col-md-3"><?php if(isset($this->ad_image4)) {?>
+                        <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/user/ads/<?php echo $this->ad_image4;?>" alt="<?php echo $this->ad_title4;?>" /><?php }?>
+                    </div>
+                    <div class="col-md-6" style="padding-top: 20px;"><label>Ad Type: </label><?php echo $this->form->ad_type4;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_title4;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->ad_target_url4;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><label>Ad Text:</label><?php echo $this->form->ad_text4;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><input type="submit" value="Save" class="btn btn-primary pull-right" /></div>
+                </div>
+                </form>
+            </div>
+            <div id="banner_1" class="tab-pane fade in">
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col-md-3"><?php echo $this->form->banner_img1;?></div>
+                    <div class="col-md-9"><?php if(isset($this->banner_img1)) {?>
+                        <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/user/ads/<?php echo $this->banner_img1;?>" alt="<?php echo $this->banner_title1;?>" /><?php }?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->banner_title1;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->banner_url1;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><input type="submit" value="Save" class="btn btn-primary pull-right" /></div>
+                </div>
+                </form>
+            </div>
+            <div id="banner_2" class="tab-pane fade in">
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col-md-3"><?php echo $this->form->banner_img2;?></div>
+                    <div class="col-md-9"><?php if(isset($this->banner_img2)) {?>
+                        <img class="img-responsive" src="<?php echo $this->baseUrl();?>/images/user/ads/<?php echo $this->banner_img2;?>" alt="<?php echo $this->banner_title2;?>" /><?php }?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->banner_title2;?></div>
+                    <div class="col-md-6" style="padding-top: 20px;"><?php echo $this->form->banner_url2;?></div>
+                    <div class="col-md-12" style="padding-top: 20px;"><input type="submit" value="Save" class="btn btn-primary pull-right" /></div>
+                </div>
+                </form>
+            </div>
+        </div>
+          
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        <?php if(!isset($this->msg)){ ?>
+          $('#msg').hide();
+        <?php  } else{ ?>
+          $('#msg').show().delay(7000).hide('slow');
+        <?php } ?>
+    
+        var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/admin/fileman/index.html';
+         
+            CKEDITOR.replace( 'ad_text1',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+            
+            CKEDITOR.replace( 'ad_text2',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+            CKEDITOR.replace( 'ad_text3',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+            CKEDITOR.replace( 'ad_text4',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+    }); // ready function end
+</script>

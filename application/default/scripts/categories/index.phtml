@@ -1,0 +1,49 @@
+ <?php echo $this->render("categories-sb.phtml"); ?>
+<section id="category-section">
+ <div class="container">
+    
+    <div class="row">
+        <div class="col-md-12 text-center" style="padding-top: 20px;">
+        <a href="javascript: void(0);" onclick="selectAlphabet('a');">A</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('b');">B</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('c');">C</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('d');">D</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('e');">E</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('f');">F</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('g');">G</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('h');">H</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('i');">I</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('j');">J</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('k');">K</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('l');">L</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('m');">M</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('n');">N</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('o');">O</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('p');">P</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('q');">Q</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('r');">R</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('s');">S</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('t');">T</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('u');">U</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('v');">V</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('w');">W</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('x');">X</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('y');">Y</a> |
+        <a href="javascript: void(0);" onclick="selectAlphabet('z');">Z</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="category-list">
+                <?php foreach($this->list as $item): ?>
+                    <li>
+                        <a href="<?php echo $this->baseUrl();?>/categories/search/category/<?php echo $item['category_id'];?>"><?php echo $item['category_name'];?></a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
+    </div>
+    
+ </div>
+</section>

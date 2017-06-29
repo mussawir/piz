@@ -1,0 +1,189 @@
+<style>
+	.li_btn{
+		border-radius:0;
+		background:#1B1C52;
+		border:1px solid #1B1C52;
+		margin-top: 5px;   
+	}
+	.li_btn > a{
+		color:white;
+	}
+	.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:white;
+		background:#1B1C52;
+}
+</style>
+<div id="page-wrapper">
+<div class="row">
+	<div class="col-md-12">
+		<div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+        <div class="col-md-12" style="margin:20px 0;">
+    <?php //echo $this->render('/members/menu.phtml'); ?>
+    
+        <ul class="nav nav-pills">
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Main Page</a></li>
+		  <!--li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-slider/id/<?php echo $this->page_id ?>">Upload Slider</a></li-->
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-product-post/id/<?php echo $this->page_id ?>">New Product Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-service-post/id/<?php echo $this->page_id ?>">New Service Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-social-post/id/<?php echo $this->page_id ?>">New Social Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-post/id/<?php echo $this->page_id ?>">Product Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/service-posts/id/<?php echo $this->page_id ?>">Service Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/social-posts/id/<?php echo $this->page_id ?>">Social Posts</a></li>
+          <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $this->page_id ?>">Comments</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/feedback/id/<?php echo $this->page_id ?>">Get Feedback</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/popup-design/id/<?php echo $this->page_id ?>">Customize CTA</a></li>
+         <!--li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads/Description</a></li-->
+		 
+          <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+          <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+        </ul>
+    </div>
+		<h2>Comments</h2>
+        
+		<div class="table-responsive">
+        <form method="post" name="data_table">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+														<thead>
+														<tr>
+																<th class="grid-head"> Page Title</th>
+																<th class="grid-head">Name </th>
+																<th class="grid-head">Email </th>
+																<th class="grid-head">Comment </th>
+																<th class="grid-head">Date </th>
+																<th class="grid-head">Status </th>
+																<th class="grid-head">Action</th>
+																
+																<th class="grid-head">Delete</th>
+                                                                <th class="grid-head">
+                                                                <input type="submit" name="submit" class="btn btn-danger btn-sm" id="submit" value="Delete"/>
+                                                                <label><input type="checkbox" name="allbox" id="allbox" value="0" onclick="checkAll(this.value);" /> All</label>
+                                                                </th>
+                                                        	</tr>
+														</thead>		
+														<tbody> 
+                                          
+														<?php if (count($this->data)){ 
+														 $counter=0; foreach ($this->data as $item): ?>
+														<tr class="odd gradeX">
+															<td> <?php echo $item['title'] ?> </td> 
+															<td style="text-align:center;"> <?php echo $item['name'] ?> </td> 
+															<td style="text-align:center;"> <?php echo $item['email'] ?> </td> 
+															<td>
+                                                                <?php if(strlen($item['comment'])>100) 
+                                                                        echo substr($item['comment'], 0, strpos($item['comment'], ' ', 110)) .'<strong>...</strong>'; 
+                                                                    else echo $item['comment'];
+                                                                ?>
+                                                            </td> 
+															<td style="text-align:center;"> <?php echo date('m/d/Y h:i A', strtotime($item['comment_date'])) ?> </td> 
+															<td style="text-align:center;">
+															<?php if($item['status']== 1){?>
+															Pending<?php }elseif($item['status']== 3){ ?>
+															Rejected<?php }else{ ?>
+															Approved<?php } ?>
+															</td>
+															<td style="text-align:center;">
+    															<?php if($item['status']== 1 || $item['status']== 3){?>
+    															<a class="btn btn-sm btn-info" href="#" onclick="return confirmApprove(<?php echo $item['comment_id'] ?>, <?php echo $item['page_id'] ?>)" >Approve</a>
+                                                                <?php } else{ ?>
+    															<a class="btn btn-sm btn-danger" href="#" onclick="return confirmReject(<?php echo $item['comment_id'] ?>, <?php echo $item['page_id'] ?> )" >Reject</a> 
+                                                                <?php } ?> 
+                                                            </td>
+                                                            
+                                                            <td style="text-align:center;"><a class="btn btn-sm btn-danger" href="#" onclick="return confirmDelete(<?php echo $item['comment_id'] ?>, <?php echo $item['page_id'] ?> )" >Delete</a></td>
+														<td  style="text-align:center;"><input type="checkbox" name="bulkdata[]" id="check_<?php echo $counter++;?>" class="form-control" value="<?php echo $item['comment_id'] ?>"/></td>
+                                                        </tr>  
+															<?php endforeach; } ?>
+														</tbody>
+
+						 								</table>
+                                                        </form>
+														</div><!-- div responsive end-->
+												</div>
+
+                                </div>
+</div>
+
+  <script type="text/javascript">
+ window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(5000).hide('slow');
+		<?php } ?>
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 4, "desc" ]], // 4th index or 5th column in descending order
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false, 'aTargets': [6,7,8]}]
+	       }
+        );
+ }
+ 
+    function confirmDelete(id, pageId){
+	var r = confirm("Are you sure to Delete this Comment?");
+	if (r == true) {
+	window.location.assign("<?php echo $this->baseUrl(); ?>/mem-pages/delete-comment/id/" + id+"/page_id/"+pageId);    
+	} else {
+	return false;
+	}
+	}
+	
+  function confirmApprove(id, pageId){
+
+	window.location.assign("<?php echo $this->baseUrl(); ?>/mem-pages/approve-comment/id/" + id+"/page_id/"+pageId);    
+	
+	}
+	
+  function confirmReject(id, pageId){
+	
+	window.location.assign("<?php echo $this->baseUrl(); ?>/mem-pages/reject-comment/id/" + id+"/page_id/"+pageId);    
+
+	}
+    
+    function checkAll(a)
+	{
+	    var total = $('#dataTables-example tr:not(:has(th))').length;
+        
+		if(a == 0)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', true);
+			}
+            $('#allbox').val(1);
+		}
+
+		if(a == 1)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', false);
+			}
+
+            $('#allbox').val(0);
+		}
+	}
+    
+    jQuery(function($) {
+	
+	$("form input[id='submit']").click(function() {  // triggred submit
+    		
+    		var count_checked = $("[name='bulkdata[]']:checked").length; // count the checked
+    		if(count_checked == 0) {
+    			alert("Please select a Posts to delete.");
+    			return false;
+    		} 
+    		 else {
+    			return confirm("Are you sure you want to delete these posts?");	
+    		  }		
+    	});
+     }); // jquery end
+ </script>

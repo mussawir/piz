@@ -1,0 +1,1198 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 35px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+	text-decoration: none !important;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+.li_btn{
+		border-radius:0;
+		background:#1B1C52;
+		border:1px solid #1B1C52;
+		margin-top: 5px;   
+	}
+	.li_btn > a{
+		color:white;
+	}
+	.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:white;
+		background:#1B1C52;
+}
+</style>
+<div id="page-wrapper">
+<div class="row row-fluid">
+    <div class="col-md-12">
+    <?php //echo $this->render('/members/menu.phtml'); ?>
+    
+        <ul class="nav nav-pills">
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Main Page</a></li>
+		  <!--li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-slider/id/<?php echo $this->page_id ?>">Upload Slider</a></li-->
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-product-post/id/<?php echo $this->page_id ?>">New Product Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-service-post/id/<?php echo $this->page_id ?>">New Service Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-social-post/id/<?php echo $this->page_id ?>">New Social Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-post/id/<?php echo $this->page_id ?>">Product Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/service-posts/id/<?php echo $this->page_id ?>">Service Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/social-posts/id/<?php echo $this->page_id ?>">Social Posts</a></li>
+          <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $this->page_id ?>">Comments</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/feedback/id/<?php echo $this->page_id ?>">Get Feedback</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/popup-design/id/<?php echo $this->page_id ?>">Customize CTA</a></li>
+         <!--li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads/Description</a></li-->
+		 
+          <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+          <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+        </ul>
+		<?php
+			if(isset($_GET['status'])){
+				if($_GET['status'] == 'success'){ ?>
+					<div class='alert alert-success'> Page Updated Successfully. </div>
+			<?php	}else{ ?>
+				<div class='alert alert-danger'> Some error occurred, please try again! </div>
+			<?php }
+				
+			}
+		?>
+		
+    </div>
+</div>
+
+    <div class="row">
+        <div id="banner-container" class="col-md-4" style="color: #000;padding-left:30px;margin-top: 10px;margin-bottom: 5px;">
+            <img id="loader-banner" src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif" style="display: none; background-color: #fff;border-radius: 15px;padding: 5px;margin-left: 38%;margin-top: 40%;position: absolute;" />
+			
+            
+			<form id="header-frm" action="<?php echo $this->baseUrl()?>/mem-pages/upload-banner" method="post" enctype="multipart/form-data">
+				
+                <input type="file" id="file" name="banner" class="banner btn btn-md btn-primary set-btn-width" style="margin: 5px 17px;" accept="image/*" onchange="saveBanner();" />
+                <center>
+                <div id="preview" class="text-center" style="min-height: 200px;background-color: #eee;width: 300px;">                
+                <?php if(!empty($this->banner)) { ?>                
+                    <img  id="banner-img" src="<?php echo $this->baseUrl(). $this->member_dir_name. '/500X500/'.$this->banner;?>" alt="" class="img-responsive" />                    
+                <?php } else { ?>
+                    <img src="<?php echo $this->baseUrl();?>/images/placeholder_380X380.png" alt="placeholder image" class="img-responsive" />
+                <?php }?>
+                </div>
+                </center>
+                            
+                <input type="hidden" id="old_banner" name="old_banner" value="<?php echo $this->banner;?>" />
+                <input type="hidden" value="<?php echo $this->page_id;?>" name="page_id" id="page_id" />
+                <input type="hidden" value="<?php echo $this->baseUrl();?>" name="base_path" id="base_path" />
+				<div id="static-btn-area" class="row">
+    <div class="col-md-12" style="padding: 20px;">
+	   <button class="btn btn-md btn-primary set-btn-width" id="btn-publish" value="0" name="submit" type="submit">Update</button> 
+    </div>
+   </div>
+   	
+			
+			
+        </div>
+		</form>
+    </div>
+<div class="row">
+    <div class="col-md-12">
+    <form class="form-horizontal" action="<?php echo $this->baseUrl()?>/mem-pages/save-page" method="post" enctype="multipart/form-data">	
+        <input type="hidden" name="page_id" id="page_id" value="<?php echo $this->page_id ?>"/>
+			<!-- row1 start-->
+   
+   
+   <div id="msg" style="margin-top: 10px;"><?php echo $this->msg ?></div>         
+  <div class="row">   
+	<div class="col-md-9">
+      <h3>Page Details:</h3>
+	 
+	 <?php echo $this->form->title;?>
+	 <?php echo $this->form->banner_link;?>
+	 <div class="row">
+	  <div class="col-md-12">
+	  <span class="set-parma" style="font-size:11px"><strong>Parmalink:</strong>
+           <span id="p_link" style="font-size: 11px; display: inline;"></span>
+    	   <input type="text" name="url_slug" id="url" value="<?php echo $this->errorSlug?>"  style="font-size: 11px; borderdisplay: none; display: none;background-color: #eee;"/>
+    	  <a class="btn btn-xs btn-default" href="javascript:void(0);" id="copy" style="display: inline;margin-right: 10px;">Copy Link</a>
+          <a class="btn btn-xs btn-default" href="javascript:void(0);" id="open_link" style="display: inline;">Open</a>
+          <img id="loader" style="display: none;margin-left: 40px;height: 50px;" src="<?php echo $this->baseUrl()?>/images/admin/ajax-loader.gif" />
+	  </span>    
+	  </div>
+	 </div>
+	</div>
+  </div> <!-- row1 end-->
+  
+  <!-- row 2 start-->
+  <div class="row">
+	<div class="col-md-12">
+	 <div class="set-ck">
+		<?php echo $this->form->contents ?>
+	 </div> 
+	</div>
+   </div><!-- row 2 end-->
+   
+     <div class="row" style="margin-top: 20px;">
+   <div class="panel panel-info">
+      <div class="panel-heading"><strong><h4>Page Required Information</h4></strong></div>
+  <div class="panel-body">
+   	<div class="row">
+	  <div class="col-md-6"><span style="color:red">*</span> <label>Business/Company Name </label><?php echo $this->form->business_name; ?></div>
+	   <div class="col-md-6"><span style="color:red">*</span> <label>Page Description</label><?php echo $this->form->page_description; ?></div>
+ </div>
+    
+    <div class="col-md-2" style="display: none;"><label for="is_featured">Is Featured?</label><?php echo $this->form->is_featured; ?></div>
+   </div>
+   </div>
+   </div> <!-- row required ends -->
+   
+   <div class="row">
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong><h4>Page Information for Search Engine</h4></strong></div>
+  <div class="panel-body">
+  
+  <div class="row">
+     <div class="col-md-6">
+        <label>Contact Number</label><?php echo $this->form->contact_number; ?>
+        <label><input type="checkbox" id="set-number" /> Use same number for WhatsApp and Wechat</label>
+     </div>
+	 <div class="col-md-6">
+        <label>WhatsApp Number</label><?php echo $this->form->wap_number; ?>
+     </div> 
+  </div>
+  <div class="row">
+     <div class="col-md-6">
+        <label>Wechat Number</label><?php echo $this->form->wechat_number; ?>
+     </div>
+  </div>
+  
+   <div class="row" style="margin-top: 20px;">
+    <img id="ajax-loader" style="display: none;margin-left: 40px;height: 50px;" src="<?php echo $this->baseUrl()?>/images/ajax-loader.gif" />
+    
+    <div class="col-md-3"><label>Country &nbsp;<a href="javascript:void(0);" id="changeDdl">Change</a></label>
+        <input type="hidden" id="country_name" name="country_name" value="<?php echo $this->country_name;?>" />
+        <input type="hidden" id="country_id_saved" name="country_id" value="<?php echo $this->country_id;?>" />
+        <input type="text" class="country_name form-control" readonly="" value="<?php echo $this->country_name;?>" />
+        <?php echo $this->form->country_id;?>
+    </div>
+    
+    <div class="col-md-3"><label>State</label>
+        <input type="hidden" id="state_name" name="state_name" value="<?php echo $this->state_name;?>" />
+        <input type="hidden" id="state_id_saved" name="state_id" value="<?php echo $this->state_id;?>" />
+        <input type="text" class="state_name form-control" readonly="" value="<?php echo $this->state_name;?>" />
+        <select id="state" name="state_id" class="form-control" onchange="getCities();" style="display: none;" disabled="">
+            <option value="0">Select State</option>
+        </select>
+    </div>
+    
+    <div class="col-md-3"><label>City</label>
+        <input type="hidden" id="city_name" name="city_name" value="<?php echo $this->city_name;?>" />
+        <input type="hidden" id="city_id_saved" name="city_id" value="<?php echo $this->city_id;?>" />
+        <input type="text" class="city_name form-control" readonly="" value="<?php echo $this->city_name;?>" />
+        <select id="city" name="city_id" class="form-control" onchange="getPostcodes();" style="display: none;" disabled="">
+            <option value="0">Select City</option>
+        </select>
+    </div>
+    
+    <div class="col-md-3"><label>Postcode</label>
+        <input type="hidden" class="postcode" name="postcode" value="<?php echo $this->postcode;?>" />
+        <input type="hidden" class="pc_id_saved" name="pc_id" value="<?php echo $this->pc_id;?>" />
+         <input type="text" class="postcode_d form-control" readonly="" value="Not Required Now!" />
+	
+    </div >
+   </div>
+   
+
+   <div class="row">
+    <div class="col-md-12"><label>Address</label><?php echo $this->form->address; ?></div>
+	
+	</div>
+	</div>
+   </div>
+   </div><!-- row page info ends -->
+ 
+   <!--row 3 start-->
+   <div class="row" style="margin-top: 5px;">
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong><h4>Search Engine Optimization Information</h4></strong></div>
+  <div class="panel-body">
+	 <div class="col-md-4">
+		<?php echo $this->form->tags; ?>
+	</div>
+	<div class="col-md-5">
+		<?php echo $this->form->keyword_content; ?>
+	</div>
+	<div class="col-md-3">
+	<br/>
+		<label for="is_comment" style="text-align:center;">No Comments
+    	<?php echo $this->form->is_comment; ?>
+	</div>
+	<div class="col-md-12">
+    	 <div class="set-ck">
+    		<?php echo $this->form->description_content; ?>
+    	 </div>
+     <br />    
+     
+	</div>
+	
+	</div>
+	</div>
+	</div>
+	<button type="submit" class="btn btn-success">Save</button>
+	</form>
+	<div class="row" style="margin-top: 5px;">
+		<div class="panel panel-info">
+			<div class="panel-heading"><strong><h4>Hide Ads, Description & Banner</h4></strong></div>
+				<div class="panel-body">
+				<div id="message_panel"></div>
+					<?php 
+					
+						if($this->result['content_hidden'] == '0'){ ?>
+						<span id="content_btn">
+						<a class="btn btn-danger" onclick="turnoff()">Switch Off Description</a>	
+						</span>
+						
+					<?php	
+						}else{ ?>
+						<span id="content_btn">
+						<a class="btn btn-success"  onclick="turnon()">Switch On Description</a>
+						</span>
+					<?php	
+						}
+					
+					?>
+					<?php 
+					
+						if($this->result['ads_hidden'] == '0'){ ?>
+						<span id="ads_button">
+						<a class="btn btn-danger" onclick="turnoffads()">Switch Off Ads</a>	
+						</span>
+						
+					<?php	
+						}else{ ?>
+						<span id="ads_button">
+						<a class="btn btn-success"  onclick="turnonads()">Switch On Ads</a>
+						</span>
+					<?php	
+						}
+					
+					?>
+					<?php 
+					
+						if($this->result['banner_hidden'] == '0'){ ?>
+						<span id="banner_button">
+						<a class="btn btn-danger" onclick="turnoffbanner()">Switch Off Banner</a>	
+						</span>
+						
+					<?php	
+						}else{ ?>
+						<span id="banner_button">
+						<a class="btn btn-success"  onclick="turnonbanner()">Switch On Banner</a>
+						</span>
+					<?php	
+						}
+					
+					?>
+				</div>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 5px;">
+		<div class="panel panel-info">
+			<div class="panel-heading"><strong><h4>Hide Video & Slider</h4></strong></div>
+				<div class="panel-body">
+				<div id="message_panel1"></div>
+					<?php 
+					
+						if($this->result['video_hidden'] == '0'){ ?>
+						<span id="video_btn">
+						<a class="btn btn-danger" onclick="turnoffvids()">Switch Off Video</a>	
+						</span>
+						
+					<?php	
+						}else{ ?>
+						<span id="video_btn">
+						<a class="btn btn-success"  onclick="turnonvids()">Switch On Video</a>
+						</span>
+					<?php	
+						}
+					
+					?>
+					<?php 
+					
+						if($this->result['slider_hidden'] == '0'){ ?>
+						<span id="slider_button">
+						<a class="btn btn-danger" onclick="turnoffslide()">Switch Off Slider</a>	
+						</span>
+						
+					<?php	
+						}else{ ?>
+						<span id="slider_button">
+						<a class="btn btn-success"  onclick="turnonslide()">Switch On Slider</a>
+						</span>
+					<?php	
+						}
+					
+					?>
+	
+				</div>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 5px;">
+		<div class="panel panel-info">
+			<div class="panel-heading"><strong><h4>Hide Form & Feedback</h4></strong></div>
+				<div class="panel-body">
+				<div id="message_panel2"></div>
+					<?php 
+					
+						if($this->result['form_hidden'] == '0'){ ?>
+						<span id="form_btn">
+						<a class="btn btn-danger" onclick="turnoffform()">Switch Off Form</a>	
+						</span>
+						
+					<?php	
+						}else{ ?>
+						<span id="form_btn">
+						<a class="btn btn-success"  onclick="turnonform()">Switch On Form</a>
+						</span>
+					<?php	
+						}
+					
+					?>
+					<?php 
+					
+						if($this->result['feedback_hidden'] == '0'){ ?>
+						<span id="feedback_btn">
+						<a class="btn btn-danger" onclick="turnofffeedback()">Switch Off Feedback</a>	
+						</span>
+						
+					<?php	
+						}else{ ?>
+						<span id="feedback_btn">
+						<a class="btn btn-success"  onclick="turnonfeedback()">Switch On Feedback</a>
+						</span>
+					<?php	
+						}
+					
+					?>
+				</div>
+		</div>
+	</div>
+	<!--row 3 ends-->
+	
+    </div><!-- col 12 ends -->
+   </div>
+   <div class="row" style="margin-top: 20px;">
+	   <div class="panel panel-info">
+			<div class="panel-heading"><strong><h4>Upload Slider</h4></strong></div>
+			<div class="panel-body">
+				<h4 style="padding-bottom: 10px;">Upload Slider <strong> Limit 5</strong></h4>
+<form id="slider-form" action="<?php echo $this->baseUrl();?>/mem-pages/upload-slider-files/id/<?php echo $this->page_id; ?>" method="post" enctype="multipart/form-data">
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 1 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider1Show');" id="slider1" type="file" name="slider1" required>
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider1Show" required/>
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 2 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider2Show');" id="slider2" type="file" name="slider2" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider2Show" />
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 3 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider3Show');" id="slider3" type="file" name="slider3" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider3Show" />
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 4 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider4Show');" id="slider4" type="file" name="slider4" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider4Show" />
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 5 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider5Show');" id="slider5" type="file" name="slider5" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider5Show" />
+				</div>
+                </div>
+<div class="col-md-6">				
+		<input type="submit" value="Save" class="btn btn-success btn-md pull-right"/>
+</div>
+	</form>
+			</div>
+	   </div>
+   </div>
+   <div class="row" style="margin-top: 20px;">
+   <div class="panel panel-info">
+      <div class="panel-heading"><strong><h4>Upload Video</h4></strong></div>
+  <div class="panel-body">
+   	<div class="row">
+	  <div class="col-md-6"><span style="color:red">*</span> <label>Youtube/Vimeo Embed URL </label>
+	  <input  type="text" name="vid" id="video-id" class="form-control" placeholder="Youtube Video URL"  value="<?php echo $this->result['video_link'] ?>">
+	   <input type="button" name="vid-btn" value="Upload VIdeo" onclick="saveVidLink();" id="vid-btn" class="btn btn-md btn-primary set-btn-width" style="margin-top:10px;">
+		<span id="upload-loader"><i class="fa fa-circle-o-notch fa-spin"></i> Uploading</span>
+	  </div>
+	   
+ </div>
+    
+    <div class="col-md-2" style="display: none;"><label for="is_featured">Is Featured?</label><?php echo $this->form->is_featured; ?></div>
+   </div>
+   </div>
+   </div>
+   
+   <div class="row" style="margin-top: 20px;">
+	   <div class="panel panel-info">
+			<div class="panel-heading"><strong><h4>Set Form Placement</h4></strong></div>
+			<div class="panel-body">
+			<div class="row">
+				  <div class="col-md-6"><span style="color:red">*</span> <label>Form Placement: </label>
+				  <input  type="text" name="f_p" id="f_p" class="form-control" placeholder="Form Placement"  value="<?php echo $this->result['form_place'] ?>">
+				   <input type="button" name="place-btn" value="Set" onclick="saveFormPlace();" id="place-btn" class="btn btn-md btn-primary set-btn-width" style="margin-top:10px;">
+					<span id="place-loader"><i class="fa fa-circle-o-notch fa-spin"></i> Uploading</span>
+				  </div>
+			 </div>
+		
+		<div class="col-md-2" style="display: none;"><label for="is_featured">Is Featured?</label><?php echo $this->form->is_featured; ?></div>
+	   </div>
+	   </div>
+   </div>
+    <div class="loader-container" style="display: none">
+        <div class="center-loader">
+            <img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif" />
+        </div>
+    </div>
+   
+</div> <!-- wrapper end-->
+
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin/jquery.form.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/admin/plugins/jquery.zclip.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+    $('#upload-loader').hide();  
+	$('#place-loader').hide();  
+	var p_link = $('#p_link').text();
+	// alert(parseInt($('#p_link')));
+	$('#banner_link').val(p_link);
+	
+});
+function readURL(input,imgId) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#'+imgId).attr('src', e.target.result);
+					$('#'+imgId).css('height', '100px');
+					$('#'+imgId).show();
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+				return input.files[0].name;
+		    }
+			else
+			{
+				$('#'+imgId).attr('src', '');
+					$('#'+imgId).hide();
+			}
+		}
+    window.onload = function () { 
+	
+    <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(5000).hide('slow');
+
+    <?php } ?>
+	
+	<?php if(isset($this->errorSlug)){ ?>
+  var url = "<?php echo $this->site_url;?>/";  	       
+		   $("#url").val('<?php echo $this->errorSlug ?>');  
+            $("#p_link").text(url).append('<?php echo $this->errorSlug ?>'); 
+var p_link = $('#p_link').text();
+	// alert(parseInt($('#p_link')));
+	$('#banner_link').val(p_link);			
+	//alert("<?php echo $this->errorSlug ?>");
+   <?php  } ?>
+	
+         var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/admin/fileman/index.html';
+         
+            CKEDITOR.replace( 'contents',
+            {
+                
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+            
+        // custome image properties dialog
+		
+        CKEDITOR.on('dialogDefinition', function(ev) {
+            var editor = ev.editor;
+            var dialogName = ev.data.name;
+            var dialogDefinition = ev.data.definition;
+        
+            if (dialogName == 'image') {
+                var infoTab = dialogDefinition.getContents('info');
+                
+                //infoTab.get('txtWidth')['default'] = '100%'; // Set default width to 100%
+                infoTab.remove('txtWidth');  //Remove Element Width From Tab Info
+                infoTab.remove('txtHeight'); //Remove Element Height From Tab Info
+                infoTab.remove('txtBorder'); //Remove Element Border From Tab Info
+                infoTab.remove('txtHSpace'); //Remove Element Horizontal Space From Tab Info
+                infoTab.remove('txtVSpace'); //Remove Element Vertical Space From Tab Info
+                
+                //Remove tab Link
+                //dialogDefinition.removeContents( 'Link' );
+            }
+        });
+            
+         load_parmalink();  
+         
+         $("#copy").zclip({
+           path:"<?php echo $this->baseUrl();?>/js/admin/plugins/ZeroClipboard.swf",
+           copy:function(){return $("#p_link").text();}
+        });
+        
+        $('#country_id').hide().attr('disabled', 'disabled');
+        
+ } // load function end
+
+    var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+ 
+ var url = "<?php echo $this->site_url;?>/";
+
+function load_parmalink(){ 
+    
+		$("#p_link").text(url +$("#url").val());
+}
+    
+    $('#copy').on('click',function(){
+        $("#copy").zclip({
+           path:"<?php echo $this->baseUrl();?>/js/admin/plugins/ZeroClipboard.swf",
+           copy:function(){return $("#p_link").text();}
+        });
+        
+        $('#msg').html("<div class='alert alert-success'>Permalink copied to clipboard.</div>").show().delay(3000).hide('slow');
+        
+    });
+ 
+    $("#file-selector").click(function() {
+        $(".banner").trigger("click");
+     });
+     
+	 function saveBanner() {
+        $("#header-frm").trigger("submit");        
+     }
+	 
+     function saveVidLink(){
+		 $('#upload-loader').show();
+		 var ArrayofArrays = [];
+		 ArrayofArrays.push($('#video-id').val());
+		 ArrayofArrays.push($('#page_id').val());
+		 console.log(ArrayofArrays);
+		 var url = $('#base_path').val()+'/mem-pages/save-link';
+		 $.ajax({
+			type    : 'POST',
+			data    : { videoId: $('#video-id').val()
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				console.log(result);
+				returnResult = result;
+				$('#upload-loader').hide(400);
+			}, 
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function saveFormPlace(){
+		 $('#place-loader').show();
+		 
+		 var url = $('#base_path').val()+'/mem-pages/save-formplace';
+		 $.ajax({
+			type    : 'POST',
+			data    : { formPlace: $('#f_p').val()
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				console.log(result);
+				returnResult = result;
+				$('#place-loader').hide(400);
+			}, 
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnonads(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-onads';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 0
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#ads_button').html('<a class="btn btn-danger" onclick="turnoffads()">Switch Off Ads</a>');
+				$('#message_panel').text('Ads has been switched on').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnonform(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-onform';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 0
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#form_button').html('<a class="btn btn-danger" onclick="turnoffads()">Switch Off Form</a>');
+				$('#message_panel2').text('Form has been switched on').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnoffform(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-offform';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 1
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#form_btn').html('<a class="btn btn-success" onclick="turnonvids()">Switch On Form</a>');
+				$('#message_panel2').text('Form has been switched off').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnonbanner(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-onbanner';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 0
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#banner_button').html('<a class="btn btn-danger" onclick="turnoffbanner()">Switch Off Banner</a>');
+				$('#message_panel').text('Banner has been switched on').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			}); 
+	 }
+	 function turnoffbanner(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-offbanner';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 1
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#banner_button').html('<a class="btn btn-success" onclick="turnonbanner()">Switch On Banner</a>');
+				$('#message_panel').text('Banner has been switched off').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnonvids(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-onvids';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 0
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#video_btn').html('<a class="btn btn-danger" onclick="turnoffvids()">Switch Off Video</a>');
+				$('#message_panel1').text('Video has been switched on').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnonfeedback(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-onfeedback';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 0
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#feedback_btn').html('<a class="btn btn-danger" onclick="turnoffvids()">Switch Off Feedback</a>');
+				$('#message_panel2').text('Feedback has been switched on').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnofffeedback(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-offfeedback';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 1
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#feedback_btn').html('<a class="btn btn-success" onclick="turnonfeedback()">Switch On Feedback</a>');
+				$('#message_panel2').text('Feedback has been switched off').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnonslide(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-onslide';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 0
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#slider_button').html('<a class="btn btn-danger" onclick="turnoffslide()">Switch Off Slider</a>');
+				$('#message_panel1').text('Slider has been switched on').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnoffvids(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-offvids';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 1
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#video_btn').html('<a class="btn btn-success" onclick="turnonvids()">Switch On Video</a>');
+				$('#message_panel1').text('Video has been switched off').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnoffslide(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-offslide';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 1
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#slider_button').html('<a class="btn btn-success" onclick="turnonslide()">Switch On Slider</a>');
+				$('#message_panel1').text('Slider has been switched off').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnoffads(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-offads';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 1
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#ads_button').html('<a class="btn btn-success" onclick="turnonads()">Switch On Ads</a>');
+				$('#message_panel').text('Ads has been switched off').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnon(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/turn-on';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 0
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#content_btn').html('<a class="btn btn-danger" onclick="turnoff()">Switch Off Description</a>');
+				$('#message_panel').text('Description has been switched on').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function turnoff(){
+		
+		 var url = $('#base_path').val()+'/mem-pages/switch-off';
+		 $.ajax({
+			type    : 'POST',
+			data    : { value: 1
+			,page_id : $('#page_id').val()
+			},
+			async:false,
+			url     : url,
+			success: function (result) {
+				$('#content_btn').html('<a class="btn btn-success" onclick="turnon()">Switch On Description</a>');
+				$('#message_panel').text('Description has been switched off').delay(1000).fadeOut();
+			},
+			error:function (error) {
+				alert('err');
+				returnResult = error;  
+			}
+			});
+	 }
+	 function childFormSubmit(ArrayofArrays,method,url)
+	{
+	var returnResult;
+	$.ajax({
+			type    : method,
+			data    : { ArrayofArrays: ArrayofArrays},
+			async:false,
+			url     : url,
+			success: function (result) {
+				alert(result);
+				returnResult = result;
+			},
+			error:function (error) {
+				returnResult = error;  
+			}
+			});
+			return returnResult;
+}
+     $('#header-frm').ajaxForm({
+            beforeSubmit: function() {
+              // validate  
+			    $('#loader-banner').hide();
+            },
+            beforeSend:function(){
+    		   $('#loader-banner').show();
+    		},
+            success: function(msg) {
+    	    },
+    		complete: function(xhr) {
+                $('#loader-banner').hide();
+                var result = xhr.responseText; //console.log(result);
+                result = JSON.parse(result);
+                
+                if( result.status=='success'){ 
+                    $("#preview").html('');
+                    $("#preview").html(result.banner).fadeIn();
+                    $('#old_banner').val(result.old_banner);
+                    $("#header-frm")[0].reset();
+                } else if( result.status=='error'){
+                    $("#msg").html(result.msg).show().delay(7000).fadeOut('slow');    
+                }
+            }
+     }); //ajax form end
+          
+     function getState()
+     {
+		$('#ajax-loader').show();
+		
+		var country_id = $('#country_id').val();//select item value from listbox
+		if(country_id == "")return;
+		$.post("<?php echo $this->baseUrl()?>/mem-pages/get-state", {country_id: country_id},
+		//this is response from controller
+		function(data){
+			$('#state').html(data);
+			
+            $('#ajax-loader').hide();
+		});
+    } // getState end
+    
+    function getCities()
+    {	   
+       $('#ajax-loader').show();
+			var country_id = $('#country_id').val();//select item value from listbox
+			var state_id = $('#state').val();//select item value from listbox
+			 if(country_id == "")return;
+			 if(state_id == "")return;
+	   
+       $.post("<?php echo $this->baseUrl()?>/mem-pages/get-cities", {country_id: country_id, state_id: state_id},
+       function(data){
+            $('#city').html(data);
+            
+            $('#ajax-loader').hide();
+	   });
+	} // getCities end
+    
+    function getPostcodes()
+    {
+	   $('#ajax-loader').show();
+			var country_id = $('#country_id').val();//select item value from listbox
+			var state_id = $('#state').val();//select item value from listbox
+	       var city_id = $('#city').val();
+			 if(country_id == "")return;
+			 if(state_id == "")return;
+			  if(city_id == "")return;
+	
+        $.post("<?php echo $this->baseUrl()?>/mem-pages/get-postcodes", {country_id: country_id, state_id: state_id, city_id: city_id},
+        function(data){
+		  $('#postcode').html(data);
+		  
+          $('#ajax-loader').hide();
+        });
+    } // getPostcodes end
+    
+    $('#frm').submit(function(){
+        
+        if($('#title').val()=="" || $('#title').length==0){
+            $('#msg').html("<div class='alert alert-warning'><strong>Please add page title</strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+        
+        var messageLength = CKEDITOR.instances['contents'].getData().replace(/<[^>]*>/gi, '').length;
+        if(!messageLength) {
+            $("#msg").html("<div class='alert alert-warning'><strong>Please add page contents.<strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+
+        if($('#business_name').val()==''){
+            $('#msg').html("<div class='alert alert-warning'><strong>Please add business name</strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+
+        if($('#page_description').val()==''){
+            $('#msg').html("<div class='alert alert-warning'><strong>Please add page description</strong></div>").show().delay(5000).fadeOut(1000);
+            return false;
+        }
+
+        CKEDITOR.instances['contents'].updateElement();
+        
+        $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/mem-pages/save-page",
+             //datatype: 'json', 
+             data: $(this).serialize(),
+             beforeSend: function () {
+               $('.loader-container').show();
+            },
+            complete: function () {
+                $('.loader-container').hide();
+            },
+                success: function(result)
+                {
+                    //console.log(result);
+                    if(result=='success'){
+                        $("#msg").html("<div class='alert alert-success'><strong>Page saved successfully!<strong></div>").show().delay(5000).fadeOut(1000);
+                    }else {
+                        $("#msg").html("<div class='alert alert-danger'><strong>Some error occur. Please try again.<strong></div>").show().delay(5000).fadeOut(1000);
+                    }
+				},
+                error: function(e)
+                {
+                     $("#msg").html("<div class='alert alert-danger'><strong>Some error occur. Please try again.<strong></div>").show().delay(5000).fadeOut(1000);
+                }
+        }); //ajax end
+        return false;
+        
+    }); // main form submit end
+    
+    $('#changeDdl').click(function(){
+        $(this).hide();
+                
+        $('.country_name').hide();
+        $('.state_name').hide();
+        $('.city_name').hide();
+        $('.postcode_d').hide();
+       
+        $('#country_id').show().removeAttr('disabled');
+        $('#state').show().removeAttr('disabled');
+        $('#city').show().removeAttr('disabled');
+        $('#postcode').show().removeAttr('disabled');
+    });
+    
+    $('#country_id').change(function(){
+        $('#country_name').val($('#country_id option:selected').text());
+     });
+     
+     $('#state').change(function(){
+        $('#state_name').val($('#state option:selected').text());
+     });
+     
+     $('#city').change(function(){
+        $('#city_name').val($('#city option:selected').text());
+     });
+     
+     $('#postcode').change(function(){
+        $('.postcode').val($('#postcode option:selected').text());
+     });
+     
+     $('#open_link').click(function(){
+        var page_url = $('#p_link').text();
+        window.open(page_url, '_blank');
+     });
+     
+     $('#set-number').change(function(){
+        if($(this).is(':checked')){
+            var contact_number = $('#contact_number').val();
+            $('#wap_number').val(contact_number).attr('readonly', 'readonly');
+            $('#wechat_number').val(contact_number).attr('readonly', 'readonly');
+        } else {
+            $('#wap_number').val('').removeAttr('readonly');
+            $('#wechat_number').val('').removeAttr('readonly');
+        }
+     });
+     
+     $('#contact_number').keydown(function(){
+        var isChecked = $('#set-number').is(':checked');
+        if(isChecked){
+            $('#wap_number').val($(this).val());
+            $('#wechat_number').val($(this).val());
+        }
+     });
+     
+     $(function(){
+        if($('#contact_number').val()!=''){
+            $('#set-number').prop('checked', true);
+            $('#wap_number').attr('readonly', 'readonly');
+            $('#wechat_number').attr('readonly', 'readonly');
+        }
+		
+     });
+     
+     $(window).scroll(function() {    
+        var scroll = $(window).scrollTop();
+    
+        if (scroll >= 500) {
+            $("#static-btn-area").addClass("is-fixed");
+        } else {
+            $("#static-btn-area").removeClass("is-fixed");
+        }
+    //hang on event of form with id=myform
+    
+
+});
+ </script>

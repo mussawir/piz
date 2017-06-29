@@ -1,0 +1,173 @@
+<div class="row">
+    <div class="col-md-12">
+	<ul class="menu-links">
+    <li><a href="<?php echo $this->baseUrl(); ?>/admin/post-category/index" title="New Post Category">New Post Category</a></li>
+	<li><a href="<?php echo $this->baseUrl(); ?>/admin/posts/new-post" title="Create new post"> New Post</a></li>              
+	<li><a href="<?php echo $this->baseUrl(); ?>/admin/post-comments" title="View Recent Comments"> Recent Comments</a></li>       
+	</ul>
+	</div>
+</div>
+    <div class="row">        
+      <div class="col-md-12">
+                    
+    <div id="msg">
+			 <?php 
+
+                                if($this->msg == 1){
+                                $this->msg = "<div class='alert alert-success'>Post Deleted</div>";  
+                                } 
+                        
+                                if($this->msg == 3){
+                                $this->msg = "<div class='alert alert-success'>You cant' delete all post must keep at least one Post for blog </div>";    
+                                } 
+                        
+                                if($this->msg == 2){
+                                $this->msg = "<div class='alert alert-success'>Please try again!</div>";    
+                                } 
+                                if(isset($this->msg)){
+                        
+                                                echo $this->msg ;               
+                                 } ?>
+		</div>
+             <div class="table-responsive">
+<form method="post" name="data_table">
+		<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+														<thead>
+														<tr>
+																<th class="grid-head"> Title</th>
+                                                                <th class="grid-head"> Category</th>
+																<th class="grid-head"> Author</th>
+																<th class="grid-head"> Tags</th>
+																<th class="grid-head"> Status</th>
+                                                                <th class="grid-head"> Publish Date</th>
+																<th class="grid-head"> Comments</th>
+																<th class="grid-head">Edit </th>
+																<th class="grid-head">Delete</th>
+																<th class="grid-head">
+                                                                <input type="submit" name="submit" class="btn btn-danger btn-sm" id="submit" value="Delete"/>
+                                                                <label><input type="checkbox" name="allbox" id="allbox" value="0" onclick="checkAll(this.value);" /> All</label>
+                                                                </th>   
+                                                        	</tr>  
+														</thead>		
+														<tbody> 
+                                          
+														<?php if (count($this->data)){ ?>
+													
+														<?php $counter =0; foreach ($this->data as $item): ?>
+														<tr class="odd gradeX">
+															<td>
+															<?php echo ucwords($item['heading']) ?>
+															</td>
+                                                            <td style="text-align:center;">
+                                                                <?php foreach($this->post_categories as $pc): 
+                                                                    if($item['post_id']==$pc['post_id'])
+                                                                        echo ucwords($pc['name']).', ';
+                                                                endforeach; ?>
+															</td> 
+															<td style="text-align:center;">
+															<?php echo ucwords($item['user_name']) ?>
+															</td>
+															<td style="text-align:center;">
+															<?php echo $item['tags'] ?>
+															</td>
+                                                            <td style="text-align:center;">
+															     <?php if($item['is_in_draft'] > 0 ) echo "Drafted"; else echo "Published"; ?>
+															</td>
+															<td style="text-align:center;">
+															     <?php if($item['is_in_draft'] > 0 ) echo ""; else echo date('m/d/Y h:i A', strtotime($item['date_published'])); ?>
+															</td>
+         
+	<td style="text-align:center;"><a href="<?php echo $this->baseUrl(); ?>/admin/post-comments/comments-list/id/<?php echo $item['post_id'] ?>">Comments</a><!--<li><?php echo $this->post_comment?></li>--></td>
+		 
+	<td style="text-align:center;"><a class="btn btn-sm btn-warning float-right" href="<?php echo $this->baseUrl(); ?>/admin/posts/edit-post/id/<?php echo $item['post_id'] ?>">Edit</a></td>
+					
+	<td  style="text-align:center;"><a class="btn btn-danger btn-sm" href="#" onclick="return confirmDelete(<?php echo $item['post_id'] ?> )" href="">Delete </a></td> 
+	
+	<td  style="text-align:center;"><input type="checkbox" name="bulkdata[]" id="check_<?php echo $counter++;?>" class="form-control" value="<?php echo $item['post_id'] ?>"/></td>
+														</tr>  
+															<?php endforeach;  } ?>
+														</tbody>
+
+						 								</table>
+														</form>
+                        </div><!-- div responsive end-->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+
+  <script language="Javascript" type="text/javascript">
+ window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(3000).hide('slow');
+		<?php } ?>
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 5, "desc" ]],
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false, 'aTargets': [6,7,8, 9]}]
+	       }
+        );
+ }
+ 
+  function confirmDelete(id){
+	var r = confirm("Are you sure to Delete this Post?");
+	if (r == true) {
+	window.location.assign("<?php echo $this->baseUrl(); ?>/admin/posts/delete-post/id/" + id);    
+	} else {
+	return false;
+	}
+	}
+	
+	  function confirmDeleteBulkPost(){
+	
+	window.location.assign("<?php echo $this->baseUrl(); ?>/admin/posts/delete-bulk-posts/");    
+	
+	}
+	
+    function checkAll(a)
+	{
+	    var total = $('#dataTables-example tr:not(:has(th))').length;
+        
+		if(a == 0)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', true);
+			}
+            $('#allbox').val(1);
+		}
+
+		if(a == 1)
+		{
+			for(q=0;q<total;q++)
+			{
+                $('#check_'+q).prop('checked', false);
+			}
+
+            $('#allbox').val(0);
+		}
+	}
+    
+	jQuery(function($) {
+	
+	$("form input[id='submit']").click(function() {  // triggred submit
+		
+		var count_checked = $("[name='bulkdata[]']:checked").length; // count the checked
+		if(count_checked == 0) {
+			alert("Please select a Posts to delete.");
+			return false;
+		} 
+		 else {
+			return confirm("Are you sure you want to delete these posts?");	
+		  }		
+	});
+ }); // jquery end
+ </script>

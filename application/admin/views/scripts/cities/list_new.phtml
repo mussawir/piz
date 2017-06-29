@@ -1,0 +1,241 @@
+   <style>
+   ul {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.gallery {
+	float: left;
+	overflow: hidden;
+	border: 1px solid #333;
+	background: #f9f9f9;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.gallery li {
+	float: left;
+	display: inline;
+	font-weight: bold;
+	width: 40px;
+	padding: 10px;
+	margin-right: 10px;
+	background: #eee;
+	border: 1px solid #999999;
+	text-align: center;
+}
+
+.pages {
+	clear: both;
+	float: left;
+	display: inline;
+}
+
+.pages ul {
+	float: left;
+}
+
+.pages ul li {
+	float: left;
+	display: inline;
+	margin-right: 3px;
+}
+
+.pages ul li a {
+	padding: 3px 9px 2px;
+	background: #4e1a67;
+	color: #f9f9f9;
+}
+
+.pages ul li.on a {
+	background: #ffc600;
+	color: #000;
+}
+
+.pages ul li span span {
+	color: #bfbfbf;
+	padding: 3px 9px 2px;
+	background: #454545;
+}
+   </style>
+	 
+<?php
+
+if(Zend_Registry::get("lang_id") == 1){
+$adapter = new Zend_Translate(
+    array(
+        'adapter' => 'array',
+        'content' => array('page_heading' => 'Cites List'),
+        'locale'  => 'en'
+    )
+);
+}
+if(Zend_Registry::get("lang_id") == 2){
+$adapter = new Zend_Translate(
+    array(
+        'adapter' => 'array',
+        'content' => array('page_heading' => 'شہروں کی فہرست','Select State' => 'ریاست کا انتخاب کریں','Select Country' => 'ملک منتخب کریں'
+						,'Cities' => 'شہر' ),
+        'locale'  => 'en'
+    )
+);
+}
+	?>
+
+  <div id="content" class="clearfix">
+            <div class="contentwrapper"><!--Content wrapper-->
+
+                <div class="heading">
+						<h3><?php 
+						$translate = new Zend_View_Helper_Translate($adapter);
+						print $translate->translate('page_heading');	?>
+						</h3>
+
+                    <div class="resBtnSearch">
+                        <a href="#"><span class="icon16 brocco-icon-search"></span></a>
+                    </div>
+
+                    <div class="search">
+
+                        <form id="searchform" action="#" />
+                            <input type="text" class="top-search" placeholder="Search here ..." />
+                            <input type="submit" class="search-btn" value="" />
+                        </form>
+                 
+                    </div><!-- End search -->
+				</div><!-- End .heading-->
+    			
+				<div class="row-fluid">
+
+                        <div class="span12">
+
+                            <div class="box">
+
+                                <div class="title">
+
+                                    <h4>
+                                        <span class="icon16 brocco-icon-grid"></span>
+                                        <span><?php
+											$translate = new Zend_View_Helper_Translate($adapter);
+												print $translate->translate('Cities');?></span>
+                                    </h4>
+                                    
+                                </div>
+                                <div class="content">
+                                   
+                                   <form class="form-horizontal" action=""  />
+                                        
+                                       <table class="table">
+											<tr><td><strong>* <?php
+											$translate = new Zend_View_Helper_Translate($adapter);
+												print $translate->translate('Select Country');?>	</strong></td><td><?php echo $this->countries; ?></td></tr>												
+                                            <tr id="state_sel">
+												<td><strong>* <?php 
+												$translate = new Zend_View_Helper_Translate($adapter);
+												print $translate->translate('Select State');	?>
+                                                </strong>
+                                                </td>
+												<td>
+												<div id='state'> </div><!--  Ajax will fill this div with listbox values for sub category for selected value in main category -->
+												</td>
+											</tr>
+										
+										</table>
+									</form>
+								<!--<div id='result'>-->
+									
+									<ul class="gallery">
+										<li>1</li>
+										<li>2</li>
+										<li>3</li>
+										<li>4</li>
+										<li>5</li>
+										<li>6</li>
+										<li>7</li>
+										<li>8</li>
+										<li>9</li>
+										<li>10</li>
+										<li>11</li>
+										<li>12</li>
+										<li>13</li>
+										<li>14</li>
+										<li>15</li>
+										<li>16</li>
+										<li>17</li>
+										<li>18</li>
+										<li>19</li>
+										<li>20</li>
+									</ul>
+									<div class="pages"></div>
+									
+									<!--<div id='page-content'></div>
+								<!--</div>-->
+                                </div>
+
+                            </div><!-- End .box -->
+
+                        </div><!-- End .span12 -->
+						
+
+                </div><!-- End .row-fluid -->
+				
+			</div><!-- End contentwrapper -->
+  </div><!-- End #content -->
+    
+  <script language="Javascript" type="text/javascript">
+  window.onload = function () { 
+			$('tr#state_sel').hide();
+			//$('tr#result').hide();
+			/*$.post("<?php echo $this->baseUrl()?>/admin/country/get-all-cities", 
+			function(data){
+			
+			});*/
+			}
+	
+ 
+ 
+  function getState(){
+			var country_id = $('#country').val();//select item value from listbox
+			//alert(country_id);
+					$('#country_id').val(country_id);
+			 if(country_id == "")return;
+						$.post("<?php echo $this->baseUrl()?>/admin/country/get-state", {country_id: country_id},
+						//this is response from controller
+						function(data){
+							
+							$('div#state').html(data);
+							$('tr#state_sel').show();
+							$('div#state').show();
+						});
+						$.post("<?php echo $this->baseUrl()?>/admin/country/get-country-cities", {country_id: country_id},
+						//this is response from controller
+						function(data){
+							
+							$('div#result').show();
+							//$('div#state').show();
+						});
+			}
+			
+			
+			
+			function getCities(country_id){
+		//	alert(country_id);
+				var state_id = $('select#state').val();//select item value from listbox
+				//alert(state_id);
+					$('#state_id').val(state_id);
+					if(state_id == "")return;
+					$.post("<?php echo $this->baseUrl()?>/admin/country/get-cities-list", {country_id: country_id,state_id: state_id},
+						//this is response from controller
+						function(data){
+							
+							$('div#result').show();
+							
+						});
+						
+			}
+	</script>
+	
+ 

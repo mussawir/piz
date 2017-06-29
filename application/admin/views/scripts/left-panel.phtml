@@ -1,0 +1,189 @@
+
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                
+					<?php if($this->role== 6){?>
+                    <li>                            
+                        <a href="<?php echo $this->baseUrl(); ?>/admin/members/new"><i class="fa fa-user fa-fw"></i> New Member</a>
+        			</li>
+                    <li>
+        				<a href="<?php echo $this->baseUrl(); ?>/admin/members"><i class="fa fa-users fa-fw"></i> Members</a>
+        			</li>
+                    <?php } else {?>
+					<li>
+                         <a href="<?php echo $this->baseUrl(); ?>/admin/index"><i class="fa fa-tachometer"></i> Dashboard</a>
+                    </li>
+                    <?php if($this->role== 1){?>
+					<li>
+        				<a href="<?php echo $this->baseUrl(); ?>/admin/members/new-page"><i  class="fa fa-file-o fa-fw""></i> New Page/s</a>
+        			</li>
+					<li>
+                         <a href="<?php echo $this->baseUrl(); ?>/admin/page/member-pages"><i class="fa fa-files-o fa-fw"></i> Pages</a>
+                    </li>
+					<li>                            
+                        <a href="<?php echo $this->baseUrl(); ?>/admin/members/new"><i class="fa fa-user fa-fw"></i> New Member</a>
+        			</li>
+                    <li>
+        				<a href="<?php echo $this->baseUrl(); ?>/admin/members"><i class="fa fa-users fa-fw"></i> Members</a>
+        			</li>
+					
+                    <?php }?>
+				    <!--li>
+                         <a href="<?php echo $this->baseUrl(); ?>/admin/posts/index"><i class="fa fa-thumb-tack fa-fw"></i> Posts</a>
+                    </li-->
+                    
+                    <?php if($this->role != 2 && $this->role != 3 && $this->role != 4){ ?>
+					<li>
+                         <a href="<?php echo $this->baseUrl(); ?>/admin/page/index"><i class="fa fa-file-o fa-fw"></i>CMS Pages</a>
+                    </li>
+                    
+                    
+                    
+                    <!-- Categories  menu -->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#nav-categories"><i class="fa fa-gears fa-fw"></i> Categories<i class="fa fa-fw fa-caret-down"></i></a>
+                              <ul id="nav-categories" class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="<?php echo $this->baseUrl(); ?>/admin/categories/listing-main">New Main Category</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->baseUrl(); ?>/admin/categories/listing-sub">New Sub-Category</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->baseUrl(); ?>/admin/categories/list-main-cat">List</a>
+                                </li>
+                              </ul>  
+                        </li>
+                    
+                    <!-- location code -->
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#nav-location"><i class="fa fa-globe fa-fw"></i> Locations<i class="fa fa-fw fa-caret-down"></i></a>
+                        
+                    <ul id="nav-location" class="nav nav-second-level collapse">
+                        <!-- countries menu -->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#nav-countries">Countries <span class="fa fa-fw fa-caret-down"></span></a>
+                            <ul id="nav-countries" class="nav nav-second-level collapse">
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/countries/new">Add New</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/countries/list">List</a>
+                            </li>
+                             </ul>        
+                        </li>
+                        <!-- /. countries menu -->
+                       
+                        <!-- states menu -->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#nav-states">States <span class="fa fa-fw fa-caret-down"></span></a>
+                            <ul id="nav-states" class="nav nav-second-level collapse">
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/states/new">Add New</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/states/list">List</a>
+                            </li>
+                             </ul>        
+                         </li>
+                        <!-- /. states menu -->
+                       
+                         <!-- cities menu -->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#nav-cities">Cities<span class="fa fa-fw fa-caret-down"></span></a>
+                            <ul id="nav-cities" class="nav nav-second-level collapse">
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/cities/bulk">Create Bulk</a>
+                            </li>
+                                                    
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/cities/new">Add New</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/cities/list">List</a>
+                            </li>
+                             </ul>        
+                         </li>
+                        <!-- /. cities menu -->
+                       
+                        <!-- Postcode menu -->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#nav-postcodes">Postcodes<span class="fa fa-fw fa-caret-down"></span></a>
+                            <ul id="nav-postcodes" class="nav nav-second-level collapse">
+                             <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/postcodes/bulk">Create Bulk</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/postcodes/new">Add New</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/postcodes/list">List</a>
+                            </li>
+                            <!--li>
+                                <a href="<?php echo $this->baseUrl(); ?>/admin/postcodes/near-postcodes">Add Near BY </a>
+                            </li-->
+                             </ul>        
+                         </li>
+                        <!-- /. Postcode menu -->
+                       </ul>
+                            <!-- /.nav-second-level -->
+                    </li>
+                    <!-- location code end -->
+                    
+                    <!--li>
+                        <a href="<?php echo $this->baseUrl(); ?>/admin/gallery"><i class="fa fa-picture-o fa-fw"></i> Gallery</a>
+                    </li-->
+                    
+                   <!-- li>
+                         <a href="http://netefct.com/analytics"></i><i class="fa fa-line-chart fa-fw"></i> Analytics</a>
+                    </li>
+                     <li>
+                       <a href="<?php echo $this->baseUrl(); ?>/admin/text-blocks"><i class="fa fa-align-justify"></i> Text Blocks</a>
+                     </li>
+                       <li>
+                       <a href="<?php echo $this->baseUrl(); ?>/admin/image-blocks"><i class="fa fa-file-image-o"></i> Image Blocks</a>
+                     </li>
+                       
+					   <!--videos >
+                      <li>
+                        <a href="<?php echo $this->baseUrl(); ?>/admin/videos"><i class="fa  fa-video-camera fa-fw"></i> Videos</a>
+                      </li>
+                        <!--videos end >
+					  
+						<li>
+                          <a href="<?php echo $this->baseUrl(); ?>/admin/gallery"><i class="fa fa-picture-o fa-fw"></i> Gallery</a>
+                        </li>
+					  
+					   <li>
+                        <a href="<?php echo $this->baseUrl(); ?>/admin/sliders/index"><i class="fa fa-slideshare fa-fw"> </i> Slides</a>
+                       </li>
+					   
+					   <!--testimonial >
+                       <li>
+                         <a href="<?php echo $this->baseUrl(); ?>/admin/testimonial"><i class="fa fa-thumbs-o-up fa-fw"></i> Testimonials</a>
+                       </li> 
+                        <!--testimonial end >
+						<li>
+                          <a href="<?php echo $this->baseUrl(); ?>/admin/social-link/edit"><i class="fa fa-share fa-fw"></i> Social Links</a>
+                        </li>
+
+                        <li>
+                          <a href="<?php echo $this->baseUrl(); ?>/admin/index/email-svc"><i class="fa fa-envelope-o fa-fw"></i> Email Services</a>
+                        </li>
+                        
+						<!--users start-->
+			<?php if($this->role == 1){ ?>
+						<li>
+                        <a href="<?php echo $this->baseUrl(); ?>/admin/user" data-toggle="collapse" data-target="#demo7"><i class="fa fa-users fa-fw"></i> Users</a>
+                    </li>
+					 <!--clean cache start-->
+						<li>
+                          <a href="<?php echo $this->baseUrl(); ?>/admin/setting"><i class="fa fa-trash-o"></i> Clean Cache</a>
+                        </li>
+					<!--clean cache end-->
+					<?php } } } ?>
+			
+     
+                      </ul>
+   </div>
+   </nav>

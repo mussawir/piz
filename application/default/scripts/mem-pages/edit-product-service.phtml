@@ -1,0 +1,116 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+<style>
+    #page-wrapper {
+        padding-bottom: 30px;
+        padding-top: 10px;
+    }
+    #entryBox {
+        padding-bottom: 25px;
+        margin-top: 5px;
+    }
+    #msg{
+        display: none;
+    }
+</style>
+<div id="page-wrapper">
+    <!--div class="row row-fluid">
+        <div class="col-md-12">
+            <ul class="nav nav-pills">
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Poster Page</a></li>
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-service/id/<?php echo $this->page_id ?>">Page Products/Services</a></li>
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads</a></li>
+            </ul>
+        </div>
+    </div-->
+    <hr />
+    <div class="row">
+	<h3>Edit Product Post</h3>
+        <div id="msg"><?php echo $this->msg; ?></div>
+        <div class="col-md-12">
+            <div id="entryBox">
+                <form method="post" action="" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="img-responsive" src="<?php echo $this->baseUrl().$this->dir_path.$this->photo;?>" alt="photo" />
+                        </div>
+                        <div class="col-md-6">
+                            <?php echo $this->form->photo;?>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name">Product/Service name</label>
+                            <?php echo $this->form->name;?>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="buy_link">Buy link</label>
+                            <?php echo $this->form->buy_link;?>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="price">Price</label>
+                            <?php echo $this->form->price;?>
+                            <label for="hide_price"><?php echo $this->form->hide_price;?> Hide Price</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="discount">Discount</label>
+                            <?php echo $this->form->discount;?>
+                            <label for="hide_discount"><?php echo $this->form->hide_discount;?> Hide Discount</label>
+                        </div>
+                    </div>
+                    <br />
+					<div class="row">
+                        <div class="col-md-6">
+                            <label for="price">Price USD</label>
+                            <?php echo $this->form->price_usd;?>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="discount">Discount USD</label>
+                            <?php echo $this->form->discount_usd;?>
+                        </div>
+                    </div>
+					<br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" class="form-control"><?php echo stripslashes($this->desc); ?></textarea>
+                        </div>
+                    </div>
+                    
+                    <?php echo $this->form->submit;?>
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+     // ready function end
+    $(document).ready(function(){
+		 var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/admin/fileman/index.html';
+      
+            CKEDITOR.replace( 'description',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            })
+			
+			// var details = '';
+		// CKEDITOR.instances['description'].setData(details); 
+	 });
+    $('#submit').click(function(){
+        if($('#name').val() =='' || $('#name').length==0){
+            $('#msg').html("<div class='alert alert-warning'>Please add product/sevice name</div>").show().delay(5000).hide('slow');
+            return false;
+        }
+     });
+	 
+	 
+
+</script>

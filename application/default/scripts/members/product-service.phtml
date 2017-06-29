@@ -1,0 +1,144 @@
+<style>
+    #page-wrapper {
+        padding-bottom: 30px;
+        padding-top: 10px;
+    }
+    #entryBox {
+        padding-bottom: 25px;
+        margin-top: 5px;
+        display: none;
+    }
+    #msg, .details-box{
+        display: none;
+    }
+</style>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills">
+              <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/manage-page/id/<?php echo $this->page_id ?>">Poster Page</a></li>
+              <li role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/members/product-service/id/<?php echo $this->page_id ?>">Page Products/Services</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div id="msg"><?php echo $this->msg; ?></div>
+        <div class="col-md-12">
+            <a href="javascript:void(0);" onclick="showHideEntryBox();">Add New Product/Service</a>
+            
+            <div id="entryBox">
+                <form method="post" action="" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name">Product/Service name</label>
+                            <?php echo $this->form->name;?>
+                        </div>
+                        <div class="col-md-6">
+                            <?php echo $this->form->photo;?>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="price">Price</label>
+                            <?php echo $this->form->price;?>
+                            <label for="hide_price"><?php echo $this->form->hide_price;?> Hide Price</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="discount">Discount</label>
+                            <?php echo $this->form->discount;?>
+                            <label for="hide_discount"><?php echo $this->form->hide_discount;?> Hide Discount</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="buy_link">Buy link</label>
+                            <?php echo $this->form->buy_link;?>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="description">Description</label>
+                            <?php echo $this->form->description;?>
+                        </div>
+                    </div>
+                    
+                    <?php echo $this->form->submit;?>
+                </form>
+            </div>
+            <hr />
+            <div id="product-service-list">
+                <div class="row">
+                    <?php foreach ($this->data as $item): ?>
+                        <div class="col-md-3">
+                            <p style="height: 35px;" class="text-center"><strong><?php echo $item['name'];?></strong></p>
+                            <div style="min-height: 270px; margin-bottom: 10px; text-align: -webkit-center; text-align: -moz-center;" class="text-center">
+                            <img class="img-responsive" src="<?php echo $this->baseUrl().$this->dir_path.$item['photo'];?>" alt="<?php echo $item['name'];?>" />
+                            </div>
+                            <p>
+                                <a href="javascript:void(0);" onclick="hideShowDetails(<?php echo $item['pp_id'];?>);">Details</a>&nbsp;|&nbsp;
+                                <a href="<?php echo $this->baseUrl();?>/members/edit-product-service/id/<?php echo $item['pp_id'];?>/page_id/<?php echo $this->page_id;?>">Edit</a>
+                                <a href="#" onclick="doDelete(<?php echo $item['pp_id'];?>, <?php echo $this->page_id;?>);" class="pull-right">Delete</a>
+                            </p>
+                            <div class="details-box" id="detail_<?php echo $item['pp_id'];?>">
+                                <?php if($item['price']>0 && $item['hide_price']==0){?>
+                                    <p>Price: <?php echo $item['price'];?></p>
+                                <?php } if($item['discount']>0 && $item['hide_discount']==0){?>
+                                    <p>Discount: <?php echo $item['discount'];?></p>
+                                <?php }?>
+                                <p>Description: <?php echo $item['description'];?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        <?php if(!isset($this->msg)) { ?>
+      $('#msg').hide();
+        <?php  } else{ ?>
+          $('#msg').show().delay(5000).hide('slow');
+        <?php } ?>
+    }); // ready function end
+
+    function showHideEntryBox()
+    {
+        $('#entryBox').slideToggle("slow");
+    }
+    
+    function hideShowDetails(id)
+    {
+        $('#detail_'+id).slideToggle("slow");
+    }
+    
+    var photo = '';
+     $('#photo').change(function(){
+        var file = this.files[0];
+        name = file.name;
+        size = file.size;
+        type = file.type;
+           
+        photo = name.split('.')[0].toLowerCase();
+     });
+     
+     $('#submit').click(function(){
+        if(photo ==''){
+            $('#msg').html("<div class='alert alert-warning'>Please choose a product photo</div>").show().delay(5000).hide('slow');
+            return false;
+        }
+     });
+     
+    function doDelete(id, pId){
+    	var r = confirm("Are you sure to Delete this product/service?");
+    	if (r == true) {
+    	   window.location.assign("<?php echo $this->baseUrl(); ?>/members/delete-product/id/" + id+"/page_id/"+pId);    
+    	} else {
+    	   return false;
+    	}
+	}
+</script>

@@ -1,0 +1,349 @@
+<style>
+/* ZEND FRAMEWROK ERROR CLASS */
+.errors{
+	color: red;
+	}
+/*get-quotes page start css code*/
+.getquotes1{
+	 margin-bottom: 5%;
+    margin-top: 3%;} 
+	
+.checkbox-getquote p{
+padding-left:30px !important;}
+
+.checkbox-get{
+float:left !important;}    
+        
+#checkbox_lbl {
+    margin: 0 0 0 34px;
+	font-weight:500;
+}
+
+#agree {
+    float: left !important;
+    position: absolute;
+}
+	
+	/* media quries start here*/
+
+@media only screen and (max-width : 321px) {
+.top-head1{
+margin-top:9%;}
+}
+
+
+@media only screen and (min-width : 965px) and (max-width : 1024px) {
+.top-head1{
+margin-top:13%;}
+}
+
+@media only screen and (min-width : 1026px) and (max-width : 1100px) {
+.top-head1{
+margin-top:7%;}
+}
+
+@media only screen and (min-width : 766px) and (max-width : 1025px) {
+.top-head1{   
+margin-top:17%;}
+
+.form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.form-group{
+	float:none; !important;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+}
+
+@media only screen and (min-width : 799px) and (max-width : 850px) {
+.top-head1{
+margin-top:16%;}
+}
+
+@media only screen and (min-width : 1279px) and (max-width : 1281px) {
+.top-head1{
+margin-top:2%;}
+}
+
+@media only screen and (min-width : 1101px) and (max-width : 1277px) {
+.top-head1{
+margin-top:6%;}
+}
+   
+@media only screen and (min-width : 979px) and (max-width : 981px) {
+.top-head1{
+margin-top:13%;}
+
+.form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.form-group{
+	float:none; !important;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+}
+
+@media only screen and (min-width : 1023px) and (max-width : 1025px) {
+.top-head1{
+margin-top:13%;}
+}
+
+@media only screen and (min-width : 1365px) and (max-width : 1367px) {
+.top-head1{
+margin-top:24px !important;}
+}
+
+@media only screen and (min-width : 1023px) and (max-width : 769px) {
+.top-head1{
+margin-top:7%;}
+}
+ 
+@media only screen and (min-width : 965px) and (max-width : 970px) {
+.top-head1{
+margin-top:14%;}
+}
+
+@media only screen and (min-width : 319px) and (max-width : 967px) {
+.form-group {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+}
+
+   /* media quries end here*/
+
+   /* get-quotes page code end here*/
+    .panel{
+       box-shadow: 0 0 10px grey !important;
+     }
+     .panel-footer, .panel-header{ 
+        background-color: #1B1C52;
+        padding: 10px;
+        color: #fff;
+     }
+     .panel-body {
+        padding: 30px 40px;
+     } 
+</style> 
+<div class="container" style="padding-top: 80px; padding-bottom: 30px;">
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-info">
+                <div class="panel-header">
+                    <strong>Quote Finder</strong>
+                </div>
+    
+                <div class="panel-body">
+                <div class="row">
+                   <div class="col-md-12">
+            		 <p> Save time. We'll do the searching and provide you with up to three quotes. Complete the short form below to get started.
+                   </p>
+            	   
+            	   </div>
+            	   </div>
+            	   <br />
+                  
+                <div class="row">
+                  <div class="col-md-12">
+                  <div id="msg" style="display: none;"><?php echo $this->msg;?></div>
+              <form class="form-horizontal" name="get-quotes" id="get-quotes" method="<?php echo $this->escape($this->form->getMethod()) ?>" action="<?php echo $this->escape($this->form->getAction()) ?>">
+            	
+                <div class="row">
+                    <div class="form-group">
+                          <label class="control-label col-md-2" for="title">First Name</label>
+                          <div class="col-md-3">
+                            <?php echo $this->form->fname ?><br/>
+                          </div>
+                        
+                    	 <label class="control-label col-md-2" id="title2"> Last Name </label>
+                    	 <div class="col-md-3">
+                    	 <?php echo $this->form->lname ?><br/>
+                    	 </div>
+                    </div>
+                 </div>
+            	 
+            	 <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-2" id="title3"> Business Name </label>
+                <div class="col-md-3">	
+            	   <?php echo $this->form->bname ?><br/>
+            	 </div>
+            	 <label class="control-label col-md-2" id="title4"> Phone No. </label>
+            	  <div class="col-md-3">	
+            	 <?php echo $this->form->phone ?><br/>
+            	 </div>
+            	 </div>
+            	 </div>
+            	 
+            	 
+            	 <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-2" id="title5"> Email </label>
+            	  <div class="col-md-8">
+            	 <?php echo $this->form->email ?><br/>
+            	 </div></div></div>
+            	 
+            	 <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-2" id="title6">What are you looking for?</label>
+            	  <div class="col-md-8">
+            	<?php echo $this->form->topic ?><br/>
+            	 </div></div></div>
+            
+            	 <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-2" id="title6"> Suburb/City </label>
+            	   <div class="col-md-8">
+            	 <?php echo $this->form->location ?><br/>
+            	 </div></div>
+                 </div>
+            
+            	 <div class="row">
+                     <div class="form-group">
+                	 <label class="control-label col-md-2" id="title8"> Country </label>
+                	<div class="col-md-3">
+                	 <select name='ncountry' id='country' onchange="getStates();" class="form-control">
+                        <option value="1">Malaysia</option>
+                    </select>
+                	 </div>
+                	 
+                	 <label class="control-label col-md-1" id="title9"> State </label>
+                        <div class="col-md-4">	
+                        	<select name='nstates' id='states' class="form-control" onchange="setStateName();">
+                        <option value="0">Select State</option>	
+                     </select><br/>
+                    
+                     <input type="hidden" name="countryh" id="country_hidden">
+                     <input type="hidden" name="statesh" id="state_hidden">
+            	   </div>
+                    </div>
+                </div> 
+            	 
+            	 <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-2" id="title10"> Postcode </label>
+            	   <div class="col-md-8">
+            	 <?php echo $this->form->postcode ?><br/>
+            	 </div></div></div>
+            	 
+            	 <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-2" id="title11"> Price Range </label>
+            	   <div class="col-md-8">
+            	<?php echo $this->form->price ?><br/>
+            	 </div></div></div>
+            	 
+            	  <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-2">
+               Subtotal </label>
+            		 <div class="col-md-8"><strong><input class="form-control" type="input" value="RM25" readonly="readonly"/>
+            </strong><br/>
+            	 </div></div></div>
+            	
+                 <!--div class="row">
+                     <div class="form-group">
+                	 <label class="control-label col-md-2" id="title14"> Promocode</label>
+                		 <div class="col-md-8">
+                	<?php echo $this->form->promocode ?><br/>
+                	 </div></div>
+                 </div-->
+            	 
+              <div class="row">
+                 <div class="form-group">
+            	 <label class="control-label col-md-1" id="title14"> </label>
+            		 <div class="col-md-9">
+                     <span>
+            		 <?php echo $this->form->agree ?>
+            	
+            	<label for="agree" id="checkbox_lbl">
+            	 I have read, understand and agree to all Business Support Link <a href="/privacy-policy"> Privacy's Policy </a> and <a href="/terms-and-conditions"> Terms and Conditions </a>.
+            	</label>
+            	</span>
+            	 </div>
+            	 </div>
+                 </div>
+            
+            	 <input type="submit" value="Quotation Summary" name="submit" id="submitButton" class="btn btn-sbsl pull-right" title="Checkout with PayPal">
+                 
+          	 </form>
+             </div><!--col-md-12 col-md-offset-1 ends-->
+             
+              </div><!--row ends-->
+            </div> <!-- panel body end -->  
+              <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12" style="min-height: 46px;">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div><!--container-fluid end-->
+  
+<script type="text/javascript">
+
+    $(function(){
+       <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+		<?php } else{ ?>
+			$('#msg').show();
+		<?php } ?> 
+    });
+
+    $("#checkbox_lbl").click(function(){ 
+        if($("#agree").is(':checked'))
+            $("#agree").removAttr('checked');
+        else
+           $("#agree").attr('checked');
+    });
+ 
+function getStates(){
+	var country_id = $('#country').val();//select item value from listbox
+   //alert(country_id);
+   var element = document.getElementById("country");
+    var textHolder = element.options[element.selectedIndex].text;
+  document.getElementById("country_hidden").value = textHolder;
+ if(country_id == "Select Country")return;
+var parent_id = 5;
+$.post("<?php echo $this->baseUrl()?>/index/get-states", {country_id: country_id},
+//this is response from controller.
+function(data){
+	var obj = jQuery.parseJSON(data);
+//alert( obj.name === "John" );
+$('select#states').empty();
+$('#states')
+         .append($("<option></option>")
+         .attr("value",0)
+         .text("Select State")); 
+	$.each( obj, function( index, value ) {
+  //alert( value.state_name + ": " + value.state_id );
+   
+ $('#states')
+         .append($("<option></option>")
+         .attr("value",value.state_id)
+         .text(value.state_name)); 
+  
+  });  
+	});
+	}
+	
+	function setStateName(){
+	var element = document.getElementById("states")
+	var text = element.options[element.selectedIndex].text;
+	document.getElementById("state_hidden").value = text;
+	}
+</script>

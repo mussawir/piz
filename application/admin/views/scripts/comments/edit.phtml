@@ -1,0 +1,76 @@
+<div class="row" style="padding-top: 30px;">
+    <div class="col-md-12">
+        <h2>Comment for <?php echo $this->page_title;?></h2>    
+    <div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+		<div class="clearfix">
+		</div>
+        
+        <form class="form-horizontal" action="" method="post">
+            <?php echo $this->form->csrf ?>
+            
+            <input type="hidden" name="pc_id" value="<?php echo $this->comment_id ?>" />
+            
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <?php echo $this->form->name; ?>
+                </div>
+                <div class="col-md-6">
+                    <?php echo $this->form->email; ?>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <?php echo $this->form->comment; ?>
+                </div>
+            </div>
+            <!--div class="row form-group">                
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary pull-right">Save</button>
+			   </div>
+            </div-->
+        </form>
+        
+        <div class="row">
+            <div class="col-md-11">
+                <?php if($this->status== 1 || $this->status== 3){?>
+                    <a class="btn btn-sm btn-success pull-right" href="#" onclick="return confirmApprove(<?php echo $this->comment_id; ?> )" >Approve</a>
+                <?php } else{ ?>
+                    <a class="btn btn-sm btn-danger pull-right" href="#" onclick="return confirmReject(<?php echo $this->comment_id; ?> )" >Reject</a> 
+                <?php } ?>
+            </div>
+            <div class="col-md-1">
+                <?php if(isset($this->page_id)) {?>
+                    <a class="btn btn-sm btn-primary pull-right" href="<?php echo $this->baseUrl(); ?>/admin/comments/comments-list/id/<?php echo $this->page_id;?>" title="Page Comments List">Back to list</a>
+                <?php } else {?>
+                    <a class="btn btn-sm btn-primary pull-right" href="<?php echo $this->baseUrl(); ?>/admin/comments/index" title="Page Comments List">Back to list</a>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
+                                
+<script type="text/javascript">
+    window.onload = function () { 
+        <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(3000).hide('slow');
+		<?php } ?>
+        
+        $('#first_name').attr('readonly', 'readonly');
+        $('#email').attr('readonly', 'readonly');
+        $('#comment').attr('readonly', 'readonly').height(150);
+    }
+ 
+    function confirmApprove(id){
+	   window.location.assign("<?php echo $this->baseUrl(); ?>/admin/comments/approve/id/" + id);
+	}
+    
+    function confirmReject(id){
+    	window.location.assign("<?php echo $this->baseUrl(); ?>/admin/comments/reject/id/" + id);
+	}
+ </script>

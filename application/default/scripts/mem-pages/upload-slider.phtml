@@ -1,0 +1,126 @@
+<div id="page-wrapper" style="padding-top: 17px;">
+<div id="msg" class="msg">
+
+</div>
+<h4 style="padding-bottom: 10px;">Upload Slider <strong> Limit 5</strong></h4>
+<form id="header-frm" action="<?php echo $this->baseUrl();?>/mem-pages/upload-slider-files/id/<?php echo $this->data; ?>" method="post" enctype="multipart/form-data">
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 1 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider1Show');" id="slider1" type="file" name="slider1" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider1Show" />
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 2 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider2Show');" id="slider2" type="file" name="slider2" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider2Show" />
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 3 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider3Show');" id="slider3" type="file" name="slider3" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider3Show" />
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 4 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider4Show');" id="slider4" type="file" name="slider4" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider4Show" />
+				</div>
+                </div>
+				<div class="col-md-12">
+				<div class="col-md-6">
+                <div class="form-group">
+                    <label for="templates" class="col-md-4 control-label text-left">Slider 5 :</label>
+                    <div class="col-md-8">
+                        <input onchange="readURL(this,'slider5Show');" id="slider5" type="file" name="slider5" >
+                    </div>
+                   </div>
+				</div>
+				<div class="col-md-6">
+				<img class="img-responsive image-slider" id="slider5Show" />
+				</div>
+                </div>
+<div class="col-md-6">				
+		<input type="submit" value="Save" class="btn btn-success btn-md pull-right"/>
+</div>
+	</form>
+</div>
+<script>
+function readURL(input,imgId) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#'+imgId).attr('src', e.target.result);
+					$('#'+imgId).css('height', '100px');
+					$('#'+imgId).show();
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+				return input.files[0].name;
+		    }
+			else
+			{
+				$('#'+imgId).attr('src', '');
+					$('#'+imgId).hide();
+			}
+		}
+function showSuccess(id,msg){
+	$('#'+id).html('');
+	$('#'+id).show();
+	$('#'+id).html('<div class="alert alert-success"><strong>Success! </strong>'+msg+'</div>').delay(1000).fadeOut();
+}
+function showError(id,msg){
+	$('#'+id).html('');
+	$('#'+id).show();
+	$('#'+id).html('<div class="alert alert-danger fade in alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a><strong>Error!</strong> '+msg+'.</div>').delay(1000).fadeOut();
+}
+$( document ).ready(function() {
+    <?php 
+	if(isset($_GET['msg'])){
+		$whatHappened = $_GET['msg'];
+		if($whatHappened=='success'){
+		?>
+		showSuccess('msg','Uploaded');
+	<?php 
+	} else { ?>
+	showError('msg','Some Error Occured');
+	<?php }
+	}
+	?>
+});
+</script>
+<style>
+.image-slider {
+    padding: 4px;
+}
+</style>

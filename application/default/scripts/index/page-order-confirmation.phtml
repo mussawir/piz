@@ -1,0 +1,63 @@
+<style>
+    .panel{
+      /* box-shadow: 0 0 10px grey !important;*/
+     }
+     .panel-footer, .panel-header{ 
+        background-color: #404040;
+        padding: 10px;
+        color: #fff;
+     }     
+     .panel-header p{
+        margin-bottom: 5px;
+     }
+     #btn-checkout, #btn-login {
+        border: 0;
+     }
+     .panel-body {
+        padding: 30px 40px;
+     }
+	 .errors{
+	color: #ff0000;
+}
+</style>
+
+<div class="container" style="padding: 40px 0;">
+     <div class="row">
+       <div class="col-md-6 col-md-offset-3">  
+        <div class="panel panel-info">
+    	  <div class="panel-header">
+            <p style="font-size: 20px;">Congratulations!</p>
+        </div>
+        
+        <div class="panel-body text-center">
+		THANK YOU FOR YOUR ORDER. OUR SALES TEAM WILL CONTACT YOUR SHORTLY BY EMAIL. PLEASE KEEP CHECKING YOUR EMAIL FOR FURTHER PROCESSING OF YOUR ORDER.<BR/>HAPPY PAGE NETWORKING
+		
+		</div>
+        <div class="panel-footer">
+            <div class="row">
+           
+                <div class="col-md-12 text-center">
+                    <input id="btn-login" type="button" class="btn btn-lg btn-success" value="Order Submitted"/>
+                </div>
+            </div>
+        </div>
+    
+        </div>
+    </div>
+
+		 
+       </div>  <!--main row div end-->
+     </div>
+
+<script type="text/javascript">
+    $(function(){
+        <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();			
+		<?php  } else { ?>
+			$('#msg').show().delay(10000).hide('slow');
+		<?php } ?>
+        
+        $('#submit-label').remove();
+    });
+    
+</script>

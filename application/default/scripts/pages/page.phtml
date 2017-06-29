@@ -1,0 +1,254 @@
+<?php echo $this->render('header.phtml');?>
+<style>
+body{
+    background-color: #2e2e2e;
+}
+.container{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+</style>
+<div class="container" style="padding-top:50px;background-color: #fff;">
+    <div class="row">
+    <div class="col-md-12">  
+                <input type="hidden" value="<?php echo $this->list['page_id']; ?>" id="click_page_id" />
+                <input type="hidden" value="page" id="click_page_type" />
+                
+    			<div class="post-head">
+    			<h1><?php echo $this->list['title'];?></h1>
+    			</div><!--post-heading end-->
+    			
+    	<div class="row" style="min-height: 350px;">
+    <div class="col-md-9 set-summary">
+    
+    <?php echo stripslashes($this->list['contents']);?>
+    </div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-4">
+       <div class="header-social">
+            <a onclick="window.open(this.href, 'newwindow', 'width=500, height=300'); return false;" href="https://twitter.com/intent/tweet?text=<?php echo $this->list['title'];?>&url=<?php echo $this->site_url['site_url'];?>/pages/page/<?php echo $this->list['url_slug'];?>&description=<?php echo strip_tags($this->list['contents']);?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/twt.png" /></a>
+    		<a onclick="window.open(this.href, 'newwindow', 'width=500, height=300'); return false;" href="https://pinterest.com/pin/create/button/?url=<?php echo $this->site_url['site_url'];?>/pages/page/<?php echo $this->list['url_slug'];?>&description=<?php echo strip_tags($this->list['contents']);?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/pinterest.png" /></a>  
+    		<a onclick="window.open(this.href, 'newwindow', 'width=500, height=300'); return false;" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->site_url['site_url'];?>/pages/page/<?php echo $this->list['url_slug'];?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/fb.png" /></a>   
+    		<a onclick="window.open(this.href, 'newwindow', 'width=500, height=300'); return false;" href="https://plus.google.com/share?url=<?php echo $this->site_url['site_url'];?>/pages/page/<?php echo $this->list['url_slug'];?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/google.png" /></a>
+    		<a onclick="window.open(this.href, 'newwindow', 'width=500, height=300'); return false;" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $this->site_url['site_url'];?>/pages/page/<?php echo $this->list['url_slug'];?>&title=<?php echo $this->list['title'];?>&summary=<?php echo strip_tags($this->list['contents']);?>"><img src="<?php echo $this->site_url['site_url']; ?>/images/linkedin.png"/></a> 
+    	</div> 
+    	</div>
+    	</div>
+    
+    			
+                <?php if(count($this->comment)>0){?>
+                <!-- veiw approved comment-->
+    			<hr />
+    			<div class="row">
+    			<div class="col-md-12 set-head"> 
+    			<h2> <i class="fa fa-comments fa-2x"></i> Comments</h2>
+    			<?php foreach ($this->comment as $items):?>
+    			<div class="row">
+                <div class="col-md-2">
+                    <h5><i class="fa fa-user"></i> <?php echo ucwords($items['name']) ?></h5>
+                    <h5><i class="fa fa-clock-o" ></i><?php echo date('m/d/Y h:i A', strtotime($items['comment_date'])) ?></h5>
+                </div>
+    	       <div class="col-md-10 set-summary" style="border-left: 1px solid #E5E5E5;">
+    			
+    			<p class="set-comment">
+    			<?php echo $items['comment'] ?>
+    			</p>
+    			</div>
+    			</div>
+    				<?php  endforeach;?>
+    			</div>
+    			</div>
+    		<!-- end approved comment -->
+            <?php  } ?>
+            
+      <?php if($this->list['is_comment']==0) {?>
+        <div class="row">
+        <hr />
+        <div class="col-md-9 set-head"> 
+          
+        			<form id="frm" method="post">
+                     	 <?php echo $this->form->csrf ?>
+        				 <h3 class="reply">Leave a Comment</h3>
+        				 <div class="msg">
+                    		  
+                    		</div>
+                                       <input type="hidden" name="page_id" value="<?php echo $this->list['page_id']; ?>" />       	  
+        										  <h5 class="c-headings"> * Name:</h5>
+        									   <?php echo $this->form->name; ?>
+        									   <span id="name-error"></span>
+                                                <h5 class="c-headings"> * Email:</h5>
+        										 <?php echo $this->form->email; ?>
+        										 <span id="email-error"></span>
+        										 <h5 class="c-headings">* Comment:</h5>
+        										 <?php echo $this->form->comment; ?>
+        										 <span id="comment-error"></span>  &nbsp;
+        		<div class="row col-md-12">
+                    
+                    <span id="comment-btn" class="pull-right"><?php echo $this->form->submit?></span>
+                <span id="ajax-loader" style="display:none;" class="pull-right"><img src="<?php echo $this->baseUrl(); ?>/images/admin/ajax-loader.gif" height="100" width="300" /></span>
+                        <strong>Total Characters: <span id="count">0</span>/2000</strong>        
+                </div>
+                    </form>
+         
+         </div><!--col-9 end-->
+         </div><!--row end-->
+         <?php }?>
+         <div class="clearfix">&nbsp;</div>
+        </div><!--col-md-10 end-->
+      </div>
+</div>
+  
+  <script type="text/javascript">
+  
+   $(function(){
+   
+   $("#comment").css('height','80');
+   
+   $("#first_name").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').css('color', 'red').text('Name is required.').show();
+        }
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').hide();
+        }
+    });
+    
+    $("#email").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').text('Eamil is required.').show();
+        }
+        else if(txt.val() != '' && !isValidEmailAddress(txt.val()))
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').val('Eamil address is not valid.').show();
+        }
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').hide();
+        }
+    });
+    
+    $("#comment").keyup(function(){ 
+        var txt = $(this);
+        
+        if (txt.val() == '' || txt.length == 0)
+        {
+            $(this).css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').css('color', 'red').text('Comment is required.').show();
+        }        
+        else
+        {
+            $(this).css({"border-color": "#CCCCCC", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').hide();
+        }
+        
+        var cs = $(this).val().length;
+        $('#count').text(cs);
+    });
+   
+    //function saveComments()
+    $('#frm').submit(function(e) 
+    {    
+        e.preventDefault();
+    
+        var name = $('#first_name');
+        if(name.val() == '' || name.length == 0)
+        {
+            name.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#name-error').css('color', 'red').text('Name is required.').show();
+            return false;
+        }
+        
+        var email = $('#email');
+        if((email.val() == '' || email.length == 0) && (!isValidEmailAddress(email.val())))
+        {
+            email.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#email-error').css('color', 'red').val('Eamil address is not valid.').show();
+            return false;
+        }
+        
+        var comment = $('#comment');
+        if(comment.val() == '' || comment.length == 0)
+        {
+            comment.css({"border-color": "red", 
+                     "border-width":"1px", 
+                     "border-style":"solid"});
+            $('#comment-error').css('color', 'red').text('Comment is required.').show();
+            return false;
+        }
+        
+        // show loader
+        $('#comment-btn').hide();
+        $('#ajax-loader').show();
+        
+       $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/pages/save-page-comments",
+             data: $(this).serialize(),
+                success: function(result) {
+               //console.log('success : '+ result);
+                  //  if(result == 'success')
+                    {
+                        // hide loader
+                        $('#ajax-loader').hide();
+                        $('#comment-btn').show();
+                        
+                        $('.msg').html("<div class='alert alert-success'>Your comment saved successfully and will shown after approval.</div>").show();//.delay(5000).fadeOut(1000);
+                        name.val('');
+                        email.val('');
+                        comment.val('');
+                    }
+				},
+                error: function(result)
+                {
+                     console.log('error : '+ result);
+                     //if(result == 'error')
+                     {
+                        $('.msg').html("<div class='alert alert-danger'>Some error in saving record</div>").show();//.delay(5000).fadeOut(1000);
+                        }
+                }
+        }); //ajax end
+             
+            return false;
+            
+    });
+  });
+  
+  function isValidEmailAddress(emailAddress) {
+        var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+         //alert( pattern.test(emailAddress) );
+        return pattern.test(emailAddress);
+    };
+ </script>
+ 

@@ -1,0 +1,91 @@
+
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 35px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+	text-decoration: none !important;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+.li_btn{
+		border-radius:0;
+		background:#1B1C52;
+		border:1px solid #1B1C52;
+		margin-top:5px;
+	}
+	.li_btn > a{
+		color:white;
+	}
+	.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:white;
+		background:#1B1C52;
+}
+</style>
+<div id="page-wrapper" style="padding-top:20px;">
+<div class="row row-fluid">
+    <div class="col-md-12">
+    <?php //echo $this->render('/members/menu.phtml'); ?>
+    
+        <ul class="nav nav-pills">
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Main Page</a></li>
+		  <!--li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-slider/id/<?php echo $this->page_id ?>">Upload Slider</a></li-->
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-product-post/id/<?php echo $this->page_id ?>">New Product Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-service-post/id/<?php echo $this->page_id ?>">New Service Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-social-post/id/<?php echo $this->page_id ?>">New Social Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-post/id/<?php echo $this->page_id ?>">Product Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/service-posts/id/<?php echo $this->page_id ?>">Service Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/social-posts/id/<?php echo $this->page_id ?>">Social Posts</a></li>
+          <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $this->page_id ?>">Comments</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/feedback/id/<?php echo $this->page_id ?>">Get Feedback</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/popup-design/id/<?php echo $this->page_id ?>">Customize CTA</a></li>
+         <!--li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads/Description</a></li-->
+		 
+          <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+          <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+        </ul>
+    </div>
+</div>
+<h3>New Video Posts</h3>
+<?php echo $this->msg; ?>
+	<form method="post" action="">
+                    
+		<div class="row">
+		 <input type="hidden" value="<?php echo $this->page_id  ?>" name="page_id">	
+			<div class="col-md-6">
+				
+				 <div class="form-group">
+					<label for="">Uplaod Video</label>
+					<input type="text" name="video_url" class="form-control" required placeholder="Youtube Embed Video URL">
+				 </div> 
+				
+			</div>
+		</div>
+		
+		<input class="btn btn-success" type="submit" value="Save" style="margin-top:10px;">
+	</form>
+</div>
+<script>
+	
+</script>

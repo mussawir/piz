@@ -1,0 +1,40 @@
+
+ <div class="row">
+  <div class="col-md-12">
+  <div class="page-title">Clean All Cache</div>
+  </div><!-- /.col-md-12-->
+ </div><!-- /.row -->
+
+            <div class="row">
+            <div class="col-md-12">
+                    
+                 <?php echo $this->msg; ?> 
+               
+                <div class="row set-line">
+				 <div class="col-md-5">
+                 <strong><h4>Press Button To Clean Cache:</h4></strong>  </div>
+                 <a class="btn btn-danger" href="#" onclick="return confirmClean()" href="">Clean Cache </a> 
+				 </div>
+                <!-- /.col-md-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+<script type="text/javascript">
+    window.onload = function () {
+    <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+    <?php  } else{ ?>
+      $('#msg').show().delay(3000).hide('slow');
+    <?php } ?>
+ }
+ 
+  function confirmClean(){
+  var r = confirm("Are you sure to Clean All Cache!");
+  if (r == true) {
+  window.location.assign("<?php echo $this->baseUrl(); ?>/admin/setting/clean-cache");    
+  } else {
+  return false;
+  }
+  }
+ </script>

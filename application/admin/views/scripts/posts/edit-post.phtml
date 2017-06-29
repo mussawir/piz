@@ -1,0 +1,349 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+<style>
+#heading{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+	<ul class="menu-links">
+    <li><a href="<?php echo $this->baseUrl(); ?>/admin/post-category/index" title="New Post Category">New Post Category</a></li>
+	<li><strong><a href="<?php echo $this->baseUrl(); ?>/admin/posts/new-post" title="Create new post"> New Post</a></strong></li>       
+    <li><a href="<?php echo $this->baseUrl(); ?>/admin/posts/index" title="View list">Posts List</a></li>       
+	</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+     <form class="form-horizontal" id="frm" action="" method="post" enctype="multipart/form-data" >	
+
+<div class="row">	 
+ <div class="col-md-10">
+ <div id="msg">
+			<?php echo $this->msg ?> 
+</div>
+</div>
+</div>
+			<!-- row1 start-->
+  <div class="row">   
+	<div class="col-md-9">
+      <!--<input type="text" name="heading" id="heading" class="form-control head-title" required="true" placeholder="Enter post title here"  title="Enter post title here" value="<?php echo $this->heading; ?>" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete="off"/>-->
+	  <?php echo $this->form->heading;?>
+	 <div class="row">
+	  <div class="col-md-12">
+	  <span class="set-parma" style="font-size:11px"><strong>Parmalink:</strong>
+       <span id="p_link" style="font-size: 11px; display: inline;"></span>
+	   <input type="text" name="url" id="url" value="<?php echo $this->url_slug?>"  style="font-size: 11px; display: none; borderdisplay: none;"/>
+	   <a class="btn btn-xs btn-default" onclick="myFunction()" id="edited" style="display: inline;">Edit</a> 
+	   <a class="btn btn-xs btn-default" onclick="saveUrl()" id="saved" style="display: none;">Save</a> 
+	   <a class="btn btn-xs btn-default" onclick="cancelFunction()" id="cancel" style="display: none;">Cancel</a>
+       <a class="btn btn-xs btn-default" href="javascript:void(0);" id="copy" style="display: inline;">Copy Link</a>
+	  </span>    
+	  </div>
+	 </div>
+	</div>
+	<!--for editable url--> 
+	<!--<div class="col-md-3">   
+			<input type="text" name="url" id="url" class="form-control" required="true" placeholder="Change url" title="Change url" value="<?php echo $this->url_slug; ?>" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete="off"/>			
+			</div> -->     
+	
+	<div class="col-md-3">
+	   <button class="btn btn-md btn-primary set-save" value="1" name="submit" type="submit">Save as Draft   </button>
+	   <?php if($this->role!=4){ ?>
+            <button class="btn btn-md btn-primary"  value="0" name="submit" type="submit">Update</button>
+       <?php }?>
+    </div>
+  </div> <!-- row1 end-->
+  
+  <div class="col-md-9" style="padding: 0;">
+  <!-- row 2 start-->
+  <div class="row">
+	<div class="col-md-12">
+	 <div class="set-ck">
+		<!--<textarea contenteditable="true" cols="80" rows="24" class="form-control" id="description" name="description" required="true"><?php echo $this->save_description; ?> </textarea>-->
+		<?php echo $this->form->contents ?>
+	 </div> 
+	</div> 
+     <br />
+     <div class="col-md-12">
+        <div class="col-md-4">
+		<?php echo $this->form->tags; ?>
+    	</div>
+    	<div class="col-md-5">
+    		<?php echo $this->form->keyword_content; ?>
+    	</div>
+    	<div class="col-md-3">
+    		<label for="is_comment" style="text-align:center;">No Comments
+                <!--input type="checkbox" name="is_comment" id="is_comment" <?php //if($this->is_comment == 1) echo 'checked'; else echo ''; ?> /-->
+                </label><?php echo $this->form->is_comment; ?>
+    	</div>
+     </div>
+     <br />
+     <div class="col-md-12">
+	 <div class="set-ck">
+		<?php echo $this->form->description_content; ?>
+	 </div>
+	</div>
+    </div> <!-- row 2 end-->
+     </div><!-- left col end-->
+     
+	<div class="col-md-3">
+			<?php echo $this->form->image;?>
+			<br/>
+			<label>Change Image:</label>
+		<?php if(!empty($this->image)) {?>
+			<img src="<?php echo $this->baseUrl();?>/images/user/posts/200X200/<?php echo $this->image;?>" alt="<?php echo $this->image;?>" width="160"/>
+				<?php } else {?>
+				
+			<img src="<?php echo $this->baseUrl();?>/images/user/posts/200X200/placeholder.png" alt="placeholder" width="160" />
+			<?php } ?>
+            
+            <div class="panel panel-default" style="margin-top: 15px;">
+    			<div class="panel-heading">
+    				<h3 class="panel-title">
+    					Categories
+    				</h3>
+    			</div>
+                <div class="panel-body" style="height: 250px; overflow: scroll;">
+                    <div id="chk-list" style="margin-left: -40px;">
+                        <?php foreach($this->chk_list as $item): 
+                             echo $item['name'];
+                        endforeach;?>
+                    </div>
+    			</div>
+	       </div>
+			
+	</div>   <!-- right col end -->
+   
+	</form>
+    
+    <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <form method="POST" action="<?php echo $this->baseUrl();?>/admin/posts/new-category" style="margin-right: 15px;">
+                    <div class="form-group">
+                        <?php echo $this->cat_form->name; ?>
+                    </div>
+                    <div class="form-group">
+                        <?php echo html_entity_decode($this->cat_form->parent_id); ?>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add New Category" class="btn btn-primary pull-right" />
+                    </div>
+                </form>
+            </div>
+        </div>
+ </div><!--main col-md-12 end-->
+</div><!--main row end-->
+    
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/admin/plugins/jquery.zclip.js"></script>
+ <script type="text/javascript">
+    
+    $(function(){
+       $('#chk-list>ul').attr('id','tree');
+       $('#chk-list>ul#tree').checktree();
+       
+       var cat_id_list = '<?php echo json_encode($this->cat_id_list);?>';
+      
+      cat_id_list = cat_id_list.substring(1, cat_id_list.length - 2);
+      cat_id_list = cat_id_list.split(',');
+            console.log(cat_id_list);  
+       var listItems = $("#tree li");
+       listItems.each(function(index, li) {
+            var cat_obj = $(li).find('label input');
+            
+            var c_id = $(cat_obj).val();
+            
+            for(var x=0; x<cat_id_list.length; x++) {
+                if(parseInt(c_id,10)==cat_id_list[x]){
+                    $(cat_obj).prop('checked',true);
+                }    
+            }
+       });
+       
+    }); // ready function end
+
+window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(3000).hide('slow');
+
+    <?php } ?>
+	
+	<?php if(isset($this->errorSlug)){ ?>
+  var url = "<?php echo $this->site_url;?>/blog/post/";  	       
+		   $("#url").val('<?php echo $this->errorSlug ?>');  
+            $("#p_link").text(url).append('<?php echo $this->errorSlug ?>');  
+	//alert("<?php echo $this->errorSlug ?>");
+   <?php  } ?>
+	
+         var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/admin/fileman/index.html';
+         
+            CKEDITOR.replace( 'contents',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });
+            
+         load_parmalink();
+         
+         $("#copy").zclip({
+           path:"<?php echo $this->baseUrl();?>/js/admin/plugins/ZeroClipboard.swf",
+           copy:function(){return $("#p_link").text();}
+        });  
+ }
+
+    var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+ 
+ var url = "<?php echo $this->site_url;?>/blog/post/";
+
+// make slug from title
+$("#heading").keyup(function(){ 
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        
+        var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'');
+                
+        //var regExp = /\s+/g;
+        //Text = Text.replace(regExp,'-');
+        $("#url").val(outputString);
+		$("#p_link").text(url).append(outputString);
+});
+ 
+  // make custom slug
+$("#url").keyup(function(){ 
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        
+        var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'-');
+        //var regExp = /\s+/g;
+        //Text = Text.replace(regExp,'-');
+ 
+            $("#url").val(outputString);
+           // $("#p_link").text(url).append(outputString);
+        
+});
+
+    /*$("#tags").blur(function(){
+        
+        var result = setCommaSeparetedValues($(this));
+        
+        $(this).val(result);
+    });
+    
+    $("#keyword_content").blur(function(){
+        
+        var result = setCommaSeparetedValues($(this));
+        
+        $(this).val(result);
+    });
+
+    function setCommaSeparetedValues(id)
+    {
+        var data = $(id).val();
+            data = data.toLowerCase();
+            
+        var outputString = data.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>.\/? ])+/g, ', ').replace(/^(-)+|(-)+$/g,'');
+        data = outputString.split(/[ ,]+/).filter(function(v){return v!==''}).join(', ');
+        
+        return data;
+    }*/
+
+function load_parmalink(){ 
+    
+		$("#p_link").text(url +$("#url").val());
+}
+ /* for hide and show input field and btn*/
+function myFunction() {
+//document.getElementById("url").style.display = "inline";
+$("#url").css("display", "inline").css("border", "0");
+document.getElementById("saved").style.display = "inline";
+document.getElementById("cancel").style.display = "inline";
+document.getElementById("edited").style.display = "none";
+document.getElementById("copy").style.display = "none";	
+	/*for getting url with out slug*/
+$("#p_link").text(url);
+}
+function cancelFunction() {
+	
+document.getElementById("url").style.display = "none";
+document.getElementById("saved").style.display = "none";
+document.getElementById("cancel").style.display = "none";
+document.getElementById("edited").style.display = "inline";	
+document.getElementById("copy").style.display = "inline";
+document.getElementById("url").value ="<?php echo $this->url_slug?>";
+	/*for getting url by default*/
+ $("#p_link").text(url +$("#url").val());
+}
+
+    $('#copy').on('click',function(){
+        $("#copy").zclip({
+           path:"<?php echo $this->baseUrl();?>/js/admin/plugins/ZeroClipboard.swf",
+           copy:function(){return $("#p_link").text();}
+        });
+        
+        $('#msg').html("<div class='alert alert-success'>Permalink copied to clipboard.</div>").show().delay(3000).hide('slow');
+        
+    });
+
+function saveUrl()
+ {
+	var newurl = $('#url').val();
+	if (newurl != ''){
+	
+    Text = newurl.toLowerCase();
+     var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'-');
+
+	$.ajax({
+
+			type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/admin/posts/update-post-url-slug/id/<?php echo $this->id?>/url/"+outputString,
+                success: function(result) {
+               console.log(result);
+			   if(result == 'exist'){
+				  $('#msg').html("<div class='alert alert-danger'>Post Unique Parmalink Is Already Exist. Please change url for unique parmalink.</div>").show().delay(5000).fadeOut(500); 
+			   }
+                    else if(result == 'success')
+                    {
+	        $("#url").val(outputString);
+            $("#p_link").text(url).append(outputString);
+			$('#msg').html("<div class='alert alert-success'>url updated Successfully!</div>").show().delay(5000).fadeOut(500);
+                 document.getElementById("url").style.display = "none";
+document.getElementById("saved").style.display = "none";
+document.getElementById("cancel").style.display = "none";
+document.getElementById("edited").style.display = "inline";	  
+document.getElementById("copy").style.display = "inline";
+				   }
+										
+				},
+                error: function(result)
+                {
+                     console.log('error : '+ result);
+                     if(result == 'error')
+                     {
+                        $('.msg').html("<div class='alert alert-danger'>Some error in saving record</div>").show().delay(5000).fadeOut(1000);
+                        }
+                }
+        }); //ajax end
+	}
+	else{
+		alert("Please Enter Url Slug!");
+	}	 
+	 
+ }
+ </script>

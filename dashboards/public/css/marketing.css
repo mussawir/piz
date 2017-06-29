@@ -1,0 +1,347 @@
+html,body{
+	height:100%;
+	width:100%;
+	margin: 0;
+	padding:0;
+}
+nav.navbar.navbar-default.navbar-static-top {
+    margin-bottom: 0; 
+} 
+body{
+	overflow-x:hidden;
+}
+.dragsidebar {
+    height: 100%;
+    /* overflow: auto; */
+    background: #F9F9F9;
+    /* width: 100%; */
+    padding: 60px 20px 20px 20px;
+    position: fixed;
+	    top: 0;
+}
+.tempalate{
+	margin-left: 25%;
+	    padding: 30px 0;
+}
+.boxes-parent{
+	margin:10px auto;
+}
+.boxes-child{
+	padding:15px 0;
+	background:white;
+	cursor:pointer;
+	border:1px solid lightgray;
+	z-index:1;
+}
+
+
+.boxes-child:hover{
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+#sortable{
+	min-height:500px;
+}
+
+.image-delete, .heading-delete, .divider-delete, .ic-delete, .button-delete, .description-delete , .social-delete, .footer-delete, .twocolumn-delete{
+	border: 1px solid black;
+    color: white;
+    background: black;
+	padding: 3px;
+    font-size: 18px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 0.3s linear;
+	transform:scale(0); 
+	cursor:pointer;
+}
+.image-edit, .heading-edit, .divider-edit, .ic-edit, .button-edit, .description-edit, .social-edit, .footer-edit, .twocolumn-edit{
+	border: 1px solid black;
+    color: white;
+    background: black;
+	padding: 3px;
+    font-size: 18px;
+    position: absolute;
+    right: 4%;
+    top: 0;
+    transition: all 0.3s linear;
+	transform:scale(0); 
+	cursor:pointer;
+}
+.image-handle, .heading-handle, .divider-handle, .ic-handle, .button-handle, .description-handle, .social-handle, .footer-handle, .twocolumn-handle{
+	border: 1px solid black;
+    color: white;
+    background: black;
+	padding: 3px;
+    font-size: 18px;
+    position: absolute;
+    right: 8%;
+    top: 0;
+    transition: all 0.3s linear;
+	transform:scale(0); 
+	cursor:move;
+}
+.image:hover{
+	border:2px solid black;
+}
+.image:hover .image-delete{
+	transform:scale(1); 
+}
+.image:hover .image-edit{
+	transform:scale(1); 
+}
+.image:hover .image-handle{
+	transform:scale(1); 
+}
+.scaleup{
+	transform:scale(1);
+}
+.boxes-child > img{
+	max-width:50px;
+	max-height:50px;
+}
+.boxes-child > h5{
+	font-family: 'Roboto', sans-serif;
+	    margin-bottom: 0;
+}
+.image, .heading, .divider, .image-caption, .button, .description, .social{
+	margin:5px auto;
+	cursor:pointer;
+	position:relative;
+	padding: 10px 0;
+}
+.heading > h3{ 
+	font-family: 'Roboto', sans-serif;
+}
+.description > p{
+	font-family: 'Roboto', sans-serif; 
+}
+
+.heading:hover{
+	border:2px solid black;
+}
+.description:hover{
+	border:2px solid black;
+}
+.social:hover{
+	border:2px solid black;
+}
+.button:hover{
+	border:2px solid black;
+}
+#footer:hover{
+	cursor:pointer;
+	border:2px solid black;
+}
+.divider:hover{
+	border:2px solid black;
+}
+.image-caption:hover{
+	border:2px solid black;
+}
+.heading:hover .heading-delete{
+	transform:scale(1); 
+}
+.heading:hover .heading-edit{
+	transform:scale(1); 
+}
+.heading:hover .heading-handle{
+	transform:scale(1); 
+}
+.divider:hover .divider-delete{
+	transform:scale(1); 
+}
+.divider:hover .divider-edit{
+	transform:scale(1); 
+}
+.divider:hover .divider-handle{
+	transform:scale(1); 
+}
+.image-caption:hover .ic-delete{
+	transform:scale(1); 
+}
+.image-caption:hover .ic-edit{
+	transform:scale(1); 
+}
+.image-caption:hover .ic-handle{
+	transform:scale(1); 
+}
+.button:hover .button-delete{
+	transform:scale(1); 
+}
+.button:hover .button-edit{
+	transform:scale(1); 
+}
+.button:hover .button-handle{
+	transform:scale(1); 
+}
+#footer:hover .footer-delete{
+	transform:scale(1); 
+}
+#footer:hover .footer-edit{
+	transform:scale(1); 
+}
+.description:hover .description-delete{
+	transform:scale(1); 
+}
+.description:hover .description-edit{
+	transform:scale(1); 
+}
+.description:hover .description-handle{
+	transform:scale(1); 
+}
+.social:hover .social-delete{
+	transform:scale(1); 
+}
+.social:hover .social-edit{
+	transform:scale(1); 
+}
+.social:hover .social-handle{
+	transform:scale(1); 
+}
+.image-caption > p{
+	font-family: 'Roboto', sans-serif;
+	    padding-right: 36px;
+}
+.button > a{
+	font-family: 'Roboto', sans-serif;
+}
+.image-caption > img{
+	margin-bottom:10px;
+}
+
+.edit-template{
+	top:0;
+	background:#F9F9F9;
+	height:100%;
+	padding: 60px 20px 20px 20px;
+	position: fixed;
+    right: -50%;
+	transition:all 0.3s linear;
+	overflow-y:auto;
+}
+#edit-heading, #edit-social , #edit-description, #edit-button, #edit-image, #edit-footer > h3{
+	font-family: 'Roboto', sans-serif;
+}
+#edit-description > textarea{
+	border-radius:0;
+	margin-bottom:10px;
+}
+#edit-footer > textarea{
+	border-radius:0;
+	margin-bottom:10px;
+}
+#edit-footer > input{
+	border-radius:0;
+	margin-bottom:10px;
+}
+#edit-footer > label{
+	margin-top:5px;
+	font-family: 'Roboto', sans-serif;
+	margin-bottom:5px;
+}
+#edit-social > input{
+	border-radius:0;
+	margin-bottom:10px;
+}
+#edit-heading > input{
+	border-radius:0;
+	margin-bottom:10px;
+}
+#edit-button > input{
+	border-radius:0;
+	margin-bottom:10px;
+}
+#edit-image > input{
+	border-radius:0;
+	margin-bottom:10px;
+}
+#edit-image > button {
+	margin-top:10px;
+	border-radius:0;
+}
+#edit-footer > button {
+	margin-top:10px;
+	border-radius:0;
+}
+#edit-social > button {
+	margin-top:10px;
+	border-radius:0;
+}
+#edit-button > button {
+	margin-top:10px;
+	border-radius:0;
+}
+#edit-description > button {
+	margin-top:10px;
+	border-radius:0;
+}
+#edit-heading > button {
+	margin-top:10px;
+	border-radius:0;
+}
+#footer{
+	padding:20px;
+	background:#ECEFF1;
+	margin:5px auto;
+	position:relative;
+}
+#footer > p{
+	font-family: 'Roboto', sans-serif;
+}
+.two-column{
+	padding:20px;
+	position:relative;
+	display: flex;
+}
+.two-column:hover .twocolumn-delete{
+	transform:scale(1); 
+}
+.two-column:hover .twocolumn-edit{
+	transform:scale(1); 
+}
+.two-column:hover .twocolumn-handle{
+	transform:scale(1); 
+}
+.two-column:hover{
+	border:2px solid black;
+}
+#two-columns > h3{
+	font-family: 'Roboto', sans-serif;
+}
+#two-columns > h4,label{
+	font-family: 'Roboto', sans-serif;
+}
+#two-columns > input, textarea{
+	margin-bottom:10px;
+	border-radius:0;
+}
+#two-columns > button{
+	margin-bottom:10px;
+	border-radius:0;
+}
+.ui-state-highlight {
+	border:2px dotted gray; color:black; padding:10px; font-weight:100;font-size:10px;background:transparent;
+	}
+.ui-state-highlight h5 {
+	font-family: 'Roboto', sans-serif;
+	}
+	.template-page > h3{
+		font-family: 'Roboto', sans-serif;
+	}
+	.templates{
+		margin:10px auto;
+		cursor:pointer;
+	}
+	.templates > a > img{
+		margin:20px auto;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		transition:all 0.3s ease-out;
+	}
+	.templates > a > img:hover{
+		box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	}
+	.templates > h4{
+		font-family: 'Roboto', sans-serif;
+		font-weight:bold;
+	}

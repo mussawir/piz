@@ -1,0 +1,21 @@
+html, 
+body {
+  }
+/* remove 20px bottom margin form navbar */
+ .navbar {
+    margin-bottom: 0; 
+	}
+.jumbotron{
+margin: 0px;	
+	
+}	
+@media (min-width: 768px)
+.navbar {
+    border-radius: 0px;
+} 
+ 
+  @media (min-width: 960px) and (max-width: 1000px) {
+   .collapse {
+       display: none !important;
+   }
+}

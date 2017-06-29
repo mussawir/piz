@@ -1,0 +1,233 @@
+<style type="text/css">
+
+#ajaxPanelBackground
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20001;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    background-color: Gray;
+}
+.dropdown {
+    float: left !important;
+
+}
+.set-dropdown-btn {
+    background-color:#333333 !important;
+ 
+}
+#menu1 > a {
+    color: #ccc !important;
+    line-height: 30px;
+    padding: 15px 15px;
+	text-decoration:none !important;
+}
+#menu1 > a:hover {
+    background-color: #FF6600 !important;
+	text-decoration:none !important;
+	color: #fff !important;
+    
+}
+.btn1 {
+  display: inline-block;
+  padding: 10px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 0px solid transparent !important;
+  border-radius: 4px;
+}
+.navbar-right .dropdown-menu {
+    background-color: #333333 !important;
+    left: auto;
+    right: 0;
+}
+
+
+/* media query for navigation */
+@media only screen and (min-width: 300px) and (max-width: 950px)
+{
+.navbar-collapse.collapse{ 
+    clear: both !important;
+	overflow:hidden;
+	padding:5px;
+}
+.dropdown {
+    float: none !important;
+}
+#menu1 > a {
+    color: #ccc !important;
+    line-height: 30px;
+    padding: 15px 3px;
+    text-decoration: none !important;
+}
+}
+    
+@media only screen and (min-width: 300px) and (max-width: 850px)
+	{
+	#radio-1 {
+    margin-bottom: 4px;
+    margin-left: 9px;
+    padding: 6px 6px 0;
+}
+ .set-radio {
+    margin-left: 5%;
+}
+
+}
+	
+@media only screen and (min-width: 850px) and (max-width: 1100px)
+{
+ .set-radio {
+    margin-left: 22%;
+}
+}
+	
+@media only screen and (min-width: 300px) and (max-width: 992px)
+{
+ .set-bton-se {
+    margin-top: 7px;
+}
+.set-dropdown-btn {
+    background-color: #333333 !important;
+    text-align: left !important;
+    width: 100%;   
+}
+#menu1 > a {
+    color: #ccc !important;
+    line-height: 15px;
+    padding: 5px 3px;
+    text-decoration: none !important;
+}
+}
+	
+ @media only screen and (min-width: 1680px) and (max-width: 2580px)
+{
+.form1{
+margin-top:10%;
+}
+}
+#header-image {
+    background: url('../images/Nightbg.jpg') no-repeat;
+    height: 600px;
+    background-size: cover;
+    background-position: center center;
+    padding: 2em;
+    position: relative;
+}
+.form-center {
+    padding: 14px 32px 48px 0px;
+    background-color: rgba(000, 00, 00, 0.42);
+}
+.form1 {
+    margin-top: 14%;
+}
+
+.set-radio {
+    margin-left: 29%;
+}
+element.style {
+    border: 2px solid rgb(255, 102, 0);
+}
+
+element.style {
+    color: #fff;
+}
+#icon-1 {
+    float: left;
+    margin: 0px 10px 10px 0;
+}
+element.style {
+    color: #fff;
+}
+
+.btn1 {
+    display: inline-block;
+    padding: 10px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 0px solid transparent !important;
+    border-radius: 4px;
+}
+
+#search-section {
+    min-height: 400px;
+}
+
+#search-section .text-success{
+    color: #006621;
+}
+
+#search-section a:hover {
+    text-decoration: underline;
+}
+
+#search-section h3{
+    margin-bottom: 0;
+}
+
+#search-section p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 18px;
+}
+</style>
+         
+<?php if($this->is_query_set) {
+    echo $this->render('/index/search-page.phtml');
+} else {
+    echo $this->render('/index/search-default.phtml');
+} ?>
+
+<script type="text/javascript">
+    $(function(){
+        $('#external-search').remove();
+        
+        $('#state').val(<?php echo $this->state;?>);
+        $("#state").trigger("change");
+        
+        $('#city').val(<?php echo $this->city;?>);
+    }); // ready function end
+    
+    function getCities()
+    {	   
+       $('#loader').show();
+	   var state_id = $('#state').val();//select item value from listbox
+       if(state_id == "")return;
+	   
+       $.post("<?php echo $this->baseUrl()?>/index/get-cities", {state_id: state_id},
+       function(data){
+            $('#city').html(data);
+            
+            $('#loader').hide();
+			$.unblockUI(); 
+	   });
+	} // getCities end
+    
+</script>

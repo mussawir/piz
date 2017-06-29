@@ -1,0 +1,110 @@
+
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 10px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+</style>
+<div id="page-wrapper">
+<div class="row">
+    <div class="col-md-12">
+    
+    <ul class="nav nav-pills">
+      <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/manage-page/id/<?php echo $this->page_id ?>">Main Page</a></li>
+      <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+      <li role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li>
+    </ul>
+    </div>
+</div>
+    <br />
+    <div class="row">
+    <div id="msg" style="margin-top: 10px;"><?php echo $this->msg ?></div>
+        <div class="col-md-12">
+            <img id="loader" src="<?php echo $this->baseUrl(); ?>/images/admin/ajax-loader.gif" style="display: none; width: 150px;margin-left: 45%;margin-top: 5%;position: absolute;" />
+            
+            <form id="ads-frm" action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" value="<?php echo $this->page_id;?>" name="main_page_id" />
+                
+                <?php foreach($this->ad_list as $item): ?>
+                <div style="padding-bottom: 20px; display: flex;">
+                <div style="position: relative; width: 300px; margin-right: 20px;">
+                    <img src="<?php echo $this->baseUrl(). $this->member_dir_name. '/500X500/'.$item['ad_img'];?>" alt="<?php echo $item['title'];?>" class="img-responsive" style="max-width: 100%; max-height: 100%;" />
+                </div>
+                <input type="checkbox" value="<?php echo $item['page_id'];?>" name="box_page_id[]" />
+                </div>
+                <?php endforeach; ?>
+                                
+                <input type="submit" id="btn-save" class="btn btn-success pull-right" value="Save" />
+                <button type="button" id="clear" class="btn btn-warning pull-right" style="margin-right: 20px;">Clear Selection</button>
+                
+            </form>
+            
+        </div>
+    </div>
+    
+</div> <!-- wrapper end-->
+    
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin/jquery.form.min.js"></script>
+    
+<script type="text/javascript">
+
+    window.onload = function () { 
+    <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(5000).hide('slow');
+
+    <?php } ?>
+        
+ } // load function end
+ 
+    $('#clear').click(function(){
+        var chkBoxes = $('#ads-frm').find("input[type='checkbox']");
+        
+        for(var i=0; i<chkBoxes.length; i++){
+            $(chkBoxes[i]).prop('checked', false);
+        }
+    });
+    
+    var limit = <?php echo $this->ad_limit['ad_boxes_limit']; ?>;
+    $("input:checkbox").click(function(){
+        if ($("input:checkbox:checked").length > limit){
+          $('#msg').html('<div class="alert alert-info"><strong>You can only select any '+limit+' ads from the list</strong></div>').show().delay(5000).hide('slow');
+          return false;          
+       }
+    });
+    
+    $("#btn-save").click(function() {
+    		
+    		var count_checked = $("[name='box_page_id[]']:checked").length;
+    		if(count_checked == 0 || count_checked < 2) {
+    			$('#msg').html('<div class="alert alert-warning"><strong>Please select any '+limit+' checkboxes</strong></div>').show().delay(5000).hide('slow');
+    			return false;
+    		}
+   	});
+    
+ </script>

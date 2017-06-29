@@ -1,0 +1,188 @@
+<script src="<?php echo $this->baseUrl();?>/js/admin/ckeditor/ckeditor.js"></script>
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="menu-links">
+			<li><strong><a href="<?php echo $this->baseUrl(); ?>/admin/page/new-page" title="Create new page">New Page</a></strong></li>
+			<li><a href="<?php echo $this->baseUrl(); ?>/admin/page/index" title="View list">List</a></li>
+			<li><a href="<?php echo $this->baseUrl(); ?>/admin/comments/index" title="View Recent Comments">Recent Comments</a></li>
+		</ul>	
+    </div>           
+</div>
+
+
+<div class="row">
+<div class="col-md-12">
+     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >	
+
+<div class="row">	 
+ <div class="col-md-8">
+ <div id="msg">
+	<?php echo $this->msg ?> 
+</div>
+</div>
+</div>
+			<!-- row1 start-->
+  <div class="row">   
+  	<div class="col-md-9">
+  <?php echo $this->form->title;?>
+	<div class="row">
+	  <div class="col-md-8">
+	  <span class="set-parma" style="font-size:11px"><strong>Parmalink:</strong>
+       <span id="p_link" style="font-size: 11x"></span>
+	  </span>
+	  <input type="text" name="url_slug" id="url"  style="font-size: 0px"/>
+		  </div>
+	 </div>
+	
+	</div>
+	
+	<div class="col-md-3">
+	<br/>
+		   <button class="btn btn-md btn-primary set-save" value="1" name="submit" type="submit">Save as Draft   </button>
+	<button class="btn btn-md btn-primary"  value="0" name="submit" type="submit">Publish</button>
+    </div>
+  </div> <!-- row1 end-->
+  
+  <!-- row 2 start-->
+  <div class="row">
+	<div class="col-md-9">
+	 <div class="set-ck">
+	<?php echo $this->form->contents; ?>
+	</div>
+	</div>
+	<div class="col-md-3">
+	
+	
+	</div>
+   </div><!-- row 2 end-->
+   
+   <!--row 3 start-->
+   <div class="row">
+	 <div class="col-md-4">
+		<?php echo $this->form->tags; ?>
+	</div>
+	<div class="col-md-5">
+		<?php echo $this->form->keyword_content; ?>
+	</div>	
+   </div><!--row 3 ens-->
+   
+   <div class="row" style="margin-top: 20px;">
+    <div class="col-md-6">
+        <label for="page_for" style="text-align:center;">Page for</label>
+        <?php echo $this->form->page_for; ?>
+    </div>
+    <div class="col-md-3">
+	   <label for="is_comment" style="text-align:center;">No Comments</label>
+		<?php echo $this->form->is_comment; ?>
+	</div>
+   </div>
+   
+   <!-- row 4 start-->
+   <div class="row">
+	<div class="col-md-9">
+	 <div class="set-ck">
+		<?php echo $this->form->description_content; ?>
+	 </div>
+	</div>
+   </div>
+		</form>
+    </div><!--main col-md-12 end-->
+	</div><!--main row end-->
+	
+<script type="text/javascript">
+     window.onload = function () { 
+  $('#url').hide();
+     
+ <?php if(!isset($this->msg)){ ?>
+      $('#msg').hide();
+    <?php  } else{
+    ?>
+      $('#msg').show().delay(10000).hide('slow');
+
+    <?php } ?>
+    
+   <?php if(isset($this->errorSlug)){ ?>
+  var url = "<?php echo $this->site_url;?>/";  	       
+		   $("#url").val('<?php echo $this->errorSlug ?>');  
+            $("#p_link").text(url).append('<?php echo $this->errorSlug ?>');  
+	//alert("<?php echo $this->errorSlug ?>");
+   <?php  } ?>
+    
+	//wysiwyg settings 
+	var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/admin/fileman/index.html';
+         
+            CKEDITOR.replace( 'contents',
+            {
+                filebrowserBrowseUrl:roxyFileman,
+                filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                removeDialogTabs: 'link:upload;image:upload',
+                enterMode	: Number(2)
+            });   
+            
+           // $("#p_link").text(url);         
+    }
+    
+    var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+     var url = "<?php echo $this->site_url;?>/";  
+     
+     // make slug from title
+	     $("#title").keyup(function(){ 
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+            var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'');
+            $("#url").val(outputString);  
+            $("#p_link").text(url).append(outputString);      
+    });
+     
+	 /*
+      // make custom slug
+    $("#url").keyup(function(){ 
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+           
+           var outputString = Text.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>,.\/? ])+/g, '-').replace(/^(-)+|(-)+$/g,'');
+           // var regExp = /\s+/g;
+            //Text = Text.replace(regExp,'-');
+            
+            delay(function(){
+                $("#url").val(outputString);
+                $("#p_link").text(url).append(outputString);
+            }, 1000 );
+    });
+    
+	
+    $("#tags").blur(function(){
+        var result = setCommaSeparetedValues($(this));
+        $(this).val(result);
+    });
+    
+    $("#keyword_content").blur(function(){
+        var result = setCommaSeparetedValues($(this));
+        $(this).val(result);
+    });*/
+
+	
+    function setCommaSeparetedValues(id)
+    {
+        var data = $(id).val();
+         data = data.toLowerCase();
+        var outputString = data.replace(/([~!@#$%^&*()_+=`{}\[\]\|\\:;'<>.\/? ])+/g, ', ').replace(/^(-)+|(-)+$/g,'');
+        data = outputString.split(/[ ,]+/).filter(function(v){return v!==''}).join(', ');
+        return data;
+    }
+    </script>

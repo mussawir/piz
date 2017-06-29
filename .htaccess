@@ -1,0 +1,13 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !/images/.*
+RewriteCond %{REQUEST_URI} !/js/.*
+RewriteCond %{REQUEST_URI} !/css/.*
+RewriteCond %{REQUEST_URI} !/slider/.*
+RewriteCond %{REQUEST_URI} !/blog/.*
+RewriteCond %{REQUEST_URI} !/dashboardss/.*
+RewriteCond %{REQUEST_URI} !/dashboards/.*
+RewriteCond %{REQUEST_URI} !sitemap.xml
+RewriteCond %{REQUEST_URI} !robots.txt
+RewriteCond %{REQUEST_URI} !googled9426f9a873e5bd4.html
+RewriteRule !\.(ico|gif|jpg|png|swf|flv)$ index.php
+RewriteRule ^index\.php$ - [L]

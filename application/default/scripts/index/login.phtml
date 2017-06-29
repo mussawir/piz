@@ -1,0 +1,272 @@
+  <style>
+  /* ZEND FRAMEWROK ERROR CLASS */
+.errors{
+	color: red;
+	}
+ul
+{
+    list-style-type: none;
+}
+.height{
+min-height:560px;
+padding-top:75px;      
+}
+
+.panel{
+   box-shadow: 0 0 10px grey !important;
+ }
+.table th, .table td { 
+     border-top: none !important;
+ }
+
+  
+  /*login page code start here*/
+
+			
+.login-pg{
+margin-top:30px;
+margin-bottom:20px;
+}
+
+
+.left-inner-addon {
+    position: relative !important;
+}
+
+.left-inner-addon i{
+    position: absolute !important;   
+    padding:15px 12px; 	           
+	}           
+	
+
+/* login panel footer start */
+
+.fa.fa-unlock-alt.third{
+color:#949494;
+}
+
+.fa.fa-check.fourth{
+color:#949494;          
+} 
+
+.panel-footer.pftr{ 
+    background-color: #404040;
+    padding: 20px 50px;
+}
+
+.panel-footer.pftr .fa-unlock-alt {
+    background-color: #505050;
+    border-radius: 50%;
+    color: #6f6f6f;  
+    font-size: 10pt;
+    margin-right: 7px;
+    padding: 5px 8px;
+}
+
+.panel-footer.pftr .fa-check {   
+    background-color: #505050;
+    border-radius: 50%;
+    color: #6f6f6f;
+    font-size: 10pt;
+    margin-right: 7px;
+    padding: 5px;
+  }
+
+.panel-footer > a {
+    color: #999999;
+    font-size: 10pt;                            
+}
+
+.panel.panel-info.panel-heading {
+    background-color: #d9edf7;
+    border-color: #bce8f1;  
+    color: #31708f;
+}
+
+.panel.panel-info.panel-body{
+background-color:#94bce3;
+}
+
+ /* login top section start here*/
+ 
+#Login-Top {
+  
+    border-bottom: 1px solid #cccccc;
+    color: #999999;
+    text-shadow: 1px 1px 1px #ffffff;
+}
+#Login-Top {
+    height: 46px;
+    line-height: 46px;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+}
+
+#Login-Home, #Login-Back {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-right: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+#Login-Home, #Login-Back {
+    display: block;
+    float: left;
+    height: 60px;
+    opacity: 0.5;
+    overflow: hidden;
+    text-indent: 60px;
+    transition: opacity 0.2s ease 0s;
+    width: 60px;
+}
+
+#Login-Loading {
+    float: right;
+    height: 60px;
+    width: 60px;
+}
+
+#Login-Title {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #404040;
+    color: #fff;
+    font-family: Lato;	
+}
+    
+#Login-Home > span{
+background:url('../images/website/home.png') no-repeat;   
+}
+
+#Login-Home span {
+    display: block;
+    height: 34px;
+    margin: 7px 10px; 
+    overflow: hidden;
+    text-indent: 40px;
+    width: 40px;
+}  
+
+#Login-Top a:hover{   
+color:#a0a0a0;
+}
+ 
+#Login-Home:hover,
+#Login-Back:hover{
+opacity:1;
+}
+ /* login top section end here*/
+  
+
+/* media quries start here*/
+
+@media only screen and (min-width : 318px) and (max-width : 1024px) {
+.login-pg{
+margin-top:20%;}
+}
+
+/* media quries end here*/
+
+/*   END OF LOGIN PAGE CSS*/
+ 
+    </style>
+	
+	
+<div class="login-pg">
+
+  <div class="container">
+   
+     <div class="row">
+
+ 
+       <div class="col-md-6 col-md-offset-3">  
+   
+  
+         <div class="panel panel-info">
+           
+		   
+		   <div id="Login-Top">
+			<a title="Home" id="Login-Home" href="<?php echo $this->baseUrl(); ?>/index"><span class="fa fa-home 5x">Home</span></a>
+			<div id="Login-Loading"><span></span></div>
+			<div id="Login-Title">Log In</div>
+		</div> 
+		   
+           
+          <div class="panel-body">
+           <form action="<?php echo $this->escape($this->form->getAction()) ?>" method="<?php echo $this->escape($this->form->getMethod()) ?>" role="form">
+  						<table class="table">
+                        <?php if(isset($this->msg)){?>
+								<tr><td colspan="2"><?php echo $this->msg; ?></td></tr>  
+                         <?php	} ?>
+                          <?php if(isset($this->reg_msg)){?>
+								<tr><td style="color: Blue">Thank you for registering with us. Please login to complete your direcotry listing details</td></tr>  
+                         <?php	} ?>
+                         
+						 <tr><td><strong>Email </strong></td></tr>  
+							  
+							<tr><td>
+							
+						<!--	<span class="left-inner-addon"> 
+                             <i class="glyphicon glyphicon-user first"></i>
+                            </span>-->
+							
+							<?php echo $this->form->email; ?></td></tr>
+							
+							<tr><td><strong>Password</strong></td></tr>  
+							
+							<tr><td>
+							
+						<!--	<span class="left-inner-addon">   
+                             <i class="glyphicon glyphicon-lock secnd"></i>
+                            </span>-->
+							
+							<?php echo $this->form->password ?></td></tr>
+                            
+							
+							<!--<tr><td>
+                             <span class="checkbox">
+                                    <label class="remembr">
+                                        <input class="" type="checkbox">Keep me Logged In</label>
+                                </span>
+								</td></tr>-->
+							
+							<tr><td><input type="submit" class="btn btn-success form-control" value="Log In"/></td></tr>  
+	                         
+						  
+						  </table>
+  
+           </form>
+  
+          </div>
+		  
+		  
+		  <div class="panel-footer pftr">
+
+<div class="row">
+			            
+<div class="col-md-7">
+ 
+<div class="boder-footer1"> 
+
+					<i class="fa fa-unlock-alt third"></i>
+                             <a id="forgot_from_1" href="<?php echo $this->baseUrl(); ?>/index/recover-pass">Forgot password?</a>
+                            </div></div>
+							
+							
+					<!--div class="col-md-5">		
+							
+							<i class="fa fa-check fourth"></i>
+                             <a id="signup_from_1" href="<?php //echo $this->baseUrl(); ?>/registration/join-listing">Sign Up</a>
+                    </div-->
+					
+		  </div></div></div>
+		  
+		  
+         </div> 
+		 
+       </div>  <!--main row div end-->
+     </div>
+   </div>
+   
+ </div>

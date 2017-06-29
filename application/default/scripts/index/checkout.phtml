@@ -1,0 +1,143 @@
+<style>
+	body{
+		background:#36465D;
+	}
+	.form-control{
+		margin:10px auto;
+		border-radius: 0;
+		border:2px solid #FFAC2D;
+	}
+	form{
+		    margin-top: 40px;
+	}
+</style>
+<div class="container">
+
+	<div class="row" style="background:white;padding:40px;">
+		<div class="col-md-6 text-center">
+			<img src="../images/lmm.png" class="img-responsive">
+		</div>
+		<div class="col-md-6 text-center" style="padding:20px 60px;">
+			<?php
+			if($this->package == '1'){ ?>
+				<h3  style="    font-size: 3em;">1 Business Page</h3>
+				<form id="paypal-form" method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" >
+					<input type="hidden" name="business" value="valeedmehmood786-facilitator@gmail.com">
+					<input id="customer_name" type="text" name="customer_name" placeholder="Enter your Name" class="form-control">
+					<input id="customer_phone" type="number" name="customer_phone" placeholder="Enter your Phone" class="form-control">
+					<input id="customer_email" type="email" name="customer_email" placeholder="Enter your Email" class="form-control">
+					<!-- Specify a Buy Now button. -->
+					<input type="hidden" name="cmd" value="_xclick">
+					
+					<!-- Specify details about the item that buyers will purchase. -->
+					<input type="hidden" name="item_name" value="package1">
+					<input type="hidden" name="item_number" value="1">
+					<input type="hidden" name="amount" value="400">
+					<input type="hidden" name="currency_code" value="USD">
+					
+					<!-- Specify URLs -->
+					<input type='hidden' name='cancel_return' value='http://pageiz.com/index/packages'>
+					<input type='hidden' name='return' value='http://pageiz.com/index/success?p=1'>
+					
+					<!-- Display the payment button. -->
+					<input type="image" name="submit" border="0"
+					src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
+					<img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+				</form>
+			<?php
+			}
+			?>
+			<?php
+			if($this->package == '4'){ ?>
+				<h3  style="    font-size: 3em;">4 Business Pages</h3>
+				<form id="paypal-form" method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" >
+					<input type="hidden" name="business" value="valeedmehmood786-facilitator@gmail.com">
+					<input type="text" id="customer_name" name="customer_name" placeholder="Enter your Name" class="form-control">
+					<input id="customer_phone" type="number" name="customer_phone" placeholder="Enter your Phone" class="form-control">
+					<input id="customer_email" type="email" name="customer_email" placeholder="Enter your Email" class="form-control">
+					<!-- Specify a Buy Now button. -->
+					<input type="hidden" name="cmd" value="_xclick">
+					
+					<!-- Specify details about the item that buyers will purchase. -->
+					<input type="hidden" name="item_name" value="package2">
+					<input type="hidden" name="item_number" value="4">
+					<input type="hidden" name="amount" value="1500">
+					<input type="hidden" name="currency_code" value="USD">
+					
+					<!-- Specify URLs -->
+					<input type='hidden' name='cancel_return' value='http://pageiz.com/index/packages'>
+					<input type='hidden' name='return' value='http://pageiz.com/index/success?p=4'>
+					
+					<!-- Display the payment button. -->
+					<input type="image" name="submit" border="0"
+					src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
+					<img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+				</form>
+			<?php
+			}
+			?>
+			<?php
+			if($this->package == '8'){ ?>
+				<h3  style="    font-size: 3em;">8 Business Pages</h3>
+				<form id="paypal-form" method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" >
+					<input type="hidden" name="business" value="valeedmehmood786-facilitator@gmail.com">
+					<input id="customer_name" type="text" name="customer_name" placeholder="Enter your Name" class="form-control">
+					<input id="customer_phone" type="number" name="customer_phone" placeholder="Enter your Phone" class="form-control">
+					<input id="customer_email" type="email" name="customer_email" placeholder="Enter your Email" class="form-control">
+					<!-- Specify a Buy Now button. -->
+					<input type="hidden" name="cmd" value="_xclick">
+					
+					<!-- Specify details about the item that buyers will purchase. -->
+					<input type="hidden" name="item_name" value="package8">
+					<input type="hidden" name="item_number" value="8">
+					<input type="hidden" name="amount" value="2600">
+					<input type="hidden" name="currency_code" value="USD">
+					
+					<!-- Specify URLs -->
+					<input type='hidden' name='cancel_return' value='http://pageiz.com/index/packages'>
+					<input type='hidden' name='return' value='http://pageiz.com/index/success?p=8'>
+					
+					<!-- Display the payment button. -->
+					<input type="image" name="submit" border="0"
+					src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
+					<img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+				</form>
+			<?php
+			}
+			?>
+		</div>
+	</div>	
+	<input type="hidden" id="base_url" name="base_url" value="<?php echo $this->baseUrl()?>">
+		<?php echo $this->name; ?>
+		
+	
+
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#paypal-form").submit(function(e){
+			e.preventDefault();
+			var formData = $(this).serialize();
+			
+			var name = $('#customer_name').val();
+			var getURL = $('#base_url').val()+'/index/save-details?name='+name+'&phone='+$('#customer_phone').val()+'&email='+$('#customer_email').val();
+			console.log(getURL);
+			$.ajax({
+			type    : 'GET',
+			data    : formData,
+			async: true,
+			contentType: false,
+			processData: false,
+			url : getURL ,
+			success: function (result) {
+				$('#paypal-form').unbind('submit').submit();
+			},
+			error:function (error) {
+				alert('please try again!');
+			}
+			});
+			return false;
+		  });
+		
+	});
+</script>

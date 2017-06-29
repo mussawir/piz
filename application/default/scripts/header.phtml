@@ -1,0 +1,36 @@
+ <!-- Fixed navbar -->
+ <div class="container" style="padding-left: 0px; padding-right:0px; background-color: #ffffff">
+     <div class="container">
+	<nav class="navbar navbar-default"><!-- navbar-fixed-top -->
+         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<?php echo $this->baseUrl();?>/"><img src="<?php echo $this->baseUrl();?>/images/logo.png" alt="pageiz logo" class="img-responsive" style="height: 35px; margin-top: -7px"/></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <!--li><a href="<?php echo $this->baseUrl(); ?>/categories/index">Categories</a></li-->
+			<li><a href="<?php echo $this->baseUrl(); ?>/index/become-member">Become a Member</a></li>
+		  <li><a href="<?php echo $this->baseUrl(); ?>/index/packages">Create a Page</a></li>
+          <li><a href="<?php echo $this->baseUrl(); ?>/index/poster-samples">Banner/Poster Samples</a></li>
+            <?php if(isset($this->user_role) && isset($this->logged_user_id)) {?>
+            <li><a href="<?php echo $this->baseUrl(); ?>/mem-pages/index"> <i class="fa fa-user fa-home"></i> Dashboard</a></li>
+            <?php } else {?>
+            <li><a href="<?php echo $this->baseUrl();?>/authentication/login">Login</a></li>
+            <?php }?>           
+		   <li><a href="<?php echo $this->baseUrl(); ?>/marketer/index">Become a Marketer</a></li>
+            <!-- li><a href="<?php echo $this->baseUrl(); ?>/categories/index">Resellers</a></li -->
+            <li><a href="<?php echo $this->baseUrl(); ?>/blog">Blog <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div><!--/.nav-collapse-->
+    
+    </nav>
+  </div>
+    </div>

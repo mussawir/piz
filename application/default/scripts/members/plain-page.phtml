@@ -1,0 +1,208 @@
+<script src="<?php echo $this->baseUrl();?>/js/ckeditor/ckeditor.js"></script>
+<div id="page-wrapper">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12 alert alert-info">
+            <h3>Select Layout</h3>
+            <label><input type="radio" name="default" value="default" />&nbsp;Default&nbsp;&nbsp;</label>
+            <label><input type="radio" name="plain" value="plain" checked="" />&nbsp;Plain</label>
+        </div>
+    </div>
+    <div id="msg" style="display: none;"></div>
+    <div class="row">
+        <div id="banner-container" class="col-lg-12" style="min-height: 250px; background-color: #696969; color: #fff;padding: 0;">
+            <img id="loader" src="<?php echo $this->baseUrl(); ?>/images/ajax_loader_orange.gif" style="display: none; width: 100px;margin-left: 45%;margin-top: 5%;position: absolute;" />
+            <div style="position: absolute;">
+            <form id="header-frm" action="<?php echo $this->baseUrl()?>/members/upload-banner" method="post" enctype="multipart/form-data">
+                
+                <input type="file" name="banner" class="banner" style="display: none;" accept="image/*" onchange="saveBaner();" />
+                <div id="preview">                
+                <?php if(!empty($this->page_data['image1'])) { ?>                
+                    <img style="height: 250px;" id="banner-img" src="<?php echo $this->baseUrl(). $this->member_dir_name. '/'.$this->page_data['image1'];?>" alt="" class="img-responsive" />                    
+                <?php } else {?>
+                    <p id="file-selector"><img id="banner-img" src="<?php echo $this->baseUrl(); ?>/images/Upload-Files.gif" class="img-responsive" style="height: 80px; margin-top: 5px;margin-left: 20px;display: inline;" />&nbsp;<strong>UPLOAD BANNER</strong></p>
+                <?php }?>
+                </div>                
+                <input type="hidden" id="old_banner" name="old_banner" value="<?php echo $this->page_data['image1'];?>" />
+                <input type="hidden" value="<?php echo $this->page_id;?>" name="page_id" />
+                <input type="hidden" value="<?php echo $this->baseUrl();?>" name="base_path" />
+            </form></div>
+            
+            <div style="position: absolute;margin-left: 20px;bottom: 0;">
+            <form id="logo-frm" method="post" action="<?php echo $this->baseUrl()?>/members/upload-photo" enctype="multipart/form-data">
+                <input type="file" name="logo" class="logo" style="display: none;" accept="image/*" onchange="saveLogo();" />
+                <div id="logo-preview" style="width: 220px;">
+                <?php if(!empty($this->page_data['logo'])) { ?>
+                    <img style="max-width: 100%;max-height: 100%;" id="logo-img" src="<?php echo $this->baseUrl(). $this->member_dir_name. '/'.$this->page_data['logo'];?>" alt="" class="img-responsive" />
+                <?php } else {?>
+                    <p id="logo-selector"><img id="logo-img" src="<?php echo $this->baseUrl(); ?>/images/person-placeholder.png" class="img-responsive" style="width: 140px; display: inline;" />&nbsp;<strong>UPLOAD PHOTO</strong></p>
+                <?php }?>
+                </div>
+                <input type="hidden" id="old_logo" name="old_logo" value="<?php echo $this->page_data['logo'];?>" />
+                <input type="hidden" value="<?php echo $this->page_id;?>" name="page_id" />
+                <input type="hidden" value="<?php echo $this->baseUrl();?>" name="base_path" />
+            </form></div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style="padding-bottom: 50px;">
+        <div class="col-lg-9">
+            <div id="post-msg" style="display: none;"></div>
+            
+            <form id="post-frm" method="post" action="" enctype="multipart/form-data">
+                <input type="hidden" value="<?php echo $this->page_id;?>" name="page_id" />
+                <textarea id="post-content" name="content" maxlength="200"></textarea>
+                <br />
+                <a id="save-post" href="javascript:void(0);" class="btn btn-primary pull-right">POST</a>
+            </form>
+            <img id="post-loader" src="<?php echo $this->baseUrl(); ?>/images/ajax_loader_orange.gif" style="display: none; width: 60px;" />
+            <!--div class="row">
+            <div class="col-lg-12" id="post-container" style="min-height: 200px; height:400px;margin-top: 15px; overflow-y: scroll;">
+                <table class="table table-striped">
+                    <?php //if(isset($this->timeline)) foreach($this->timeline as $item): ?>
+                    <tr>
+                        <td><?php //echo $item['content'];?></td>
+                    </tr>
+                    <?php //endforeach;?>
+                </table>    
+            </div>
+            </div-->
+        </div>
+        <div class="col-lg-3">
+        
+        </div>
+    </div>    
+</div>
+
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery.form.min.js"></script>
+<script type="text/javascript">
+    window.onload = function () { 
+     <?php if(!isset($this->msg)){ ?>
+    			$('#msg').hide();    			
+    		<?php  } else{ ?>
+    			$('#msg').show();
+    		<?php } ?>
+      
+      //wysiwyg settings 
+    	var roxyFileman = '<?php echo $this->baseUrl(); ?>/js/fileman/index.html';
+             
+        CKEDITOR.replace('content',
+        {
+                    filebrowserBrowseUrl:roxyFileman,
+                    filebrowserImageBrowseUrl:roxyFileman+'?type=image',
+                    removeDialogTabs: 'link:upload;image:upload',
+                    enterMode	: Number(2)
+        });
+    
+     } // load function end
+     			
+     $('input[type="radio"]').change(function(){
+        if($(this).val()=='default'){
+            window.location.assign("<?php echo $this->baseUrl(); ?>/members/manage-ld/id/"+ <?php echo $this->page_id;?>);
+        }
+     });
+     
+     $("#banner-img").click(function() {
+        $(".banner").trigger("click");
+     });
+     
+     function saveBaner() {
+        $("#header-frm").trigger("submit");
+     }
+     
+     $('#header-frm').ajaxForm({
+            beforeSubmit: function() {
+              // validate  
+            },
+            beforeSend:function(){
+    		   $('#loader').show();
+    		},
+            success: function(msg) {
+    	    },
+    		complete: function(xhr) {
+                $('#loader').hide();
+                var result = xhr.responseText;
+                result = JSON.parse(result);
+                //console.log(result);
+                if( result.status=='success'){ 
+                    $("#file-selector").remove();
+                    $("#preview").html('');
+                    $("#preview").html(result.banner).fadeIn();
+                    $('#old_banner').val(result.old_banner);
+                    $("#header-frm")[0].reset();
+                } else if( result.status=='error'){
+                    $("#msg").html("<div class='alert alert-danger'><strong>Some error occur. Please try again.<strong></div>").show().delay(7000).fadeOut('slow');    
+                }
+            }
+     });
+     
+     $("#logo-img").click(function() {
+        $(".logo").trigger("click");
+     });
+     
+     function saveLogo() {
+        $("#logo-frm").trigger("submit");
+     }
+     
+     $('#logo-frm').ajaxForm({
+            beforeSubmit: function() {
+              // validate  
+            },
+            beforeSend:function(){
+    		   $('#loader').show();
+    		},
+            success: function(msg) {
+    	    },
+    		complete: function(xhr) {
+                $('#loader').hide();
+                var result = xhr.responseText;
+                result = JSON.parse(result);
+                //console.log(result);
+                if( result.status=='success'){ 
+                    $("#logo-preview").html('');
+                    $("#logo-preview").html(result.logo).fadeIn();
+                    $('#old_logo').val(result.old_logo);
+                    $("#logo-frm")[0].reset();
+                } else if( result.status=='error'){
+                    $("#msg").html("<div class='alert alert-danger'><strong>Some error occur. Please try again.<strong></div>").show().delay(7000).fadeOut('slow');    
+                }
+            }
+     });
+     
+     $('#save-post').click(function()
+     {
+        var messageLength = CKEDITOR.instances['post-content'].getData().replace(/<[^>]*>/gi, '').length;
+        if(!messageLength) {
+            $("#post-msg").html("<div class='alert alert-warning'><strong>The content is required and cannot be empty.<strong></div>").show().delay(7000).fadeOut('slow');
+            return false;
+        }
+        CKEDITOR.instances['post-content'].updateElement();
+        $('#post-loader').show();
+        
+        $.ajax({
+             type: 'POST',
+             url: "<?php echo $this->baseUrl()?>/members/save-timeline",
+             datatype: 'json', 
+             data: $('#post-frm').serialize(),
+                success: function(result) 
+                {
+                    $('#post-loader').hide();
+                    
+                    result = JSON.parse(result);
+                    //console.log(result);
+                    if(result.status=='success')
+                    {
+                        $("#post-msg").html("<div class='alert alert-success'><strong>Page content saved successfully!<strong></div>").show().delay(7000).fadeOut('slow');
+                        //$('.table').prepend('<tr><td>'+result.content+'</td></tr>').fadeIn('slow');
+                        CKEDITOR.instances['post-content'].setData('');
+                    } else if(result.status=='error'){
+                        $("#post-msg").html("<div class='alert alert-danger'><strong>Some error occur. Please try again.<strong></div>").show().delay(7000).fadeOut('slow');
+                    }                    
+				},
+                error: function(e)
+                {
+                     $("#post-msg").html("<div class='alert alert-danger'><strong>Some error occur. Please try again.<strong></div>").show().delay(7000).fadeOut('slow');
+                }
+        }); //ajax end
+        return false;
+     });
+ </script>

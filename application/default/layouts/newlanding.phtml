@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="<?php echo $this->layout()->metadata['description']; ?>"/>
+    <meta name="keywords" content="<?php echo $this->layout()->metadata['keywords']; ?>"/>
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="<?php $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		echo $actual_link;?>" />
+<meta property="og:title" content="<?php echo $this->products['name'];?>" />
+<meta property="og:description" content="<?php echo trim(strip_tags($this->products['description']));?>" />
+<meta property="og:image" content="<?php echo $this->baseUrl(); ?>/images/uploads/<?php echo $this->member_dir.$this->products['photo'];?>" />
+
+<meta property="og:image:width" content="300" />
+<meta property="og:image:height" content="300" />
+<meta property="og:site_name" content="Pageiz.com" />
+    <title>Pageiz</title>
+	<link href="<?php echo $this->baseUrl();?>/css/default/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="<?php echo $this->baseUrl();?>/css/default/font-awesome.min.css" rel="stylesheet" />    
+    <!--link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"-->
+   
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="<?php echo $this->baseUrl();?>/css/default/bootstrap-3.3.6-dist/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	
+	    <!-- Custom styles for this template -->
+    <link href="<?php echo $this->baseUrl();?>/css/default/navbar-fixed-top.css" rel="stylesheet">
+
+	 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+	<link rel="shortcut icon" href="<?php echo $this->baseUrl();?>/images/favicon.ico">
+	<link href="<?php echo $this->baseUrl();?>/css/default/newlanding.css" rel="stylesheet" media="all"/>
+	<script src="<?php echo $this->baseUrl();?>/js/default/jquery-min.js"></script>
+	
+	</head><!--/head-->
+  <body>
+
+    <?php echo $this->render("index/navbar.phtml"); ?>
+    <?php echo $this->layout()->content; ?>
+     <?php echo $this->render("index/navbar-footer.phtml"); ?>
+    <script src="<?php echo $this->baseUrl();?>/css/default/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="<?php echo $this->baseUrl();?>/css/default/bootstrap-3.3.6-dist/js/ie10-viewport-bug-workaround.js"></script>
+      <!-- Script to Activate the Carousel -->
+<script>
+    $(document).ready(function () {
+		$('.nav.navbar-nav.navbar-right').prepend('<li><a href="http://pageiz.com">Home</a></li>');
+        var options = { $AutoPlay: true };
+        var jssor_slider1 = new $JssorSlider$('myCarousel', options);
+    });
+		
+	
+</script>
+<script>
+
+</script>
+   </body>
+</html>

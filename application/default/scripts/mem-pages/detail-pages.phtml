@@ -1,0 +1,126 @@
+<div id="page-wrapper">
+	
+    <div class="row">        
+        <div class="col-md-12">             
+		
+        <div id="msg">
+			<?php echo $this->msg ?>
+		</div>
+        <h2>Advertisement Pages</h2>
+        <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+														<thead>
+														<tr>
+																<th class="grid-head"> Title</th>
+																<!-- th class="grid-head"> Content</th -->
+                                                                <th class="grid-head"> Activation Date</th>
+                                                                <th class="grid-head"> Expire Date</th>
+																<th class="grid-head"> Manage</th>
+																<th class="grid-head"> Comments</th>
+																<th class="grid-head"> Likes</th>
+																<!-- th class="grid-head"> Rating</th -->
+																<th class="grid-head"> Views</th>																
+																
+                                                                <!--th class="grid-head"> Transfer Page</th-->
+                                                        	</tr>
+														</thead>		
+														<tbody> 
+                                          
+														<?php if (count($this->data)){ 
+														  foreach ($this->data as $item): ?>
+														<tr class="odd gradeX">
+															<td>
+															<a href="<?php echo $this->baseUrl(); ?>/<?php echo $item['url_slug'] ?>" target="_blank" title="View Page"><?php echo $item['title'] ?></a>
+															</td>
+<?php /*															
+															<td style="text-align:center;">
+															<?php $txt_block = strip_single('img', stripcslashes($item['contents'])); //remove img tag from text block
+                                                                $txt_block = strip_tags($txt_block);
+                                                                if(strlen($txt_block)>200) 
+                                                                    echo substr($txt_block, 0, strpos($txt_block, ' ', 210)) .'...'; 
+                                                                else 
+                                                                    echo $txt_block; 
+                                                            ?>
+															</td>
+															*/ ?>
+                                                            <td style="text-align:center;">
+                                                              <?php echo date('d/m/Y', strtotime($item['start_date'])); ?>
+                                                            </td>
+                                                            
+                                                            <td style="text-align:center;">
+															     <?php echo date('d/m/Y', strtotime($item['expiry_date'])); ?>
+															</td>
+                                                            
+                                                            <td style="text-align:center;">
+                                                              	<?php if(strlen($item['url_slug']) > 0){ ?>
+																  <a class="btn btn-sm btn-info " href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $item['page_id'] ?>">
+															   Manage   </a>
+																<?php }else{ ?>
+																  <a class="btn btn-sm btn-warning " href="<?php echo $this->baseUrl(); ?>/mem-pages/add-url/id/<?php echo $item['page_id'] ?>">
+															   Publish  </a>
+																<?php } ?>
+														    </td>
+															    <td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-success " href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $item['page_id'] ?>"><span style="font-size: 15px"><?php echo $item['comments'] ?></span> <i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i></a>
+                                                            </td>
+															    <td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-danger " href="<?php echo $this->baseUrl(); ?>/mem-pages/page-likes/id/<?php echo $item['page_id'] ?>"><span style="font-size: 15px"><?php echo $item['likes'] ?></span>  <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i></a>
+                                                            </td>
+															    <!-- td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-info " href="<?php echo $this->baseUrl(); ?>/members/manage-page/id/<?php echo $item['page_id'] ?>"><span style="font-size: 15px"><?php echo $item['rating'] ?></span>  <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                                            </td -->
+															  <td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-warning " href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $item['page_id'] ?>"><span style="font-size: 15px"><?php echo $item['views'] ?></span>  <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                            </td>
+                                                            <!--td style="text-align:center;">
+                                                                <a class="btn btn-sm btn-info " href="<?php echo $this->baseUrl(); ?>/#">Transfer</a>
+                                                            </td-->
+														</tr>  
+															<?php endforeach; } ?> 
+														</tbody>
+					 								</table>
+							
+                    </div><!-- div responsive end-->												
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+</div>
+
+<?php
+    function strip_single($tag, $string){
+        $string = preg_replace('/<'.$tag.'[^>]*>/i', '', $string);
+        $string = preg_replace('/<\/'.$tag.'>/i', '', $string);
+        return $string;
+    }
+?>
+
+  <script type="text/javascript">
+ window.onload = function () { 
+ <?php if(!isset($this->msg)){ ?>
+			$('#msg').hide();
+			
+		<?php  } else{
+		?>
+			$('#msg').show().delay(5000).hide('slow');
+		<?php } ?>
+        
+        $('#dataTables-example').dataTable(
+           {
+		      "aaSorting": [[ 3, "asc" ]],
+              "iDisplayLength": 50,
+              "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+              "aoColumnDefs": [{'bSortable': false, 'aTargets': [4]}]
+	       }
+        );
+ }
+ 
+    function confirmDelete(id){
+    	var r = confirm("Do you realy want to delete this Page?" );
+    	if (r == true) {
+    	   window.location.assign("<?php echo $this->baseUrl(); ?>/admin/page/delete-page/id/" + id);    
+    	} else {
+    	   return false;
+    	}
+	}
+ </script>

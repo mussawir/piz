@@ -1,0 +1,186 @@
+<?php
+
+	function timeago($date) {
+		$timestamp = strtotime($date);	
+
+		$strTime = array("second", "minute", "hour", "day", "month", "year");
+		$length = array("60","60","24","30","12","10");
+
+		$currentTime = time();
+		if($currentTime >= $timestamp) {
+			$diff     = time()- $timestamp;
+			for($i = 0; $diff >= $length[$i] && $i < count($length)-1; $i++) {
+			$diff = $diff / $length[$i];
+			}
+
+			$diff = round($diff);
+			return $diff . " " . $strTime[$i] . " ago ";
+		}
+}
+
+?>
+<style>
+#title{
+	font-size: 24px;	
+}
+.labels{
+color: #444444;	
+}
+.btn-xs {
+    padding: 1px 5px!important;
+}
+#page-wrapper {
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+#file-selector {
+    margin-top: 10px;
+    margin-left: 35px;
+    position: absolute;
+    background-color: #fff;
+    opacity: .8;
+    top: 0;
+    padding: 5px;
+	text-decoration: none !important;
+}
+#file-selector:hover {
+    cursor: pointer;
+    border: 1px solid;    
+}
+.li_btn{
+		border-radius:0;
+		background:#1B1C52;
+		border:1px solid #1B1C52;
+		margin-top: 5px;   
+	}
+	.li_btn > a{
+		color:white;
+	}
+	.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:white;
+		background:#1B1C52;
+}
+.linkers.col-md-12 > p > a {
+color:#263238;
+transition:all 0.4s linear;
+}
+.linkers.col-md-12 > p > a:hover {
+text-decoration:none;
+}
+</style>
+<div id="page-wrapper" style="padding-top:20px;">
+<div class="row row-fluid">
+    <div class="col-md-12">
+    <?php //echo $this->render('/members/menu.phtml'); ?>
+    
+        <ul class="nav nav-pills">
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/manage-page/id/<?php echo $this->page_id ?>">Main Page</a></li>
+		  <!--li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-slider/id/<?php echo $this->page_id ?>">Upload Slider</a></li-->
+          <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-product-post/id/<?php echo $this->page_id ?>">New Product Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-service-post/id/<?php echo $this->page_id ?>">New Service Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/new-social-post/id/<?php echo $this->page_id ?>">New Social Post</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/product-post/id/<?php echo $this->page_id ?>">Product Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/service-posts/id/<?php echo $this->page_id ?>">Service Posts</a></li>
+		  <li class="li_btn" role="presentation" class="active"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/social-posts/id/<?php echo $this->page_id ?>">Social Posts</a></li>
+          <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/upload-brochure/id/<?php echo $this->page_id ?>">Upload Brochure</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/comments/id/<?php echo $this->page_id ?>">Comments</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/feedback/id/<?php echo $this->page_id ?>">Get Feedback</a></li>
+		  <li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/popup-design/id/<?php echo $this->page_id ?>">Customize CTA</a></li>
+         <!--li class="li_btn" role="presentation"><a href="<?php echo $this->baseUrl(); ?>/mem-pages/hide-ads/id/<?php echo $this->page_id ?>">Hide Page Ads/Description</a></li-->
+		 
+          <!--li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/ad-image/id/<?php echo $this->page_id ?>">Advertisement Image block</a></li>
+          <li role="presentation"><a href="<?php echo $this->baseUrl(); ?>/members/rbar-ads/id/<?php echo $this->page_id ?>">Right Bar Advertisments</a></li-->
+        </ul>
+    </div>
+</div>
+
+	<div style="width: 100%; height: 23px; border-bottom: 1px solid black; text-align: center;margin-top: 20px;">
+      <span style="    font-size: 31px;background-color: white;padding: 0px 17px;">
+        Product Post <!--Padding is optional-->
+      </span>
+    </div>
+	
+	<div id="product-service-list" style="margin-top:40px;">
+                <div class="row" style="    margin: 0 208px;">
+				<div class="col-md-12" style="margin-bottom:20px;">
+		<form action="" method="POST" role="search" id="search_product">
+											  
+											  <div class="input-group" style="height:60px;" class="small_frm">
+											  <input type="hidden" name="page_id" value="<?php echo $this->page_id ?>">
+												  <input type="text" class="form-control" placeholder="Enter Business or Page Name"  style="height:60px;border-radius:0" required  name="name" id="name" value="<?php if(isset($this->name)){echo $this->name;} ?>">
+												  <span class="input-group-btn"  style="height:60px;">
+													<button class="btn btn-secondary" type="submit"  style="height:60px;border-radius:0;background: #55D340; border: 1px solid #55D340;color:white;font-size: 25px; width: 62px;"> <i class="fa fa-search" aria-hidden="true"></i></button>
+												  </span>
+												</div>
+												
+										   </form>
+	</div>
+                    <?php 
+					
+					foreach(array_chunk($this->data->toArray(),1) as $row): ?>
+					<div class="row" id="search_products">
+					<?php
+					
+					foreach ($row as $item): ?>
+                        <div class="col-md-12" style="margin-bottom:40px;">
+						<div class="linkers col-md-12"  style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);">
+							<h4><?php echo strtoupper ($item['name']);?></h4>
+							<p class="" style="margin: 0 3px 10px;font-size: 11px;color:#4527A0"><?php echo timeago($item['date_created']) ?> <i class="fa fa-clock-o"></i> </p>
+                            <div style="margin-bottom: 10px; text-align: -webkit-center; text-align: -moz-center;" class="text-center">
+                            <img class="img-responsive" src="<?php echo $this->baseUrl().$this->dir_path.$item['photo'];?>" alt="<?php echo $item['name'];?>" />
+                            </div>
+                            <p>
+                                <a href="javascript:void(0);" onclick="hideShowDetails(<?php echo $item['pp_id'];?>);">Details</a>&nbsp;|&nbsp;
+                                <a href="<?php echo $this->baseUrl();?>/mem-pages/edit-product-service/id/<?php echo $item['pp_id'];?>/page_id/<?php echo $this->page_id;?>">Edit</a>
+								
+                                <a href="#" onclick="doDelete(<?php echo $item['pp_id'];?>, <?php echo $this->page_id;?>);" class="pull-right">Delete</a>
+								   
+                            </p>
+                            <div class="details-box" id="detail_<?php echo $item['pp_id'];?>">
+                                <?php if($item['price']>0 && $item['hide_price']==0){?>
+                                    <p>Price: RM<?php echo $item['price'];?></p>
+                                <?php } if($item['discount']>0 && $item['hide_discount']==0){?>
+                                    <p>Discount: RM<?php echo $item['discount'];?></p>
+                                <?php }?>
+						<?php if($item['price_usd']>0){?>
+                                    <p>Price: $<?php echo $item['price_usd'];?> USD</p>
+                                <?php } if($item['discount']>0 && $item['hide_discount']==0){?>
+                                    <p>Discount: $<?php echo $item['discount'];?> USD</p>
+                                <?php }?>
+                           
+								
+							<p id="ck_image"><?php echo stripslashes($item['description']);?></p>
+								
+							 </div>
+						</div>
+                            
+                        </div>
+                    <?php endforeach; ?>
+					</div>
+			<?php endforeach; ?>	
+				
+				</div>
+            </div>
+</div>
+<script>
+$(document).ready(function(){
+	$('.details-box').hide();
+	$('#ck_image').children('img').attr('class','img-responsive');
+	
+
+});
+
+	function hideShowDetails(id)
+    {
+        $('#detail_'+id).slideToggle("slow");
+    }
+	function doDelete(id, pId){
+    	var r = confirm("Are you sure to Delete this post?");
+    	if (r == true) {
+    	   window.location.assign("<?php echo $this->baseUrl(); ?>/mem-pages/delete-product/id/" + id+"/page_id/"+pId);    
+    	} else {
+    	   return false;
+    	}
+	}
+</script>

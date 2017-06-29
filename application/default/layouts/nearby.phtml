@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="<?php echo $this->layout()->metadata['description']; ?>"/>
+    <meta name="keywords" content="<?php echo $this->layout()->metadata['keywords']; ?>"/>
+    <title><?php echo $this->escape($this->title); ?></title>
+	
+	  <link href="<?php echo $this->baseUrl();?>/css/netefct/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->baseUrl();?>/css/netefct/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo $this->baseUrl();?>/css/netefct/animate.min.css" rel="stylesheet">
+    <link href="<?php echo $this->baseUrl();?>/css/netefct/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+        <!-- Main Style -->
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl();?>/css/netefct/main.css">
+        <!-- Responsive Style -->
+        <!--Icon Fonts-->
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl();?>/css/netefct/lightbox.css"/>
+         <script src="<?php echo $this->baseUrl();?>/js/netefct/jquery-min.js"></script>
+         <script src="<?php echo $this->baseUrl();?>/js/netefct/lightbox.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="<?php echo $this->baseUrl();?>/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+<!-- Editor CSS -->
+	
+	
+	</head><!--/head-->
+  
+  <body>
+   <?php 
+  if(isset($this->is_blog) || isset($this->is_videos)|| isset($this->is_pages) || isset($this->is_testimonial)){
+    echo $this->render("header-blog.phtml"); 
+  }else{
+    echo $this->render("header.phtml"); 
+  } ?>
+  
+  <!--canvas id="heatmap-canv" style="width: 100%; height:100%;"></canvas-->
+  <div class="container-fluid"><!--main container start -->
+    <div style="position:relative; right: 30px">
+	<?php echo $this->layout()->content; ?>
+	</div>
+     
+	 </div> <!--main container end-->
+    <?php echo $this->render("footer.phtml"); ?>
+    
+   
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69979884-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Piwik Code Start -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//netefct.com/analytics/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 3]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//netefct.com/analytics/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+				
+<!-- Start Open Web Analytics Tracker -->
+<script type="text/javascript">
+//<![CDATA[
+var owa_baseUrl = 'http://netefct.com/owa/';
+var owa_cmds = owa_cmds || [];
+owa_cmds.push(['setSiteId', '0578dfec3c2ac4e69462f0310a91aa80']);
+owa_cmds.push(['trackPageView']);
+owa_cmds.push(['trackClicks']);
+owa_cmds.push(['trackDomStream']);
+
+(function() {
+	var _owa = document.createElement('script'); _owa.type = 'text/javascript'; _owa.async = true;
+	owa_baseUrl = ('https:' == document.location.protocol ? window.owa_baseSecUrl || owa_baseUrl.replace(/http:/, 'https:') : owa_baseUrl );
+	_owa.src = owa_baseUrl + 'modules/base/js/owa.tracker-combined-min.js';
+	var _owa_s = document.getElementsByTagName('script')[0]; _owa_s.parentNode.insertBefore(_owa, _owa_s);
+}());
+//]]>
+</script>
+<!-- End Open Web Analytics Code -->				
+	
+    <script src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+    gapi.comments.render('gplus-comments', {
+        href: window.location,
+        width: '390',
+        height: '600',
+        first_party_property: 'BLOGGER',
+        view_type: 'FILTERED_POSTMOD'
+    });
+
+$(function(){
+$(".editor-block").click(function(){
+//window.location = $(this).attr("link"); 
+
+window.open($(this).attr("link"), '_blank');	
+	})	;
+	
+	
+});
+</script>
+	
+	
+  </body>
+</html>

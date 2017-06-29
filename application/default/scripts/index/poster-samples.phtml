@@ -1,0 +1,44 @@
+<style>
+
+.poster{
+	padding:30px;
+	
+}
+</style>
+<div class="poster container text-center" style="background:white;">
+<div style="margin-bottom:20px;">
+	<h3 class="">Poster & Banner Sample </h3>
+	<p>Take a look on the sample poster & banner we provide for your business!</p>
+</div> 
+	
+	<?php
+	
+		$directory = "images/photo_gallery/500X500";
+		// $images=preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
+
+
+		if ($handle = opendir('images/photo_gallery/500X500')) {
+
+			while (false !== ($entry = readdir($handle))) {
+				$files[] = $entry;
+			}
+			$images=preg_grep('/\.jpg$/i', $files);
+			$i = 0;
+			foreach(array_chunk($images,2) as $row){
+				echo '<div class="row">';
+				foreach($row as $image){
+			
+			 ?>
+				<div class="col-md-6 col-xs-12" style="margin:10px auto;">
+				<img class="img-responsive" src='../images/photo_gallery/500X500/<?php echo $image; ?>' style="margin: auto;">
+				</div>
+		<?php	
+			}
+			echo '</div>';
+			if (++$i == 20) break;
+			}
+			closedir($handle);
+		}
+	
+	?>
+</div>

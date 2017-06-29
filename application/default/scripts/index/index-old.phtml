@@ -1,0 +1,237 @@
+<style>
+body{
+background-color: #36465D;	
+	
+}
+
+select, input{
+	font-size: 40px;
+	font-weight: bold;	
+}  
+ 
+.btn-find {
+    background: #52ba3d;
+    color: #ffffff;
+}
+ 
+.btn-find:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #52D43B;color: #181C4F;
+}
+ 
+.btn-find:active, .btn-find.active {
+    background: #52D43B;
+    box-shadow: none;
+}
+
+.navbar{
+/* border-bottom: 2px solid #40a52c; */	
+	
+} 
+.search-box{
+margin-top: 0px	
+}
+
+input, select{
+	padding: 20px;	
+}
+
+.jumbotron{
+height: 130px;
+/*  background-color: #2a2c4c; 	 */
+background-color:#e3e5e3; 
+}
+
+
+@media(max-width:720px) and (min-width:240px) {
+.search-box{
+margin-top: 23px	
+}
+.btn-find {
+border-radius:0;
+}
+
+select {
+border: 0;
+border-radius:0;	
+
+outline: 1px inset #EEEEEE; 
+outline-offset:-1px;
+}
+
+.jumbotron{
+height: 108px;	
+} 
+
+}
+
+@media(min-width:481px) {
+#location-mm{
+	display: none;	
+}
+#btn-search-small{
+	display: none;	
+}
+
+}
+
+@media(max-width:480px) and (min-width:1px) {
+#location{
+	display: none;	
+}	
+#btn-search{
+	display: none;	
+}
+
+}
+
+
+#contents h2{
+	color: #2f9e1e;	
+}
+#contents{
+	margin: 0px;
+	padding: 0px;
+	font-size: 1.3em;
+}
+
+
+.container .jumbotron, .container-fluid .jumbotron {
+    border-radius: 1px;
+}
+</style>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="container" style="background-color: #ffffff;">	
+   <div class="jumbotron">
+	  <form class="" action="<?php echo $this->baseUrl(); ?>/index/search" method="get" role="search">  
+
+      <div class="container">
+<div class="row search-box">
+   <div class="col-lg-12 text-center">
+ <div class="input-group">
+    <input type="text" name="q" id="q" value="<?php echo $this->query;?>" class="form-control" style="font-size: 18px; text-center" placeholder="Enter business or page name" />
+      <div class="input-group-btn">
+        <button type="submit" class="btn btn-success" id="btn-search">Pageiz Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		<button type="submit" class="btn btn-success" id="btn-search-small"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+   </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+     <div class="col-lg-4 col-lg-offset-4 text-center">
+   <div class="input-group">
+   <label><input type="radio" name="product" value="0" selected="selected" />Product/Service </label>
+  <label><input type="radio" name="product" value="1" />Business</label>
+   
+   </div>
+   </div>
+  
+  </div><!-- /.col-lg-12 -->
+  
+</div><!-- /.row -->
+	   </div>
+	   </form>
+    </div>
+	</div>
+<div class="container" style="background-color:#ffffff"><!-- this container ends at footer.phtml -->
+  <?php echo $this->render("slider.phtml"); ?>
+</div>  
+  <div class="container"  style="background-color: #ffffff;"><!-- this container ends at footer.phtml -->
+<div class="row">
+<div class="col-md-6">
+          <h2 class="text-left" style="color: #4DD441">New Arrivals</h2>
+		  
+ </div>
+ <div class="col-md-6">
+    &nbsp;  
+ </div>
+ </div>
+  <div class="row">
+<div class="col-md-3">
+<a href="http://pageiz.com/jadoo-deemmedia">
+<img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/uploads/nadeem_14200/500X500/jadoo-tv-banner_1469181775873.png" alt="jadoo-tv-banner_1469181775873" />
+</a>
+</div>
+<div class="col-md-3">
+<a href="http://pageiz.com/aisyahhijab">
+<img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/uploads/kamran_40070/500X500/aisyah-hijab_1470727157952.png" alt="aisyah-hijab_1470727157952.png" />
+</a>
+</div>
+<div class="col-md-3">
+<a href="http://pageiz.com/wise-auto-parts">
+<img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/uploads/waqas_94484/500X500/wise-auto1_1469515446455.jpg" alt="wise-auto1_1469515446455" />
+</a>
+</div>
+
+<div class="col-md-3">
+<a href="http://pageiz.com/busanatimur">
+<img class="img-responsive" src="<?php echo $this->baseUrl(); ?>/images/uploads/nasir_36804/500X500/PERFUMES_1469897760476.jpg" alt="PERFUMES_1469897760476" />
+</a>
+</div>
+</div>
+<div class="row">
+        <div class="col-md-6">
+          <h2 class=" text-center">Start promoting your business!</h2>
+		  <div style="background-color: #8cbbcc"> 
+  <center><img class="img-responsive" src="<?php echo $this->baseUrl()?>/images/business1.png" /></center>
+ </div>
+ </div>
+<div class="col-md-6" style="padding-top:60px">
+ <p>
+				Every business is looking for growth in their surrounding. Small and medium size businesses are facing great issues of every day sales 
+				and growth. There are new types of challenges after the fast spread of internet, young people have opened new online businesses and 
+				traditional business owner are unable to cop with the new trends. More and more people in Malaysia are buying online as companies have 
+				created trust of their services, delivery and payment. There are web services which are helping businesses and people to
+				promote and sell online but there is still need of more customized services and we are introducing one. Pageiz.com can help your business in 
+				reaching to clients and customers nearby locations and nations wide, we are creating an active community of
+				marketers/sales executive, graphics designers, content writers and many other types, who will help business marketing and sales promotions. 
+				Our services are highly affordable for everyone in these tough times. Please have a look at the following features of our
+				services.  
+				<ul>
+				<li>Create a business page on pageiz.com to give more clear idea of what you do.</li>
+				<li>Get a human readable address as pageiz.com/your-business-name.</li>
+				<li>Get know how many people like your page/pages everyday.</li> 
+				<li>Share your pages on Facebook and other social media.</li> 
+				<li>As friends and family to share your banner page or get our marketing services.</li>
+				<li>You have full control on your page banner, contents and comments management.</li>
+				<li>Get more businesses queries by getting comments on your pages. </li>
+				<li>Get help of the marketers network which can really boost your business in your localities. (Coming soon)</li>
+</ul>			
+</p>         
+	 <p><a class="btn btn-default" href="<?php echo $this->baseUrl()?>/index/packages" role="button">Create a Page Now &raquo;</a></p>
+       </div>
+</div>
+<hr/>
+<div class="row">
+<div class="col-md-4">
+<p>
+You will get a beautiful Banner/Poster that will represent your company business details, your contact information and anyother information you would like to include.  
+
+</p>
+
+<center><img class="img-responsive" src="<?php echo $this->baseUrl()?>/images/home-page/aisyah-hijab.png" /></center>
+
+</div>
+
+<div class="col-md-4">
+<p>
+Pageiz page makes contacting your so easy you might have never thought. Your customers/clients can call you directly from your page if they using smartphone for browsing your page. The can even send you Whatsapp message and can share your page with their friend by Whatsapp! 
+</p>
+
+<center><img class="img-responsive" src="<?php echo $this->baseUrl()?>/images/home-page/page-4.jpg" /></center>
+
+</div>
+
+<div class="col-md-4">
+<p>
+Sharing your business, service or product information on social media is the best way to get connected with new customers. Use these buttons as much as you can on regular basis to increase your reach and it will bring new clients and customers. 
+</p>
+
+<center><img class="img-responsive" src="<?php echo $this->baseUrl()?>/images/home-page/page-5.jpg" /></center>
+
+</div>
+
+
+</div>
+
+  
+  
+      <hr/>
+
+</div>

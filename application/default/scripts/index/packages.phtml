@@ -1,0 +1,108 @@
+<style>
+	
+</style>
+
+<div class="container" style="background: white;">
+<section class="packages-section" id="pricing">
+                <?php echo  $this->name; ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="text-center" style="color:#696969">Choose Your Plan</h1>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="msg"><?php echo $this->msg;?></div>
+                        
+                            <div class="pricing_table_wdg">
+                                <ul>
+                                    <form action="" method="post">
+                                    <input type="hidden" name="package_name" value="1 Page"/>
+									<input type="hidden" name="package_price" value="400" />
+									<input type="hidden" name="pages" value="1" />
+									
+                                    <li>
+                                    <img src="<?php echo $this->baseUrl();?>/images/blue-circle.png" class="img-responsive" />
+                                    </li>
+                                    <li style="font-size: 34px; font-weight: bold;color: #3F3F3F">1 Business Page</li>  
+									<li style="font-size: 18px; color: #24A3D8">1 Interactive Landing Page</li>  
+									<li style="font-size: 18px; color: #24A3D8">1500 Posts</li>  
+                                    <li style="font-size: 18px; color: #24A3D8">1000 Words Contents</li>  
+									
+                                    <li style="font-size: 18px; color: #24A3D8">for</li>  
+                                    <li style="font-size: 26px; font-weight: bold; color: #24A3D8">365 Days</li>
+                                    <li style="font-size: 34px; color: #24A3D8">RM400 only <br/> &nbsp;</li>
+                                    <li style="font-size: 18px; color: #24A3D8; font-weight: bolder">GST included</li>
+                                    <li>Every page has a unique web address (URL)</li>  
+                                    <li><input type="submit" value="PLACE AN ORDER NOW" class="btn ne-btn-blue" /></li>  
+                                    </form>
+                                </ul>
+                                <ul>
+                                    <form action="" method="post">
+                                    <input type="hidden" name="package_name" value="4 Pages" />
+									<input type="hidden" name="package_price" value="1400" />
+									<input type="hidden" name="pages" value="4" />
+                                    <li>
+                                    <img src="<?php echo $this->baseUrl();?>/images/green-circle.png" class="img-responsive" />
+                                    </li>  
+                                    <li style="font-size: 34px; font-weight: bold;color: #3F3F3F">4 Business Pages</li>  
+                                    <li style="font-size: 18px; color: #8BCB39">4 Interactive Landing Pages</li>  
+									<li style="font-size: 18px; color: #8BCB39">2000 Posts per Page</li>  
+                                    <li style="font-size: 18px; color: #8BCB39">3500 Words Contents</li>  
+									
+									<li style="font-size: 18px; color: #8BCB39">for</li>  
+                                    <li style="font-size: 26px; font-weight: bold; color: #8BCB39">365 Days</li>
+                                    <li style="font-size: 34px; color: #8BCB39">RM1400 only <br/>12.5% Off</li>
+									<li style="font-size: 18px; color: #8BCB39; font-weight: bolder">GST included</li>		
+                                    <li>Every page has a unique web address (URL)</li>  
+                                    <li><input type="submit" value="PLACE AN ORDER NOW" class="btn ne-btn-green" /></li>  
+                                    </form>  
+                                </ul>                                
+                                <ul>
+                                    <form action="" method="post">
+                                    <input type="hidden" name="package_name" value="8 Pages" />
+									<input type="hidden" name="package_price" value="2600" />
+									<input type="hidden" name="pages" value="8" />
+                                    <li>
+                                    <img src="<?php echo $this->baseUrl();?>/images/orange-circle.png" class="img-responsive" />
+                                    </li>  
+                                    <li style="font-size: 34px; font-weight: bold;color: #3F3F3F">8 Business Pages</li>
+                                    <li style="font-size: 18px; color: #F45919">8 Interactive Landing Pages</li>  
+									<li style="font-size: 18px; color: #F45919">2500 Posts per Page</li>  
+                                    <li style="font-size: 18px; color: #F45919">7000 Words Contents</li>  
+									
+                                    <li style="font-size: 18px; color: #F45919">for</li>  
+                                    <li style="font-size: 26px; font-weight: bold; color: #F45919">365 Days</li>
+                                    <li style="font-size: 34px; color: #F45919">RM2600 only  <br/>23% Off</li>  
+									<li style="font-size: 18px; color: #F45919; font-weight: bolder">GST included</li>
+                                    <li>Every page has a unique web address (URL)</li>  
+                                    <li><input type="submit" value="PLACE AN ORDER NOW" class="btn ne-btn-orange" /></li>  
+                                    </form>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                
+            </section>
+            </div>
+		
+<script type="text/javascript">
+        $(function(){
+            
+            <?php if(!isset($this->msg)){ ?>
+    			$('#msg').hide();			
+    		<?php  } else { ?>
+    			$('#msg').show().delay(10000).hide('slow');
+    		<?php } ?>
+            
+            $('.pricing_table_wdg ul').hover(
+                function(){ // hover over    
+                    var color = $(this).find('.btn').css('color');
+                    $(this).css({'border-top':'2px solid '+ color});                    
+                },    
+                function(){ // hover out    
+                    $(this).removeAttr('style');
+            });
+        }); // ready function end
+</script>
